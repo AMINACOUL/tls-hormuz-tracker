@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hormuz Crisis — Timor-Leste Impact Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1923;--bg2:#16232f;--bg3:#1d2e3e;--bg4:#243547;
+  --red:#e63946;--red2:#ff6b7a;--amber:#f4a261;--amber2:#ffd166;
+  --green:#2ec4b6;--blue:#4895ef;--purple:#7b2d8b;
+  --text:#e8f0f7;--text2:#9ab0c4;--text3:#5d7a8a;
+  --border:#243547;--border2:#2d4358;
+  --card-red:#1f1018;--card-amber:#1a1506;--card-green:#041a17;
+  --card-blue:#061628;--card-navy:#0d1b2a;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
+}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+
+/* HEADER */
+.header{background:var(--bg2);border-bottom:1px solid var(--border2);padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:10px 24px 6px}
+.crisis-badge{background:var(--red);color:#fff;font-size:10px;font-weight:600;letter-spacing:.12em;padding:3px 10px;border-radius:3px;text-transform:uppercase}
+.header-meta{font-size:12px;color:var(--text2)}
+.header-title{padding:0 24px 14px}
+.header-title h1{font-size:22px;font-weight:600;color:var(--text);letter-spacing:-.02em}
+.header-title p{font-size:13px;color:var(--text2);margin-top:2px}
+
+/* SITREP */
+.sitrep{background:var(--card-amber);border:1px solid rgba(244,162,97,.25);border-left:3px solid var(--amber);margin:16px 24px;border-radius:6px;padding:14px 16px}
+.sitrep-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--amber);text-transform:uppercase;margin-bottom:6px}
+.sitrep p{font-size:13px;color:#d4c09a;line-height:1.6}
+.sitrep-author{margin-top:8px;font-size:12px;color:var(--text3);font-style:italic}
+
+/* KPI GRID */
+.kpi-section{padding:0 24px 8px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:8px}
+.kpi-card{border-radius:6px;padding:12px 14px;border:1px solid transparent;min-width:0}
+.kpi-card.red{background:var(--card-red);border-color:rgba(230,57,70,.25)}
+.kpi-card.amber{background:var(--card-amber);border-color:rgba(244,162,97,.25)}
+.kpi-card.green{background:var(--card-green);border-color:rgba(46,196,182,.25)}
+.kpi-card.blue{background:var(--card-blue);border-color:rgba(72,149,239,.25)}
+.kpi-card.navy{background:var(--card-navy);border-color:rgba(93,122,138,.2)}
+.kpi-card.warn{background:#1a1006;border-color:rgba(255,180,0,.3)}
+.kpi-label{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi-value{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;color:var(--text);white-space:nowrap}
+.kpi-unit{font-size:12px;font-weight:400;margin-left:2px;color:var(--text2)}
+.kpi-badge{margin-top:5px;font-size:11px;font-weight:500}
+.kpi-badge.up{color:#ff7b7b}
+.kpi-badge.down{color:var(--green)}
+.kpi-badge.warn{color:#ffb300}
+.kpi-badge.neutral{color:var(--text2)}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border2);padding:0 24px;margin-top:8px;background:var(--bg2)}
+.tab{padding:10px 16px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-color:var(--blue)}
+
+/* PANELS */
+.panel{display:none;padding:20px 24px}
+.panel.active{display:block}
+
+/* SECTION HEADERS */
+.section-header{margin-bottom:14px}
+.section-header h2{font-size:15px;font-weight:600;color:var(--text)}
+.section-header p{font-size:12px;color:var(--text2);margin-top:2px}
+
+/* TIMELINE TABLE */
+.timeline{width:100%;border-collapse:collapse}
+.timeline th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:6px 12px;border-bottom:1px solid var(--border2)}
+.timeline td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}
+.timeline tr:last-child td{border-bottom:none}
+.timeline tr:hover td{background:rgba(255,255,255,.02)}
+.tl-date{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text2);white-space:nowrap;width:110px}
+.tl-actor{font-size:12px;color:var(--text3);width:170px}
+.tl-event{color:var(--text);font-size:13px}
+.tl-event small{display:block;font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5}
+.badge-red{background:rgba(230,57,70,.15);color:#ff6b7a;border:1px solid rgba(230,57,70,.3);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-amber{background:rgba(244,162,97,.12);color:var(--amber);border:1px solid rgba(244,162,97,.25);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-green{background:rgba(46,196,182,.1);color:var(--green);border:1px solid rgba(46,196,182,.2);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;white-space:nowrap}
+
+/* CHART CONTAINERS */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.chart-grid.full{grid-template-columns:1fr}
+.chart-box{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px}
+.chart-box h3{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.chart-box .chart-sub{font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.4}
+.chart-wrap{position:relative;width:100%}
+
+/* PRICE TABLE */
+.price-table{width:100%;border-collapse:collapse;font-size:13px}
+.price-table th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:8px 12px;border-bottom:1px solid var(--border2)}
+.price-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.price-table tr.critical td{background:rgba(230,57,70,.06)}
+.price-table tr:last-child td{border-bottom:none}
+.price-table .val{font-family:'IBM Plex Mono',monospace;font-weight:600}
+.price-table .chg-up{color:#ff6b7a;font-family:'IBM Plex Mono',monospace;font-weight:600}
+.price-table .chg-down{color:var(--green);font-family:'IBM Plex Mono',monospace;font-weight:600}
+.price-table .warn-text{color:#ffb300;font-family:'IBM Plex Mono',monospace;font-weight:600}
+
+/* SUPPLY BOX */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.info-box{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px}
+.info-box h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:10px}
+.info-box ul{list-style:none;padding:0}
+.info-box li{font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px}
+.info-box li:last-child{border-bottom:none}
+.info-box li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--text3);margin-top:5px;flex-shrink:0}
+.info-box li.red::before{background:var(--red)}
+.info-box li.amber::before{background:var(--amber)}
+.info-box li.green::before{background:var(--green)}
+
+/* FOOTER */
+.footer{padding:16px 24px;border-top:1px solid var(--border2);margin-top:8px;font-size:11px;color:var(--text3);display:flex;justify-content:space-between;align-items:center}
+.footer a{color:var(--blue);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .chart-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .header-title h1{font-size:17px}
+  .kpi-value{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <span class="crisis-badge">&#x25CF; Crisis Monitoring</span>
+    <span class="header-meta">Day 25 &nbsp;&middot;&nbsp; Last updated: 24 Mar 2026 &nbsp;&middot;&nbsp; <span style="color:#ff6b7a;font-weight:500">Hormuz Strait &mdash; Near Zero Transit</span></span>
+  </div>
+  <div class="header-title">
+    <h1>Hormuz Crisis &mdash; Timor-Leste Impact Tracker</h1>
+    <p>Middle East Conflict &rarr; Global Oil Shock &rarr; Fuel Prices, Petroleum Fund &amp; Fiscal Policy Transmission</p>
+  </div>
+</div>
+
+<!-- SITUATION REPORT -->
+<div class="sitrep">
+  <div class="sitrep-label">Situation Report</div>
+  <p>Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the $115+ peak following Trump's postponement of further Iran strikes, but the shock remains entrenched. Timor-Leste pump prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 officially, but <strong style="color:#ff6b7a">market diesel reached $1.40/L at Dili stations</strong> &mdash; $0.18 above the ANPM ceiling &mdash; triggering a Tane Konsumid&oacute;r consumer protection alert (Mar 15). PM Xanana Gusmão committed to year-end supply security on March 19 and signalled fuel prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced &mdash; ESI fiscal discipline intact. Petroleum Fund at $18.6bn with depletion projected ~2037.</p>
+  <div class="sitrep-author">&mdash; WB Macro-Fiscal Team (EEAM2) &middot; 24 March 2026</div>
+</div>
+
+<!-- KPI CARDS ROW 1 -->
+<div class="kpi-section">
+<div class="kpi-grid">
+  <div class="kpi-card red">
+    <div class="kpi-label">Severity Score</div>
+    <div class="kpi-value">10<span class="kpi-unit">/10</span></div>
+    <div class="kpi-badge up">&#x25B2; Maximum</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Hormuz Transits</div>
+    <div class="kpi-value">5<span class="kpi-unit"> ships/day</span></div>
+    <div class="kpi-badge up">&#x25BC; &minus;96.4% vs pre-crisis</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Brent Crude</div>
+    <div class="kpi-value">98.83<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up">+45.3% vs pre-crisis</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">WTI Crude</div>
+    <div class="kpi-value">90.67<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up">+48.6% vs pre-crisis</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Petrol RON91</div>
+    <div class="kpi-value">1.23<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">+11.8% &nbsp;($1.10 &rarr; $1.23)</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Diesel (official)</div>
+    <div class="kpi-value">1.22<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">+16.2% &nbsp;($1.05 &rarr; $1.22)</div>
+  </div>
+</div>
+
+<!-- KPI CARDS ROW 2 -->
+<div class="kpi-grid">
+  <div class="kpi-card red" style="border-color:rgba(230,57,70,.5)">
+    <div class="kpi-label">Diesel (market, Dili)</div>
+    <div class="kpi-value" style="color:#ff6b7a">1.40<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge warn">&#x26A0; $0.18 above ANPM ceiling</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Kerosene</div>
+    <div class="kpi-value">0.69<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">+9.5% &nbsp;($0.63 &rarr; $0.69)</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">LPG 12kg Cylinder</div>
+    <div class="kpi-value">16.50<span class="kpi-unit"> $</span></div>
+    <div class="kpi-badge up">+10.0% &nbsp;($15.00 &rarr; $16.50)</div>
+  </div>
+  <div class="kpi-card blue">
+    <div class="kpi-label">Petroleum Fund</div>
+    <div class="kpi-value">18.6<span class="kpi-unit"> $bn</span></div>
+    <div class="kpi-badge neutral">Depletion ~2037 &middot; ESI intact</div>
+  </div>
+  <div class="kpi-card navy">
+    <div class="kpi-label">Days Since Last Change</div>
+    <div class="kpi-value">15<span class="kpi-unit"> days</span></div>
+    <div class="kpi-badge neutral">Last change: 09 Mar 2026</div>
+  </div>
+  <div class="kpi-card warn">
+    <div class="kpi-label">Gov. Response</div>
+    <div class="kpi-value" style="font-size:15px;color:#ffb300">WATCHPOINT</div>
+    <div class="kpi-badge warn">No subsidy &middot; PM: no further hike</div>
+  </div>
+</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('overview')">Crisis Overview</div>
+  <div class="tab" onclick="switchTab('markets')">Global Markets</div>
+  <div class="tab" onclick="switchTab('timor')">Timor-Leste</div>
+  <div class="tab" onclick="switchTab('asia')">Asia Comparison</div>
+</div>
+
+<!-- PANEL: CRISIS OVERVIEW -->
+<div class="panel active" id="panel-overview">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div>
+      <div class="section-header">
+        <h2>Crisis Timeline</h2>
+        <p>Key events from Feb 28 conflict onset through Mar 24, 2026</p>
+      </div>
+      <table class="timeline">
+        <thead><tr><th>Date</th><th>Actor</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="tl-date">28 Feb 2026</td>
+            <td class="tl-actor">US / Israel / Iran</td>
+            <td class="tl-event"><span class="badge-red">SHOCK ORIGIN</span> US &amp; Israel launch military strikes against Iran. Brent surges. Hormuz Strait near-zero transit. <small>Death of former Supreme Leader Khamenei. Global oil shock begins immediately.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">06 Mar 2026</td>
+            <td class="tl-actor">ETO / PITSA / ANPM / MoPetroleum</td>
+            <td class="tl-event"><span class="badge-green">SUPPLY OK</span> ETO CEO: 4-month reserves secured. PITSA: next cargo Mar 9. ANPM coordinating. Minister Monteiro: &ldquo;prices may rise in coming months.&rdquo; <small>ETO CEO Nilton Gusmão travels to Singapore to request priority shipment.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">09 Mar 2026</td>
+            <td class="tl-actor">TPHL / Pertamina (PITSA)</td>
+            <td class="tl-event"><span class="badge-red">PRICE HIKE</span> Official ceiling raised: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). First price change since Oct 2025. <small>ANPM-regulated adjustment. Effective nationwide immediately.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">10&ndash;11 Mar</td>
+            <td class="tl-actor">Parliament / CCI-TL</td>
+            <td class="tl-event">MPs urge government control. CCI-TL President calls hike &ldquo;temporary due to Middle East conflict.&rdquo; <small>MPs question whether pre-conflict stock should be sold at new prices.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">11 Mar 2026</td>
+            <td class="tl-actor">Borala Fuel / Aitula Fuel</td>
+            <td class="tl-event"><span class="badge-red">ABOVE CEILING</span> Market diesel at Dili stations: $1.40/L &mdash; $0.18 above ANPM ceiling. Petrol $1.23&ndash;1.30 across stations. <small>TATOLI &amp; Lusa confirmed field observations. Retailers cite higher wholesale cost from PITSA/ETO.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">15 Mar 2026</td>
+            <td class="tl-actor">Tane Konsumid&oacute;r</td>
+            <td class="tl-event">Consumer Protection Association warns against pricing pre-purchased stock at crisis rates. President Robin Ara&uacute;jo: &ldquo;stock was bought at different prices &mdash; price should normalise first.&rdquo; <small>Calls practice &ldquo;unethical, manipulative.&rdquo; Commits to monitoring diesel &amp; commodity prices.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">17 Mar 2026</td>
+            <td class="tl-actor">Minister Monteiro</td>
+            <td class="tl-event"><span class="badge-amber">GOV SIGNAL</span> Press conference: supply guaranteed 2 months. &ldquo;Appropriate measures will be taken to minimise negative impacts if prices rise significantly.&rdquo; <small>First formal intervention signal. No subsidy announced.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">19 Mar 2026</td>
+            <td class="tl-actor">PM Xanana Gusmão</td>
+            <td class="tl-event"><span class="badge-amber">DE FACTO FREEZE</span> After meeting President Ramos-Horta: supply to year-end guaranteed. &ldquo;Fuel prices not expected to increase.&rdquo; Urges reduced non-essential travel. <small>Will meet importers. Strongest political signal yet &mdash; possible ANPM directive pending.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">25&ndash;27 Mar</td>
+            <td class="tl-actor">PITSA (Pertamina)</td>
+            <td class="tl-event"><span class="badge-green">INCOMING</span> Next Pertamina cargo arrival. Singapore-sourced shipment replenishes reserves. <small>Emergency supply from Kupang/Atapupu (Indonesia) available if needed. ETO: 4-month reserves secured.</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="section-header" style="margin-bottom:12px">
+        <h2>Key Watchpoints</h2>
+        <p>Critical decisions ahead of April 15&ndash;17 TLER dissemination</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:#ff6b7a;text-transform:uppercase;margin-bottom:6px">1 &mdash; Subsidy Decision</div>
+          <div style="font-size:13px;color:var(--text)">Will PM&rsquo;s Mar 19 signal become a formal ANPM ceiling directive?</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">If yes: ESI fiscal cost implications. If no: market diesel stays $0.18 above official, eroding ANPM credibility.</div>
+        </div>
+        <div style="background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;margin-bottom:6px">2 &mdash; New Cargo Price (Mar 25&ndash;27)</div>
+          <div style="font-size:13px;color:var(--text)">Will Pertamina&rsquo;s incoming cargo be more expensive, triggering a second official hike?</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Watch for ANPM announcement in early April if wholesale price has risen further.</div>
+        </div>
+        <div style="background:rgba(72,149,239,.08);border:1px solid rgba(72,149,239,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--blue);text-transform:uppercase;margin-bottom:6px">3 &mdash; Brent Trajectory</div>
+          <div style="font-size:13px;color:var(--text)">Will retreat below $100/bbl hold? Trump postponement of strikes is the key variable.</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Current: $98.83. Sustained easing could remove pressure for a second TL price round.</div>
+        </div>
+        <div style="background:rgba(46,196,182,.08);border:1px solid rgba(46,196,182,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--green);text-transform:uppercase;margin-bottom:6px">4 &mdash; TLER Dissemination (Apr 15&ndash;17)</div>
+          <div style="font-size:13px;color:var(--text)">Marco Hernandez visit to Dili coincides with peak pressure window.</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Any subsidy announcement would be central TLER talking point. ESI sustainability is the WB anchor.</div>
+        </div>
+        <div style="background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;margin-bottom:6px">5 &mdash; ANPM Enforcement</div>
+          <div style="font-size:13px;color:var(--text)">Will ANPM enforce ceiling or revise it? Tane Konsumid&oacute;r monitoring active.</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Market diesel ($1.40) is 15% above official ceiling ($1.22). Enforcement action or ceiling revision both affect tracker data.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL: GLOBAL MARKETS -->
+<div class="panel" id="panel-markets">
+  <div class="chart-grid">
+    <div class="chart-box">
+      <h3>Brent &amp; WTI Crude Oil Price</h3>
+      <p class="chart-sub">USD/bbl &middot; Pre-crisis baseline (Feb 2026): Brent $68/bbl, WTI $64/bbl. Crisis onset Feb 28, 2026.</p>
+      <div class="chart-wrap" style="height:240px"><canvas id="crudChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h3>Gold &amp; VIX &mdash; Risk Sentiment</h3>
+      <p class="chart-sub">Gold USD/oz (left axis) &middot; VIX index (right axis). Both spiked at crisis onset; partial retreat Mar 24.</p>
+      <div class="chart-wrap" style="height:240px"><canvas id="riskChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h3>Singapore Spot Fuel Prices</h3>
+      <p class="chart-sub">USD/L &middot; Singapore is TL&rsquo;s primary import source (PITSA/ETO both source from Singapore refiners).</p>
+      <div class="chart-wrap" style="height:240px"><canvas id="sgChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h3>Hormuz Strait Oil Transit Volume</h3>
+      <p class="chart-sub">Ships/day &middot; Near-zero transit since Feb 28. ~20M bbl/day of global oil typically transits the Strait.</p>
+      <div class="chart-wrap" style="height:240px"><canvas id="hormuzChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL: TIMOR-LESTE -->
+<div class="panel" id="panel-timor">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+    <div class="chart-box">
+      <h3>TL Retail Fuel Price History</h3>
+      <p class="chart-sub">USD/L &middot; Monthly average retail prices 2024&ndash;2026. Red vertical line = crisis onset (Feb 28).</p>
+      <div class="chart-wrap" style="height:260px"><canvas id="tlPriceChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h3>Price Change vs Pre-Crisis Baseline</h3>
+      <p class="chart-sub">% change from Feb 2026 average &middot; Official ANPM vs observed market prices (Mar 11 survey).</p>
+      <div class="chart-wrap" style="height:260px"><canvas id="tlChangeChart"></canvas></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px">
+    <div class="chart-box">
+      <h3>Fuel Price — Official vs Market (Mar 11, 2026)</h3>
+      <p class="chart-sub">USD/L &middot; ANPM official ceiling vs Dili station observations (TATOLI/Lusa field survey). Diesel market $0.18 above official.</p>
+      <table class="price-table" style="margin-top:4px">
+        <thead><tr><th>Fuel Type</th><th>Pre-Crisis</th><th>Official (Mar 9+)</th><th>% Change</th><th>Market (Mar 11)</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Petrol RON91</td><td class="val">$1.10</td><td class="val">$1.23</td><td class="chg-up">+11.8%</td><td class="val">$1.23&ndash;1.30</td><td><span class="badge-amber">At/above ceiling</span></td></tr>
+          <tr class="critical"><td>Diesel</td><td class="val">$1.05</td><td class="val">$1.22</td><td class="chg-up">+16.2%</td><td class="warn-text">$1.40 &#x26A0;</td><td><span class="badge-red">ABOVE ceiling</span></td></tr>
+          <tr><td>Kerosene</td><td class="val">$0.63</td><td class="val">$0.69</td><td class="chg-up">+9.5%</td><td class="val">n/a</td><td><span class="badge-green">Official</span></td></tr>
+          <tr><td>LPG 12kg</td><td class="val">$15.00</td><td class="val">$16.50</td><td class="chg-up">+10.0%</td><td class="val">n/a</td><td><span class="badge-green">Official</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="info-grid" style="margin-top:0">
+        <div class="info-box">
+          <h3>Supply Security</h3>
+          <ul>
+            <li class="green">ETO: 4-month reserves secured (Mar 6)</li>
+            <li class="green">PITSA cargo: Mar 25&ndash;27 arrival</li>
+            <li class="amber">Emergency supply: Kupang/Atapupu (Indonesia) on standby</li>
+            <li class="green">No supply shortages reported</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>Fiscal Context</h3>
+          <ul>
+            <li class="green">No subsidy introduced &mdash; ESI intact</li>
+            <li>Petroleum Fund: $18.6bn</li>
+            <li class="red">Fund depletion: ~2037</li>
+            <li>EDTL fuel spend: ~$110&ndash;120M/yr</li>
+            <li class="amber">Total petrol imports: $160&ndash;180M/yr</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:12px">
+        <h3>Government Response (Latest)</h3>
+        <ul>
+          <li class="amber"><strong>19 Mar:</strong> PM Xanana &mdash; prices &ldquo;not expected to increase,&rdquo; year-end supply guaranteed</li>
+          <li class="amber"><strong>17 Mar:</strong> Minister Monteiro &mdash; &ldquo;measures if prices rise significantly&rdquo;</li>
+          <li><strong>15 Mar:</strong> Tane Konsumid&oacute;r &mdash; anti-price-gouging warning</li>
+          <li><strong>09 Mar:</strong> ANPM ceiling raised &mdash; full passthrough, no subsidy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL: ASIA COMPARISON -->
+<div class="panel" id="panel-asia">
+  <div class="chart-grid" style="grid-template-columns:1fr 1fr;gap:16px">
+    <div class="chart-box">
+      <h3>Petrol Price Change vs Pre-Crisis &mdash; Asia</h3>
+      <p class="chart-sub">% change in retail petrol price (local currency/L), last pre-crisis obs (Feb 2026) vs latest. Source: EAP Fuel Policy database &middot; Vietnam Hormuz Tracker.</p>
+      <div class="chart-wrap" style="height:520px"><canvas id="asiaGasChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h3>Diesel Price Change vs Pre-Crisis &mdash; Asia</h3>
+      <p class="chart-sub">% change in retail diesel price (local currency/L), last pre-crisis obs (Feb 2026) vs latest. Malaysia &amp; Lao PDR show sharpest pass-through; Indonesia largely absorbed via subsidy.</p>
+      <div class="chart-wrap" style="height:520px"><canvas id="asiaDieselChart"></canvas></div>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:16px;font-size:12px;color:var(--text2)">
+    <strong style="color:var(--text)">Notes:</strong> Timor-Leste (TL) uses official ANPM ceiling prices; market diesel observed at $1.40/L (+33% vs pre-crisis) at Dili stations. Indonesia absorbs shock via Pertamina subsidy &mdash; retail prices largely unchanged. Vietnam, Malaysia, Cambodia, Lao PDR show highest pass-through. TL&rsquo;s no-subsidy stance aligns with ESI fiscal discipline but exposes households to full cost impact.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Sources: ANPM &middot; TATOLI (06, 11, 15 Mar) &middot; Lusa/AMAN (17, 19 Mar) &middot; Plataforma Media &middot; ETO/PITSA &middot; Tane Konsumid&oacute;r &middot; <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank">Vietnam Hormuz Tracker</a> &middot; WB EAP Fuel Policy DB &middot; WB Pink Sheet</span>
+  <span>WB Macro-Fiscal Team EEAM2 &middot; Dili, Timor-Leste</span>
+</div>
+
+<script>
+// ── TAB SWITCHING ────────────────────────────────────────────────────
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['overview','markets','timor','asia'][i]===id));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
+  setTimeout(renderCharts,50);
+}
+
+// ── CHART DEFAULTS ───────────────────────────────────────────────────
+Chart.defaults.color='#9ab0c4';
+Chart.defaults.font.family="'IBM Plex Sans',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+const gridColor='rgba(255,255,255,.06)';
+const axisColor='rgba(255,255,255,.15)';
+
+function baseOpts(extra={}){
+  return {
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d2e3e',borderColor:'#2d4358',borderWidth:1,padding:10,titleColor:'#e8f0f7',bodyColor:'#9ab0c4'}},
+    scales:{
+      x:{grid:{color:gridColor},ticks:{color:'#9ab0c4'},border:{color:axisColor}},
+      y:{grid:{color:gridColor},ticks:{color:'#9ab0c4'},border:{color:axisColor}}
+    },
+    ...extra
+  };
+}
+
+let rendered=false;
+function renderCharts(){
+  if(rendered)return; rendered=true;
+
+  // ── CRUDE OIL ──────────────────────────────────────────────────
+  const months=['Oct','Nov','Dec','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','24 Mar'];
+  const brent= [73,72,72,73,68,  82,  106, 115, 102, 98.83];
+  const wti=   [69,68,68,69,64,  75,   98, 106,  94, 90.67];
+  new Chart(document.getElementById('crudChart'),{
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Brent',data:brent,borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.08)',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],fill:true,tension:.3},
+      {label:'WTI',data:wti,borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
+    ]},
+    options:{...baseOpts(),plugins:{...baseOpts().plugins,
+      legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}},
+      annotation:{annotations:{crisis:{type:'line',xMin:5,xMax:5,borderColor:'rgba(230,57,70,.5)',borderWidth:1,borderDash:[4,4]}}}
+    },scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'USD/bbl',color:'#5d7a8a'}}}}
+  });
+
+  // ── RISK SENTIMENT ────────────────────────────────────────────
+  new Chart(document.getElementById('riskChart'),{
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Gold ($/oz)',data:[2620,2650,2680,2710,2740,3800,4680,4820,4420,4320],borderColor:'#ffd166',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],tension:.3,yAxisID:'yGold'},
+      {label:'VIX',data:[16,15,14,15,14,28,38,42,27,24.85],borderColor:'#4895ef',borderWidth:1.5,pointRadius:[2,2,2,2,2,4,3,3,3,4],tension:.3,yAxisID:'yVix'}
+    ]},
+    options:{...baseOpts(),
+      plugins:{legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
+      scales:{
+        x:{grid:{color:gridColor},ticks:{color:'#9ab0c4'},border:{color:axisColor}},
+        yGold:{position:'left',grid:{color:gridColor},ticks:{color:'#ffd166'},border:{color:axisColor},title:{display:true,text:'Gold ($/oz)',color:'#ffd166'}},
+        yVix:{position:'right',grid:{display:false},ticks:{color:'#4895ef'},border:{color:axisColor},title:{display:true,text:'VIX',color:'#4895ef'}}
+      }}
+  });
+
+  // ── SINGAPORE SPOT ────────────────────────────────────────────
+  const sgGas= [0.77,0.77,0.77,0.78,0.77,0.91,1.12,1.22,1.06,1.015];
+  const sgDsl= [0.735,0.735,0.735,0.745,0.735,0.87,1.07,1.17,1.01,0.975];
+  new Chart(document.getElementById('sgChart'),{
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Gasoline',data:sgGas,borderColor:'#e63946',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],tension:.3},
+      {label:'Diesel',data:sgDsl,borderColor:'#4895ef',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],tension:.3}
+    ]},
+    options:{...baseOpts(),
+      plugins:{legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
+      scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'USD/L',color:'#5d7a8a'}}}}
+  });
+
+  // ── HORMUZ TRANSITS ──────────────────────────────────────────
+  new Chart(document.getElementById('hormuzChart'),{
+    type:'bar',
+    data:{labels:months,datasets:[{
+      label:'Ships/day',
+      data:[138,140,142,139,141,42,12,6,5,5],
+      backgroundColor:months.map((_,i)=>i>=5?'rgba(230,57,70,.7)':'rgba(72,149,239,.5)'),
+      borderColor:months.map((_,i)=>i>=5?'#e63946':'#4895ef'),
+      borderWidth:1
+    }]},
+    options:{...baseOpts(),scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'Ships / day',color:'#5d7a8a'}}}}
+  });
+
+  // ── TL PRICE HISTORY ─────────────────────────────────────────
+  const tlMonths=['Jan 24','Apr 24','Jul 24','Oct 24','Jan 25','Apr 25','Jul 25','Oct 25','Jan 26','Feb 26','9 Mar'];
+  const tlPetrol=[0.95,0.99,0.97,0.97,1.00,1.05,1.07,1.10,1.10,1.10,1.23];
+  const tlDiesel=[0.90,0.94,0.92,0.92,0.95,1.00,1.02,1.05,1.05,1.05,1.22];
+  const tlDslMkt=[null,null,null,null,null,null,null,null,null,null,1.40];
+  new Chart(document.getElementById('tlPriceChart'),{
+    type:'line',
+    data:{labels:tlMonths,datasets:[
+      {label:'Petrol RON91',data:tlPetrol,borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.06)',borderWidth:2,pointRadius:3,fill:true,tension:.2},
+      {label:'Diesel (official)',data:tlDiesel,borderColor:'#4895ef',backgroundColor:'rgba(72,149,239,.05)',borderWidth:2,pointRadius:3,fill:true,tension:.2},
+      {label:'Diesel (market)',data:tlDslMkt,borderColor:'#ff6b7a',borderWidth:0,backgroundColor:'#ff6b7a',pointRadius:[0,0,0,0,0,0,0,0,0,0,8],pointStyle:'star',showLine:false}
+    ]},
+    options:{...baseOpts(),
+      plugins:{legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
+      scales:{...baseOpts().scales,y:{...baseOpts().scales.y,min:0.85,title:{display:true,text:'USD / L',color:'#5d7a8a'}}}}
+  });
+
+  // ── TL % CHANGE BAR ──────────────────────────────────────────
+  new Chart(document.getElementById('tlChangeChart'),{
+    type:'bar',
+    data:{labels:['Petrol RON91\n(official)','Diesel\n(official)','Diesel\n(market)','Kerosene','LPG 12kg','Brent\ncrude'],
+    datasets:[{
+      label:'% change vs Feb 2026',
+      data:[11.8,16.2,33.3,9.5,10.0,45.3],
+      backgroundColor:['rgba(244,162,97,.7)','rgba(72,149,239,.7)','rgba(230,57,70,.85)','rgba(46,196,182,.6)','rgba(46,196,182,.5)','rgba(230,57,70,.5)'],
+      borderColor:['#f4a261','#4895ef','#e63946','#2ec4b6','#2ec4b6','#e63946'],
+      borderWidth:1,borderRadius:3
+    }]},
+    options:{...baseOpts(),scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'% change',color:'#5d7a8a'},ticks:{callback:v=>v+'%'}}}}
+  });
+
+  // ── ASIA GAS COMPARISON ──────────────────────────────────────
+  const countries=['Timor-Leste','Vietnam','Malaysia','Cambodia','China','Japan','Korea','Indonesia','Philippines','Thailand','Singapore','Taiwan','Lao PDR'];
+  const gasChg=   [11.8,        25.0,    31.0,    36.0,    4.5,   22.0,  5.0,   2.0,        18.0,      -3.0,     30.0,     5.0,    31.0];
+  const dslChg=   [16.2,        34.0,    62.0,    59.0,    5.5,   28.0,  8.0,   3.0,        24.0,      -4.0,     55.0,     4.0,    65.0];
+
+  new Chart(document.getElementById('asiaGasChart'),{
+    type:'bar',
+    data:{labels:countries,
+    datasets:[{label:'Petrol % change',data:gasChg,
+      backgroundColor:countries.map(c=>c==='Timor-Leste'?'rgba(230,57,70,.9)':'rgba(244,162,97,.65)'),
+      borderColor:countries.map(c=>c==='Timor-Leste'?'#e63946':'#f4a261'),
+      borderWidth:1,borderRadius:2}]},
+    options:{indexAxis:'y',
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d2e3e',borderColor:'#2d4358',borderWidth:1,padding:10,titleColor:'#e8f0f7',bodyColor:'#9ab0c4',callbacks:{label:ctx=>` ${ctx.parsed.x.toFixed(1)}%`}}},
+      scales:{
+        x:{grid:{color:gridColor},ticks:{color:'#9ab0c4',callback:v=>v+'%'},border:{color:axisColor},title:{display:true,text:'% change vs Feb 2026',color:'#5d7a8a'}},
+        y:{grid:{color:gridColor},ticks:{color:countries.map(c=>c==='Timor-Leste'?'#ff6b7a':'#9ab0c4')},border:{color:axisColor}}
+      }}
+  });
+
+  new Chart(document.getElementById('asiaDieselChart'),{
+    type:'bar',
+    data:{labels:countries,
+    datasets:[{label:'Diesel % change',data:dslChg,
+      backgroundColor:countries.map(c=>c==='Timor-Leste'?'rgba(230,57,70,.9)':'rgba(72,149,239,.65)'),
+      borderColor:countries.map(c=>c==='Timor-Leste'?'#e63946':'#4895ef'),
+      borderWidth:1,borderRadius:2}]},
+    options:{indexAxis:'y',
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d2e3e',borderColor:'#2d4358',borderWidth:1,padding:10,titleColor:'#e8f0f7',bodyColor:'#9ab0c4',callbacks:{label:ctx=>` ${ctx.parsed.x.toFixed(1)}%`}}},
+      scales:{
+        x:{grid:{color:gridColor},ticks:{color:'#9ab0c4',callback:v=>v+'%'},border:{color:axisColor},title:{display:true,text:'% change vs Feb 2026',color:'#5d7a8a'}},
+        y:{grid:{color:gridColor},ticks:{color:countries.map(c=>c==='Timor-Leste'?'#ff6b7a':'#9ab0c4')},border:{color:axisColor}}
+      }}
+  });
+}
+renderCharts();
+</script>
+</body>
+</html>
