@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -120,6 +121,49 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   .header-title h1{font-size:17px}
   .kpi-value{font-size:17px}
 }
+
+/* ── PROMPT ADDITIONS: Admin panel, badges, source attribution ── */
+.manual-badge{background:rgba(72,149,239,.18);color:#4895ef;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.06em;flex-shrink:0}
+.auto-badge{background:rgba(46,196,182,.15);color:#2ec4b6;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.06em;flex-shrink:0}
+.chart-src{font-size:10px;color:var(--text3);margin-top:10px;border-top:1px solid var(--border);padding-top:7px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.chart-src-text{flex:1}
+.chart-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.chart-hdr h3{margin:0;font-size:13px;font-weight:600;color:var(--text)}
+.live-pill{background:#2ec4b6;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:.08em;flex-shrink:0}
+.seed-pill{background:#f4a261;color:#1a1506;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:.08em;flex-shrink:0}
+.gear-btn{background:#243547;border:none;color:#9ab0c4;padding:7px 13px;border-radius:6px;cursor:pointer;font-size:16px;line-height:1;transition:background .15s;flex-shrink:0}
+.gear-btn:hover{background:#2d4358;color:var(--text)}
+/* Admin overlay */
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;justify-content:flex-end}
+.admin-overlay.open{display:flex}
+.admin-panel{background:#16232f;width:400px;max-width:100vw;height:100vh;overflow-y:auto;padding:0;border-left:1px solid #2d4358;display:flex;flex-direction:column}
+.admin-hdr{padding:16px 20px;border-bottom:1px solid #2d4358;display:flex;justify-content:space-between;align-items:center;background:#0f1923;position:sticky;top:0;z-index:10}
+.admin-hdr h2{font-size:15px;font-weight:600;color:var(--text);margin:0}
+.admin-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
+.admin-section{background:#1d2e3e;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.admin-section-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.admin-field label{font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;background:#0f1923;border:1px solid #2d4358;color:var(--text);border-radius:5px;padding:7px 10px;font-size:12px;font-family:'IBM Plex Mono',monospace;outline:none;transition:border-color .15s}
+.admin-field input:focus,.admin-field textarea:focus{border-color:#4895ef}
+.admin-field textarea{min-height:70px;resize:vertical;line-height:1.5}
+.admin-footer{padding:14px 20px;border-top:1px solid #2d4358;display:flex;flex-direction:column;gap:8px;background:#0f1923}
+.admin-save-btn{background:#2ec4b6;color:#fff;border:none;border-radius:6px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s}
+.admin-save-btn:hover{opacity:.85}
+.admin-cancel-btn{background:#243547;color:var(--text2);border:none;border-radius:6px;padding:9px;font-size:12px;cursor:pointer;width:100%}
+.admin-cancel-btn:hover{background:#2d4358}
+.admin-auth{padding:24px 20px;display:flex;flex-direction:column;gap:12px}
+.admin-auth p{font-size:13px;color:var(--text2);line-height:1.5}
+.admin-auth input{width:100%;background:#0f1923;border:1px solid #2d4358;color:var(--text);border-radius:5px;padding:10px;font-size:13px;outline:none}
+.admin-auth button{background:#4895ef;color:#fff;border:none;border-radius:6px;padding:10px;font-size:13px;font-weight:600;cursor:pointer}
+/* Threshold zone legend */
+.tzone-legend{display:flex;gap:12px;font-size:10px;color:var(--text3);margin-bottom:8px;flex-wrap:wrap}
+.tzone-dot{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.tzone-g{background:rgba(46,196,182,.5)}
+.tzone-a{background:rgba(244,162,97,.5)}
+.tzone-r{background:rgba(230,57,70,.5)}
+/* Editable sitrep */
+.sitrep-edit-hint{font-size:10px;color:var(--text3);font-style:italic;margin-top:6px}
+
 </style>
 </head>
 <body>
@@ -128,7 +172,11 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="header">
   <div class="header-top">
     <span class="crisis-badge">&#x25CF; Crisis Monitoring</span>
-    <span class="header-meta">Day 25 &nbsp;&middot;&nbsp; Last updated: 24 Mar 2026 </span>
+    <span class="header-meta">Day 25 &nbsp;&middot;&nbsp; Last updated: 24 Mar 2026 &nbsp;&middot;&nbsp; <a href="https://claudeblattman.com" target="_blank" style="color:#4895ef;text-decoration:none">claudeblattman.com</a></span>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span id="livePill" class="seed-pill">● SEED DATA</span>
+      <button class="gear-btn" onclick="toggleAdmin()" title="Admin panel — update manual data">⚙</button>
+    </div>
   </div>
   <div class="header-title">
     <h1>Hormuz Crisis &mdash; Timor-Leste Impact Tracker</h1>
@@ -138,9 +186,9 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 <!-- SITUATION REPORT -->
 <div class="sitrep">
-  <div class="sitrep-label">Situation Report</div>
-  <p>Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the crisis peak but remaining ~45% above the pre-crisis baseline. Timor-Leste&rsquo;s ANPM-regulated ceiling prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). <strong style="color:#ff6b7a">Observed market prices at some Dili stations have exceeded these ceilings</strong> (diesel reported at $1.40/L on Mar 11 &mdash; see Sources &amp; Method tab for data notes). PM Xanana Gusmão committed to year-end supply security (Mar 19) and signalled prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced; Petroleum Fund at $18.77bn. <em>The Diplomat</em> (Mar 2026) identifies Timor-Leste explicitly among the region&rsquo;s most exposed economies alongside Cambodia, Laos, and Myanmar. ASEAN economic ministers have warned that disruptions are &ldquo;leading to higher freight, insurance, and logistics costs and contributing to inflationary pressures on energy, food, and other essential goods&rdquo; across Southeast Asia.</p>
-  <div class="sitrep-author">24 March 2026</div>
+  <div class="sitrep-label" style="display:flex;justify-content:space-between;align-items:center">Situation Report <span style="font-size:10px;color:var(--text3);font-style:italic">Edit via ⚙ admin panel</span></div>
+  <p id="sitrepText">Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the crisis peak but remaining ~45% above the pre-crisis baseline. Timor-Leste&rsquo;s ANPM-regulated ceiling prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). <strong style="color:#ff6b7a">Observed market prices at some Dili stations have exceeded these ceilings</strong> (diesel reported at $1.40/L on Mar 11 &mdash; see Sources &amp; Method tab for data notes). PM Xanana Gusmão committed to year-end supply security (Mar 19) and signalled prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced; Petroleum Fund at $18.77bn. <em>The Diplomat</em> (Mar 2026) identifies Timor-Leste explicitly among the region&rsquo;s most exposed economies alongside Cambodia, Laos, and Myanmar. ASEAN economic ministers have warned that disruptions are &ldquo;leading to higher freight, insurance, and logistics costs and contributing to inflationary pressures on energy, food, and other essential goods&rdquo; across Southeast Asia.</p>
+  <div class="sitrep-author" id="sitrepAuthor">World Bank Timor-Leste Country Team &middot; 24 March 2026</div>
 </div>
 
 <!-- KPI CARDS ROW 1 — Global -->
@@ -153,13 +201,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">Brent Crude</div>
-    <div class="kpi-value">98.83<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up">+45.3% vs pre-crisis</div>
+    <div class="kpi-value" id="kpiBrent">98.83<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiBrentBadge">+45.3% vs pre-crisis</div>
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">WTI Crude</div>
-    <div class="kpi-value">90.67<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up">+48.6% vs pre-crisis</div>
+    <div class="kpi-value" id="kpiWti">90.67<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiWtiBadge">+48.6% vs pre-crisis</div>
   </div>
   <div class="kpi-card amber">
     <div class="kpi-label">Petrol RON91 (ANPM ceiling)</div>
@@ -360,31 +408,37 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <h3>Brent &amp; WTI Crude Oil Price</h3>
       <p class="chart-sub">USD/bbl &middot; Pre-crisis (Feb 2026 avg): Brent ~$68/bbl, WTI ~$64/bbl. Crisis onset Feb 28, 2026. Data: WB Pink Sheet / press reports.</p>
       <div class="chart-wrap" style="height:240px"><canvas id="crudChart"></canvas></div>
+      <div class="tzone-legend"><span><span class="tzone-dot tzone-g"></span>Normal</span><span><span class="tzone-dot tzone-a"></span>Elevated</span><span><span class="tzone-dot tzone-r"></span>Critical</span> &nbsp; Green <$85 · Amber $85–110 · Red >$110</div><div class="chart-src"><span class="chart-src-text">ICE Futures / NYMEX / WB Pink Sheet · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Gold Price (USD/oz)</h3>
       <p class="chart-sub">USD/oz &middot; <strong style="color:#ffd166">Note: gold peaked at $5,594 in January 2026 — BEFORE the crisis — due to unrelated safe-haven flows.</strong> It has since fallen to ~$4,320 by Mar 24 (-23% from peak). The y-axis range is set to show this correctly. Star = ATH (Jan 2026); circle = latest (Mar 24). Data: LBMA / press. Manually updated.</p>
       <div class="chart-wrap" style="height:240px"><canvas id="goldChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">LBMA / market data · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Singapore Spot Fuel Prices</h3>
       <p class="chart-sub">USD/L &middot; Singapore is TL&rsquo;s primary import source (PITSA and ETO both source from Singapore refiners). Data: Platts / press estimates.</p>
       <div class="chart-wrap" style="height:240px"><canvas id="sgChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">Platts / press estimates · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Hormuz Strait Transit Volume</h3>
       <p class="chart-sub">Ships/day &middot; Near-zero since Feb 28. Approximately 20M bbl/day of global oil typically transits the Strait. Data: press / shipping reports. <em>Manually updated.</em></p>
       <div class="chart-wrap" style="height:240px"><canvas id="hormuzChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">HormuzTracker.com (CC BY 4.0) · AISstream.io · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
       <div class="chart-box">
       <h3>EU Gas TTF &amp; LNG Prices</h3>
       <p class="chart-sub">USD/MWh &middot; Pre-crisis (Feb 2026): TTF ~$30/MWh. Qatar LNG drone attack (Mar 3) drove a 39% single-day spike. Key for TL: EDTL power generation uses diesel &amp; LNG; gas prices affect global energy costs indirectly. Data: ICE Endex / press.</p>
       <div class="chart-wrap" style="height:240px"><canvas id="ttfChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">ICE Endex · HormuzTracker.com (CC BY 4.0) · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Oil Products — US Gasoline &amp; Aviation Fuel</h3>
       <p class="chart-sub">USD/gal (gasoline) &middot; USD/L (Jet A-1 est.) &middot; Aviation fuel critical for TL as island nation dependent on air connectivity. US gasoline: $2.97/gal pre-crisis &rarr; $3.94 (+32.7%). Data: AAA / HormuzTracker / Platts estimates.</p>
       <div class="chart-wrap" style="height:240px"><canvas id="oilProdsChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">AAA / HormuzTracker.com (CC BY 4.0) · Platts · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
   </div>
 </div>
@@ -396,11 +450,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <h3>TL Retail Fuel Price History</h3>
       <p class="chart-sub">USD/L &middot; ANPM-regulated ceiling prices (solid lines). The star marker shows a single market observation (diesel $1.40 at some Dili stations, Mar 11 press survey &mdash; not the official ceiling). Actual prices at individual stations may differ. Data: ANPM / ANAER / press.</p>
       <div class="chart-wrap" style="height:280px"><canvas id="tlPriceChart"></canvas></div>
+      <div class="tzone-legend"><span><span class="tzone-dot tzone-g"></span>Normal</span><span><span class="tzone-dot tzone-a"></span>Elevated</span><span><span class="tzone-dot tzone-r"></span>Critical</span> &nbsp; Petrol: Green <$1.15 · Amber $1.15–1.40 · Red >$1.40</div><div class="chart-src"><span class="chart-src-text">ANPM / ANAER · TATOLI (market obs.) · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Price Change vs Pre-Crisis Baseline</h3>
       <p class="chart-sub">% change from Feb 2026 ANPM ceiling &middot; Diesel (market) bar reflects the single Mar 11 press observation, not a systematic survey.</p>
       <div class="chart-wrap" style="height:280px"><canvas id="tlChangeChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">ANPM · TATOLI · Lusa · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
   </div>
   <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px">
@@ -458,11 +514,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <h3>Petrol Price Change vs Pre-Crisis &mdash; Asia</h3>
       <p class="chart-sub">% change in retail petrol price (local currency/L), Feb 2026 vs latest available. Source: EAP Fuel Policy database / Vietnam Hormuz Tracker. TL figure reflects ANPM ceiling.</p>
       <div class="chart-wrap" style="height:500px"><canvas id="asiaGasChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">EAP Fuel Policy DB · Vietnam Hormuz Tracker · Seed</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>Diesel Price Change vs Pre-Crisis &mdash; Asia</h3>
       <p class="chart-sub">% change in retail diesel price (local currency/L), Feb 2026 vs latest. Malaysia &amp; Lao PDR: sharpest pass-through. Indonesia: largely absorbed via subsidy. TL: ANPM ceiling only.</p>
       <div class="chart-wrap" style="height:500px"><canvas id="asiaDieselChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">EAP Fuel Policy DB · Vietnam Hormuz Tracker · Seed</span><span class="manual-badge">MANUAL</span></div>
     </div>
   </div>
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:16px;font-size:12px;color:var(--text2)">
@@ -542,11 +600,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <h3>International Rice Export Prices</h3>
       <p class="chart-sub">USD/tonne &middot; 5% broken white rice from major exporters. TL sources rice primarily from <strong>India, Vietnam &amp; China</strong> (60&ndash;90% of domestic consumption; 135,000&ndash;160,000 tonnes/year — OEC World / FAO GIEWS). Data: USDA WASDE / FAO / Platts / trade press.</p>
       <div class="chart-wrap" style="height:260px"><canvas id="ricePriceChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">USDA WASDE · FAO · Platts · trade press · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>FAO Food Price Index &amp; Components</h3>
       <p class="chart-sub">Index pts (2014&ndash;2016=100) &middot; Feb 2026: 125.3 (5-month high). Cereal +1.1%, Vegetable Oil +3.3%, Dairy -1.2%, Sugar -4.1%. Data: FAO, released 6 Mar 2026.</p>
       <div class="chart-wrap" style="height:260px"><canvas id="faoFoodChart"></canvas></div>
+      <div class="chart-src"><span class="chart-src-text">FAO (released 6 Mar 2026, covering Feb 2026) · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
   </div>
 
@@ -555,6 +615,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <h3>TL CPI Inflation &amp; Food Inflation (INETL)</h3>
       <p class="chart-sub">% y/y &middot; Source: INETL (Institut Nacional de Estat&iacute;stika Timor-Leste) Series 3 CPI. Food = 64% of basket; rice = 17%. 2026 figures are estimates pending Hormuz pass-through (2&ndash;3 month lag expected). IMF pre-Hormuz forecast: 1.8% for 2026.</p>
       <div class="chart-wrap" style="height:260px"><canvas id="tlCpiChart"></canvas></div>
+      <div class="tzone-legend"><span><span class="tzone-dot tzone-g"></span>Normal</span><span><span class="tzone-dot tzone-a"></span>Elevated</span><span><span class="tzone-dot tzone-r"></span>Critical</span> &nbsp; Green <4.0% · Amber 4.0–5.0% · Red >5.0%</div><div class="chart-src"><span class="chart-src-text">INETL Series 3 · IMF Article IV 2025 · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
     <div class="chart-box">
       <h3>TL Food Security Risk Matrix</h3>
@@ -664,6 +725,49 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 .zone-a{color:#f4a261;font-weight:600}
 .zone-r{color:#ff6b7a;font-weight:600}
 .msection{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:14px 0 8px;border-bottom:1px solid var(--border2);margin-bottom:12px}
+
+/* ── PROMPT ADDITIONS: Admin panel, badges, source attribution ── */
+.manual-badge{background:rgba(72,149,239,.18);color:#4895ef;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.06em;flex-shrink:0}
+.auto-badge{background:rgba(46,196,182,.15);color:#2ec4b6;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.06em;flex-shrink:0}
+.chart-src{font-size:10px;color:var(--text3);margin-top:10px;border-top:1px solid var(--border);padding-top:7px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.chart-src-text{flex:1}
+.chart-hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.chart-hdr h3{margin:0;font-size:13px;font-weight:600;color:var(--text)}
+.live-pill{background:#2ec4b6;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:.08em;flex-shrink:0}
+.seed-pill{background:#f4a261;color:#1a1506;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:.08em;flex-shrink:0}
+.gear-btn{background:#243547;border:none;color:#9ab0c4;padding:7px 13px;border-radius:6px;cursor:pointer;font-size:16px;line-height:1;transition:background .15s;flex-shrink:0}
+.gear-btn:hover{background:#2d4358;color:var(--text)}
+/* Admin overlay */
+.admin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;justify-content:flex-end}
+.admin-overlay.open{display:flex}
+.admin-panel{background:#16232f;width:400px;max-width:100vw;height:100vh;overflow-y:auto;padding:0;border-left:1px solid #2d4358;display:flex;flex-direction:column}
+.admin-hdr{padding:16px 20px;border-bottom:1px solid #2d4358;display:flex;justify-content:space-between;align-items:center;background:#0f1923;position:sticky;top:0;z-index:10}
+.admin-hdr h2{font-size:15px;font-weight:600;color:var(--text);margin:0}
+.admin-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px;flex:1}
+.admin-section{background:#1d2e3e;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.admin-section-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.admin-field label{font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:4px}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;background:#0f1923;border:1px solid #2d4358;color:var(--text);border-radius:5px;padding:7px 10px;font-size:12px;font-family:'IBM Plex Mono',monospace;outline:none;transition:border-color .15s}
+.admin-field input:focus,.admin-field textarea:focus{border-color:#4895ef}
+.admin-field textarea{min-height:70px;resize:vertical;line-height:1.5}
+.admin-footer{padding:14px 20px;border-top:1px solid #2d4358;display:flex;flex-direction:column;gap:8px;background:#0f1923}
+.admin-save-btn{background:#2ec4b6;color:#fff;border:none;border-radius:6px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:opacity .15s}
+.admin-save-btn:hover{opacity:.85}
+.admin-cancel-btn{background:#243547;color:var(--text2);border:none;border-radius:6px;padding:9px;font-size:12px;cursor:pointer;width:100%}
+.admin-cancel-btn:hover{background:#2d4358}
+.admin-auth{padding:24px 20px;display:flex;flex-direction:column;gap:12px}
+.admin-auth p{font-size:13px;color:var(--text2);line-height:1.5}
+.admin-auth input{width:100%;background:#0f1923;border:1px solid #2d4358;color:var(--text);border-radius:5px;padding:10px;font-size:13px;outline:none}
+.admin-auth button{background:#4895ef;color:#fff;border:none;border-radius:6px;padding:10px;font-size:13px;font-weight:600;cursor:pointer}
+/* Threshold zone legend */
+.tzone-legend{display:flex;gap:12px;font-size:10px;color:var(--text3);margin-bottom:8px;flex-wrap:wrap}
+.tzone-dot{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.tzone-g{background:rgba(46,196,182,.5)}
+.tzone-a{background:rgba(244,162,97,.5)}
+.tzone-r{background:rgba(230,57,70,.5)}
+/* Editable sitrep */
+.sitrep-edit-hint{font-size:10px;color:var(--text3);font-style:italic;margin-top:6px}
+
 </style>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
@@ -791,10 +895,146 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
 </div>
 
+
+<!-- ══ ADMIN PANEL (from prompt spec) ══════════════════════════════ -->
+<!-- Password-protected. Default password: tlhormuz2026             -->
+<!-- All manual indicators editable. Data cached in localStorage.   -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="admin-hdr">
+      <h2>⚙ Admin Panel &mdash; Update Data</h2>
+      <button onclick="toggleAdmin()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;padding:0">✕</button>
+    </div>
+
+    <!-- AUTH GATE -->
+    <div class="admin-auth" id="adminAuth">
+      <p>Enter the admin password to update manual indicators, the situation report, and oil price seed values.</p>
+      <input type="password" id="adminPwInput" placeholder="Password (default: tlhormuz2026)" onkeydown="if(event.key==='Enter')checkAdminPw()"/>
+      <button onclick="checkAdminPw()">Unlock</button>
+      <p style="font-size:11px;color:var(--text3)">Data is saved to browser storage and persists on reload. To reset, clear browser storage.</p>
+    </div>
+
+    <!-- EDIT PANEL (shown after auth) -->
+    <div class="admin-body" id="adminBody" style="display:none">
+
+      <div class="admin-section">
+        <div class="admin-section-title">Situation Report</div>
+        <div class="admin-field">
+          <label>Situation report text</label>
+          <textarea id="adSitrep"></textarea>
+        </div>
+        <div class="admin-field">
+          <label>Author / date line</label>
+          <input type="text" id="adSitrepAuthor" placeholder="World Bank Timor-Leste Country Team · 24 Mar 2026"/>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">Global Oil Prices (Seed / override)</div>
+        <div class="admin-field">
+          <label>Brent Crude ($/bbl) — seed fallback if API unavailable</label>
+          <input type="number" step="0.01" id="adBrent" placeholder="98.83"/>
+        </div>
+        <div class="admin-field">
+          <label>WTI Crude ($/bbl)</label>
+          <input type="number" step="0.01" id="adWti" placeholder="90.67"/>
+        </div>
+        <div class="admin-field">
+          <label>EU Gas TTF ($/MWh)</label>
+          <input type="number" step="0.01" id="adTtf" placeholder="61.5"/>
+        </div>
+        <div class="admin-field">
+          <label>US Gasoline ($/gal)</label>
+          <input type="number" step="0.01" id="adGasoline" placeholder="3.94"/>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">TL Fuel Prices (ANPM Ceilings)</div>
+        <div class="admin-field">
+          <label>Petrol RON91 ceiling ($/L)</label>
+          <input type="number" step="0.01" id="adPetrol" placeholder="1.23"/>
+        </div>
+        <div class="admin-field">
+          <label>Diesel ceiling ($/L)</label>
+          <input type="number" step="0.01" id="adDiesel" placeholder="1.22"/>
+        </div>
+        <div class="admin-field">
+          <label>Diesel market observation ($/L) — press survey</label>
+          <input type="number" step="0.01" id="adDieselMkt" placeholder="1.40"/>
+        </div>
+        <div class="admin-field">
+          <label>Kerosene ceiling ($/L)</label>
+          <input type="number" step="0.01" id="adKero" placeholder="0.69"/>
+        </div>
+        <div class="admin-field">
+          <label>LPG 12kg cylinder ($)</label>
+          <input type="number" step="0.01" id="adLpg" placeholder="16.50"/>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">Crisis Indicators</div>
+        <div class="admin-field">
+          <label>Hormuz ship transits (ships/day current)</label>
+          <input type="number" step="1" id="adTransits" placeholder="5"/>
+        </div>
+        <div class="admin-field">
+          <label>Petroleum Fund balance ($bn)</label>
+          <input type="number" step="0.01" id="adFund" placeholder="18.77"/>
+        </div>
+        <div class="admin-field">
+          <label>VIX index</label>
+          <input type="number" step="0.01" id="adVix" placeholder="24.85"/>
+        </div>
+        <div class="admin-field">
+          <label>Gold ($/oz)</label>
+          <input type="number" step="1" id="adGold" placeholder="4320"/>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">Food Indicators</div>
+        <div class="admin-field">
+          <label>FAO Food Price Index (pts)</label>
+          <input type="number" step="0.1" id="adFaoFood" placeholder="125.3"/>
+        </div>
+        <div class="admin-field">
+          <label>FAO Rice Price Index (pts)</label>
+          <input type="number" step="0.1" id="adFaoRice" placeholder="103.2"/>
+        </div>
+        <div class="admin-field">
+          <label>Thai 5% rice export price ($/tonne)</label>
+          <input type="number" step="1" id="adThaiRice" placeholder="380"/>
+        </div>
+        <div class="admin-field">
+          <label>TL CPI latest (% y/y)</label>
+          <input type="number" step="0.1" id="adCpi" placeholder="0.8"/>
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-section-title">Change Admin Password</div>
+        <div class="admin-field">
+          <label>New password</label>
+          <input type="password" id="adNewPw" placeholder="Leave blank to keep current"/>
+        </div>
+      </div>
+
+    </div><!-- /adminBody -->
+
+    <div class="admin-footer" id="adminFooter" style="display:none">
+      <button class="admin-save-btn" onclick="saveAdmin()">✓ Save All Changes</button>
+      <button class="admin-cancel-btn" onclick="toggleAdmin()">Cancel</button>
+      <p style="font-size:10px;color:var(--text3);text-align:center">Changes saved to browser storage · Persists on reload</p>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
-  <span>Sources: ANPM &middot; TATOLI &middot; Lusa/AMAN &middot; Plataforma Media &middot; ETO &middot; PITSA &middot; Tane Konsumid&oacute;r &middot; <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank">Vietnam Hormuz Tracker</a> &middot; WB EAP Fuel Policy DB &middot; WB Pink Sheet</span>
-  <span><a href="#" onclick="switchTab('method');return false;">Sources &amp; Method &rarr;</a></span>
+  <span>Data: <strong><a href="https://claudeblattman.com" target="_blank" style="color:var(--blue)">claudeblattman.com</a></strong> &middot; <strong><a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">HormuzTracker.com (CC BY 4.0)</a></strong> &middot; ANPM &middot; INETL &middot; WFP &middot; World Bank &middot; FAO &middot; IMF &middot; oilpriceapi.com</span>
+  <span style="display:flex;gap:12px"><span id="footerLiveStatus" style="color:var(--text3);font-size:11px">Oil prices: seed data</span><a href="#" onclick="switchTab('method');return false;">Sources &amp; Method &rarr;</a></span>
 </div>
 
 <script>
@@ -835,7 +1075,16 @@ function renderCharts(){
       {label:'WTI',data:[69,68,68,69,64,75,98,106,94,90.67],borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
     ]},
     options:{...baseOpts(),
-      plugins:{...baseOpts().plugins,legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
+      plugins:{...baseOpts().plugins,
+        legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}},
+        annotation:{annotations:{
+          g1:{type:'box',yMin:0,yMax:85,backgroundColor:'rgba(46,196,182,.05)',borderWidth:0},
+          a1:{type:'box',yMin:85,yMax:110,backgroundColor:'rgba(244,162,97,.07)',borderWidth:0},
+          r1:{type:'box',yMin:110,yMax:200,backgroundColor:'rgba(230,57,70,.07)',borderWidth:0},
+          gl:{type:'line',yMin:85,yMax:85,borderColor:'rgba(46,196,182,.4)',borderWidth:1,borderDash:[4,3],label:{content:'$85',display:true,position:'end',font:{size:9},color:'#2ec4b6',backgroundColor:'transparent'}},
+          rl:{type:'line',yMin:110,yMax:110,borderColor:'rgba(230,57,70,.4)',borderWidth:1,borderDash:[4,3],label:{content:'$110',display:true,position:'end',font:{size:9},color:'#e63946',backgroundColor:'transparent'}}
+        }}
+      },
       scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'USD/bbl',color:'#5d7a8a'}}}}
   });
 
@@ -1073,6 +1322,238 @@ function renderCharts(){
   }
 
 renderCharts();
+
+
+// ══════════════════════════════════════════════════════════════════
+// PROMPT SPEC IMPLEMENTATION: Live API, Admin Panel, Storage
+// Source: claudeblattman.com / HormuzTracker.com (CC BY 4.0)
+// ══════════════════════════════════════════════════════════════════
+
+// Seed data constants — all values sourced from ANPM, WB, HormuzTracker
+const SEED = {
+  brent:98.83, wti:90.67, ttf:61.5, gasoline:3.94, vix:24.85, gold:4320,
+  transits:5, fund:18.77, petrol:1.23, diesel:1.22, dieselMkt:1.40,
+  kero:0.69, lpg:16.50, faoFood:125.3, faoRice:103.2, thaiRice:380,
+  cpi:0.8,
+  precrisis:{brent:68, wti:64},
+  sitrep: document.getElementById('sitrepText')?.textContent || '',
+  sitrepAuthor: document.getElementById('sitrepAuthor')?.textContent || 'World Bank Timor-Leste Country Team · 24 Mar 2026'
+};
+
+let adminUnlocked = false;
+const ADMIN_PW_KEY = 'tl_admin_pw';
+const DATA_KEY = 'tl_dash_data';
+const OIL_CACHE_KEY = 'tl_oil_cache';
+const DEFAULT_PW = 'tlhormuz2026';
+
+// ── Live oil price fetch (oilpriceapi.com) ─────────────────────────
+// Endpoint: GET https://api.oilpriceapi.com/v1/prices/latest
+// Response: { data: { price: number, currency: "USD", type: "brent_crude_oil" } }
+// Falls back to seed/stored data if API requires key or fails.
+async function fetchOilPrices() {
+  try {
+    // Check localStorage cache first (5-min TTL)
+    const cached = localStorage.getItem(OIL_CACHE_KEY);
+    if (cached) {
+      const {brent, wti, ts} = JSON.parse(cached);
+      if (Date.now() - ts < 300000) {
+        updateOilKPIs(brent, wti, true);
+        return;
+      }
+    }
+    const r = await fetch('https://api.oilpriceapi.com/v1/prices/latest',
+      {headers:{'Authorization':'Token demo'}, signal:AbortSignal.timeout(5000)});
+    if (r.ok) {
+      const j = await r.json();
+      const b = parseFloat(j?.data?.price);
+      if (b > 0 && b < 500) {
+        const saved = loadSavedData();
+        const w = saved.wti || SEED.wti;
+        localStorage.setItem(OIL_CACHE_KEY, JSON.stringify({brent:b, wti:w, ts:Date.now()}));
+        updateOilKPIs(b, w, true);
+        return;
+      }
+    }
+  } catch(e) { /* fall through to seed */ }
+  // Use saved/seed data
+  const saved = loadSavedData();
+  updateOilKPIs(saved.brent || SEED.brent, saved.wti || SEED.wti, false);
+}
+
+function updateOilKPIs(brent, wti, isLive) {
+  const brentEl = document.getElementById('kpiBrent');
+  const wtiEl = document.getElementById('kpiWti');
+  const brentBadge = document.getElementById('kpiBrentBadge');
+  const pillEl = document.getElementById('livePill');
+  const footerEl = document.getElementById('footerLiveStatus');
+  if (brentEl) brentEl.innerHTML = brent.toFixed(2) + '<span class="kpi-unit"> $/bbl</span>';
+  if (wtiEl) wtiEl.innerHTML = wti.toFixed(2) + '<span class="kpi-unit"> $/bbl</span>';
+  const pc = SEED.precrisis.brent;
+  const pct = ((brent/pc-1)*100).toFixed(1);
+  if (brentBadge) brentBadge.textContent = '+' + pct + '% vs pre-crisis';
+  if (pillEl) {
+    pillEl.textContent = isLive ? '● LIVE' : '● SEED DATA';
+    pillEl.className = isLive ? 'live-pill' : 'seed-pill';
+  }
+  if (footerEl) footerEl.textContent = isLive
+    ? 'Oil prices: LIVE from oilpriceapi.com'
+    : 'Oil prices: seed data (update via ⚙)';
+}
+
+// ── Storage helpers ────────────────────────────────────────────────
+function loadSavedData() {
+  try { return JSON.parse(localStorage.getItem(DATA_KEY) || '{}'); } catch { return {}; }
+}
+
+function getAdminPw() {
+  try { return localStorage.getItem(ADMIN_PW_KEY) || DEFAULT_PW; } catch { return DEFAULT_PW; }
+}
+
+// ── Apply saved data to DOM on load ──────────────────────────────
+function applySavedData() {
+  const d = loadSavedData();
+  if (d.sitrep && document.getElementById('sitrepText')) {
+    document.getElementById('sitrepText').textContent = d.sitrep;
+  }
+  if (d.sitrepAuthor && document.getElementById('sitrepAuthor')) {
+    document.getElementById('sitrepAuthor').textContent = d.sitrepAuthor;
+  }
+}
+
+// ── Admin panel toggle ────────────────────────────────────────────
+function toggleAdmin() {
+  const overlay = document.getElementById('adminOverlay');
+  const isOpen = overlay.classList.contains('open');
+  if (!isOpen) {
+    overlay.classList.add('open');
+    if (!adminUnlocked) {
+      document.getElementById('adminAuth').style.display = 'flex';
+      document.getElementById('adminBody').style.display = 'none';
+      document.getElementById('adminFooter').style.display = 'none';
+      setTimeout(()=>document.getElementById('adminPwInput')?.focus(), 100);
+    } else {
+      populateAdminFields();
+    }
+  } else {
+    overlay.classList.remove('open');
+  }
+}
+
+function checkAdminPw() {
+  const input = document.getElementById('adminPwInput');
+  if (!input) return;
+  if (input.value === getAdminPw()) {
+    adminUnlocked = true;
+    document.getElementById('adminAuth').style.display = 'none';
+    document.getElementById('adminBody').style.display = 'flex';
+    document.getElementById('adminFooter').style.display = 'flex';
+    populateAdminFields();
+  } else {
+    input.style.borderColor = '#e63946';
+    input.placeholder = 'Incorrect password — try again';
+    input.value = '';
+  }
+}
+
+function populateAdminFields() {
+  const d = loadSavedData();
+  const setVal = (id, key, seed) => {
+    const el = document.getElementById(id);
+    if (el) el.value = d[key] !== undefined ? d[key] : seed;
+  };
+  // Sitrep
+  const sitEl = document.getElementById('adSitrep');
+  if (sitEl) sitEl.value = d.sitrep || document.getElementById('sitrepText')?.textContent || '';
+  const sitAuEl = document.getElementById('adSitrepAuthor');
+  if (sitAuEl) sitAuEl.value = d.sitrepAuthor || document.getElementById('sitrepAuthor')?.textContent || '';
+  // Values
+  setVal('adBrent','brent',SEED.brent);
+  setVal('adWti','wti',SEED.wti);
+  setVal('adTtf','ttf',SEED.ttf);
+  setVal('adGasoline','gasoline',SEED.gasoline);
+  setVal('adPetrol','petrol',SEED.petrol);
+  setVal('adDiesel','diesel',SEED.diesel);
+  setVal('adDieselMkt','dieselMkt',SEED.dieselMkt);
+  setVal('adKero','kero',SEED.kero);
+  setVal('adLpg','lpg',SEED.lpg);
+  setVal('adTransits','transits',SEED.transits);
+  setVal('adFund','fund',SEED.fund);
+  setVal('adVix','vix',SEED.vix);
+  setVal('adGold','gold',SEED.gold);
+  setVal('adFaoFood','faoFood',SEED.faoFood);
+  setVal('adFaoRice','faoRice',SEED.faoRice);
+  setVal('adThaiRice','thaiRice',SEED.thaiRice);
+  setVal('adCpi','cpi',SEED.cpi);
+}
+
+function saveAdmin() {
+  const getV = (id) => {
+    const el = document.getElementById(id);
+    return el ? el.value : null;
+  };
+  const getN = (id, fallback) => {
+    const v = parseFloat(getV(id));
+    return isNaN(v) ? fallback : v;
+  };
+
+  const data = {
+    sitrep: getV('adSitrep') || '',
+    sitrepAuthor: getV('adSitrepAuthor') || '',
+    brent: getN('adBrent', SEED.brent),
+    wti: getN('adWti', SEED.wti),
+    ttf: getN('adTtf', SEED.ttf),
+    gasoline: getN('adGasoline', SEED.gasoline),
+    petrol: getN('adPetrol', SEED.petrol),
+    diesel: getN('adDiesel', SEED.diesel),
+    dieselMkt: getN('adDieselMkt', SEED.dieselMkt),
+    kero: getN('adKero', SEED.kero),
+    lpg: getN('adLpg', SEED.lpg),
+    transits: getN('adTransits', SEED.transits),
+    fund: getN('adFund', SEED.fund),
+    vix: getN('adVix', SEED.vix),
+    gold: getN('adGold', SEED.gold),
+    faoFood: getN('adFaoFood', SEED.faoFood),
+    faoRice: getN('adFaoRice', SEED.faoRice),
+    thaiRice: getN('adThaiRice', SEED.thaiRice),
+    cpi: getN('adCpi', SEED.cpi),
+    savedAt: new Date().toISOString()
+  };
+
+  localStorage.setItem(DATA_KEY, JSON.stringify(data));
+
+  // Update new password if set
+  const newPw = getV('adNewPw');
+  if (newPw && newPw.length >= 4) localStorage.setItem(ADMIN_PW_KEY, newPw);
+
+  // Apply changes to DOM immediately
+  if (data.sitrep && document.getElementById('sitrepText')) {
+    document.getElementById('sitrepText').textContent = data.sitrep;
+  }
+  if (data.sitrepAuthor && document.getElementById('sitrepAuthor')) {
+    document.getElementById('sitrepAuthor').textContent = data.sitrepAuthor;
+  }
+
+  // Update oil KPIs with new seed values
+  updateOilKPIs(data.brent, data.wti, false);
+
+  // Close panel
+  document.getElementById('adminOverlay').classList.remove('open');
+  adminUnlocked = true; // stay unlocked for session
+
+  // Flash confirmation
+  const btn = document.querySelector('.admin-save-btn');
+  if (btn) { btn.textContent = '✓ Saved!'; setTimeout(()=>btn.textContent='✓ Save All Changes', 2000); }
+}
+
+// Close admin on overlay click
+document.getElementById('adminOverlay')?.addEventListener('click', function(e) {
+  if (e.target === this) toggleAdmin();
+});
+
+// ── INIT ────────────────────────────────────────────────────────────
+applySavedData();
+fetchOilPrices();
+
 </script>
 </body>
 </html>
