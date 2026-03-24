@@ -123,7 +123,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 </style>
 </head>
 <body>
-
+ 
 <!-- HEADER -->
 <div class="header">
   <div class="header-top">
@@ -135,14 +135,14 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <p>Middle East Conflict &rarr; Global Oil Shock &rarr; Fuel Prices, Supply Security &amp; Fiscal Policy</p>
   </div>
 </div>
-
+ 
 <!-- SITUATION REPORT -->
 <div class="sitrep">
   <div class="sitrep-label">Situation Report</div>
   <p>Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the crisis peak but remaining ~45% above the pre-crisis baseline. Timor-Leste&rsquo;s ANPM-regulated ceiling prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). <strong style="color:#ff6b7a">Observed market prices at some Dili stations have exceeded these ceilings</strong> (diesel reported at $1.40/L on Mar 11 &mdash; see Sources &amp; Method tab for data notes). PM Xanana Gusmão committed to year-end supply security (Mar 19) and signalled prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced; Petroleum Fund at $18.6bn.</p>
   <div class="sitrep-author">&mdash; WB Macro-Fiscal Team (EEAM2) &middot; 24 March 2026</div>
 </div>
-
+ 
 <!-- KPI CARDS ROW 1 — Global -->
 <div class="kpi-section">
 <div class="kpi-grid">
@@ -172,7 +172,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <div class="kpi-badge up">+16.2% &nbsp;($1.05 &rarr; $1.22)</div>
   </div>
 </div>
-
+ 
 <!-- KPI CARDS ROW 2 — TL Macro -->
 <div class="kpi-grid">
   <div class="kpi-card red" style="border-color:rgba(230,57,70,.5)">
@@ -202,12 +202,12 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
 </div>
 </div>
-
+ 
 <!-- PRICE METHODOLOGY NOTE -->
 <div class="price-note">
   <strong>Price data note:</strong> Petrol RON91 and diesel figures shown above are <strong>ANPM-regulated ceiling prices</strong> &mdash; the official maximum retailers may charge, set by the National Petroleum Authority. Actual pump prices vary across stations and may be at or below the ceiling. Market observations from press surveys (TATOLI, Lusa) have recorded prices above the ceiling at some Dili stations in mid-March. See the <strong>Sources &amp; Method</strong> tab for full data notes and update schedule.
 </div>
-
+ 
 <!-- TABS -->
 <div class="tabs">
   <div class="tab active" onclick="switchTab('overview')">Crisis Overview</div>
@@ -216,7 +216,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   <div class="tab" onclick="switchTab('asia')">Asia Comparison</div>
   <div class="tab" onclick="switchTab('method')">Sources &amp; Method</div>
 </div>
-
+ 
 <!-- PANEL: CRISIS OVERVIEW -->
 <div class="panel active" id="panel-overview">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
@@ -306,7 +306,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     </div>
   </div>
 </div>
-
+ 
 <!-- PANEL: GLOBAL MARKETS -->
 <div class="panel" id="panel-markets">
   <div class="chart-grid">
@@ -332,7 +332,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     </div>
   </div>
 </div>
-
+ 
 <!-- PANEL: TIMOR-LESTE -->
 <div class="panel" id="panel-timor">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
@@ -394,7 +394,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     </div>
   </div>
 </div>
-
+ 
 <!-- PANEL: ASIA COMPARISON -->
 <div class="panel" id="panel-asia">
   <div class="chart-grid" style="grid-template-columns:1fr 1fr;gap:16px">
@@ -413,108 +413,156 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <strong style="color:var(--text)">Notes:</strong> All TL figures use official ANPM ceiling prices. Market prices at individual Dili stations vary &mdash; diesel reported up to $1.40/L at some locations (Mar 11), which would imply ~33% vs pre-crisis. Regional data sourced from EAP Fuel Policy database and Vietnam Hormuz Tracker; figures are indicative and subject to revision. Indonesia absorbs shock via Pertamina subsidy &mdash; retail prices largely unchanged for consumers.
   </div>
 </div>
-
+ 
 <!-- PANEL: SOURCES & METHOD -->
 <div class="panel" id="panel-method">
-  <div class="method-grid">
+<style>
+.mtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:0}
+.mtable th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:7px 12px;border-bottom:1px solid var(--border2);background:rgba(255,255,255,.02)}
+.mtable td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--text2)}
+.mtable tr:last-child td{border-bottom:none}
+.mtable td:first-child{color:var(--text);font-weight:500;white-space:nowrap;min-width:160px}
+.mtable td.val{font-family:'IBM Plex Mono',monospace;color:var(--green)}
+.zone-g{color:#2ec4b6;font-weight:600}
+.zone-a{color:#f4a261;font-weight:600}
+.zone-r{color:#ff6b7a;font-weight:600}
+.msection{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:14px 0 8px;border-bottom:1px solid var(--border2);margin-bottom:12px}
+</style>
+ 
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+ 
+    <!-- PRE-CRISIS BASELINES -->
+    <div class="method-box">
+      <h3>Pre-Crisis Baseline Values</h3>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5">Percentage changes in indicator tiles are calculated against these baseline values, defined as the last available data point before the US&ndash;Iran military conflict onset on February 28, 2026.</p>
+      <table class="mtable">
+        <thead><tr><th>Indicator</th><th>Baseline</th><th>Unit</th><th>Period</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Brent Crude</td><td class="val">68.00</td><td>USD/bbl</td><td>Feb 2026 avg</td><td>ICE Futures / WB Pink Sheet</td></tr>
+          <tr><td>WTI Crude</td><td class="val">61.00</td><td>USD/bbl</td><td>Feb 2026 avg</td><td>NYMEX / WB Pink Sheet</td></tr>
+          <tr><td>Hormuz Transits</td><td class="val">138</td><td>ships/day</td><td>Feb 2026 avg</td><td>AISstream.io / HormuzTracker</td></tr>
+          <tr><td>Gold</td><td class="val">4,266</td><td>USD/oz</td><td>Jan 15, 2026</td><td>LBMA / market data</td></tr>
+          <tr><td>VIX</td><td class="val">16.20</td><td>index</td><td>Jan 15, 2026</td><td>CBOE</td></tr>
+          <tr><td>Petrol RON91</td><td class="val">1.10</td><td>USD/L</td><td>Feb 2026</td><td>ANPM / ANAER</td></tr>
+          <tr><td>Diesel</td><td class="val">1.05</td><td>USD/L</td><td>Feb 2026</td><td>ANPM / ANAER</td></tr>
+          <tr><td>Kerosene</td><td class="val">0.63</td><td>USD/L</td><td>Feb 2026</td><td>ANPM / ANAER</td></tr>
+          <tr><td>LPG 12kg</td><td class="val">15.00</td><td>USD/cyl</td><td>Feb 2026</td><td>ANPM / ANAER</td></tr>
+          <tr><td>Singapore Gasoline</td><td class="val">0.77</td><td>USD/L</td><td>Feb 2026</td><td>Platts / press est.</td></tr>
+          <tr><td>Singapore Diesel</td><td class="val">0.735</td><td>USD/L</td><td>Feb 2026</td><td>Platts / press est.</td></tr>
+          <tr><td>Petroleum Fund</td><td class="val">18.6</td><td>USD bn</td><td>Feb 2026</td><td>WB TLER Feb 2026 / MoF</td></tr>
+        </tbody>
+      </table>
+    </div>
+ 
+    <!-- THRESHOLD DEFINITIONS -->
+    <div class="method-box">
+      <h3>Threshold Definitions (Chart Zones)</h3>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5">Charts and indicator cards use <span class="zone-g">green</span> / <span class="zone-a">amber</span> / <span class="zone-r">red</span> zones. Thresholds below are adapted from HormuzTracker.com (CC BY 4.0) with TL-specific additions.</p>
+      <table class="mtable">
+        <thead><tr><th>Indicator</th><th class="zone-g">Green</th><th class="zone-a">Amber</th><th class="zone-r">Red</th></tr></thead>
+        <tbody>
+          <tr><td>Brent Crude ($/bbl)</td><td>&lt;$85</td><td>$85&ndash;110</td><td>&gt;$110</td></tr>
+          <tr><td>WTI Crude ($/bbl)</td><td>&lt;$80</td><td>$80&ndash;105</td><td>&gt;$105</td></tr>
+          <tr><td>Hormuz Transits</td><td>&gt;100/day</td><td>30&ndash;100/day</td><td>&lt;30/day</td></tr>
+          <tr><td>VIX</td><td>&lt;20</td><td>20&ndash;30</td><td>&gt;30</td></tr>
+          <tr><td>Gold ($/oz)</td><td>&lt;$4,000</td><td>$4,000&ndash;5,000</td><td>&gt;$5,000</td></tr>
+          <tr><td>TL Petrol RON91 ($/L)</td><td>&lt;$1.15</td><td>$1.15&ndash;1.40</td><td>&gt;$1.40</td></tr>
+          <tr><td>TL Diesel ceiling ($/L)</td><td>&lt;$1.10</td><td>$1.10&ndash;1.35</td><td>&gt;$1.35</td></tr>
+          <tr><td>Singapore Gasoline ($/L)</td><td>&lt;$0.85</td><td>$0.85&ndash;1.10</td><td>&gt;$1.10</td></tr>
+          <tr><td>Petroleum Fund ($ bn)</td><td>&gt;$20bn</td><td>$15&ndash;20bn</td><td>&lt;$15bn</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--text3);margin-top:10px">Global thresholds adapted from HormuzTracker.com (CC BY 4.0). TL-specific fuel price thresholds set by WB EEAM2 team based on historical price range and household affordability context.</p>
+    </div>
+  </div>
+ 
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+ 
+    <!-- DATA SOURCES -->
     <div class="method-box">
       <h3>Data Sources</h3>
-      <div class="method-row">
-        <div class="method-row-label">TL fuel prices (official)</div>
-        <div class="method-row-detail">ANPM (Autoridade Nacional do Petróleo e Minerais) &mdash; regulated ceiling prices, announced when changed. No fixed schedule; adjusted on market conditions. Last change: 09 Mar 2026.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">TL fuel prices (market obs.)</div>
-        <div class="method-row-detail">Press surveys: TATOLI Agência Noticiosa, Lusa, Plataforma Media, Independente. Spot observations at named Dili stations. <strong>Not a systematic survey</strong> &mdash; significant station-to-station variation exists.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Government announcements</div>
-        <div class="method-row-detail">TATOLI (06, 11, 15 Mar), Lusa/AMAN (17, 19 Mar), Plataforma Media, GMN TV. Compiled manually from press monitoring.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Global oil prices</div>
-        <div class="method-row-detail">WB Pink Sheet; press reports (Reuters, Bloomberg). Updated manually. Historical data illustrative.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Gold / VIX</div>
-        <div class="method-row-detail">Press and market reports. Manually updated. Note: gold was already at elevated levels (~$4,200&ndash;5,594) before the crisis due to unrelated factors; it has fallen during the crisis period.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Singapore spot prices</div>
-        <div class="method-row-detail">Platts / press estimates. Indicative of TL import costs (PITSA and ETO both source from Singapore).</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Asia comparison data</div>
-        <div class="method-row-detail"><a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank">Vietnam Hormuz Tracker</a> (EAP team) &middot; EAP Fuel Policy database &middot; WB Pink Sheet. Indicative figures.</div>
-      </div>
-      <div class="method-row">
-        <div class="method-row-label">Petroleum Fund / fiscal</div>
-        <div class="method-row-detail">WB Timor-Leste Economic Report (Feb 2026); EITI; Ministry of Finance.</div>
-      </div>
+      <table class="mtable">
+        <thead><tr><th>Source</th><th>Coverage &amp; Notes</th></tr></thead>
+        <tbody>
+          <tr><td>HormuzTracker.com (CC BY 4.0)</td><td>Primary crisis data aggregator. Hormuz ship transit counts (AISstream.io AIS data), crisis severity score (editorial composite of 5 sub-scores), crisis timeline. Baseline methodology adapted for TL context.</td></tr>
+          <tr><td>ANPM / ANAER</td><td>Official TL fuel ceiling prices (Petrol RON91, diesel, kerosene, LPG). Regulated prices announced irregularly when market conditions require. TL uses USD so no FX conversion needed. Last update: 09 Mar 2026.</td></tr>
+          <tr><td>TATOLI / Lusa / Plataforma Media / Independente</td><td>Press-reported market observations &amp; government announcements. Spot price surveys at named Dili stations. <strong>Not a systematic national survey</strong> &mdash; significant station-to-station variation exists.</td></tr>
+          <tr><td>ICE Futures / NYMEX / WB Pink Sheet</td><td>Brent and WTI crude oil prices. Updated manually from press / WB Pink Sheet. Historical series illustrative only.</td></tr>
+          <tr><td>LBMA / CBOE / market data</td><td>Gold (USD/oz) and VIX. Manually updated. Note: gold peaked at ~$5,594 in January 2026 (pre-crisis) due to unrelated factors; it has since fallen to ~$4,320. VIX is a proxy for global risk sentiment, not TL-specific risk.</td></tr>
+          <tr><td>Platts / press estimates</td><td>Singapore spot fuel prices (gasoline and diesel). Indicative of TL import costs &mdash; both PITSA (Pertamina) and ETO source from Singapore refiners.</td></tr>
+          <tr><td>Vietnam Hormuz Tracker / EAP Fuel Policy DB</td><td>Asia comparison data (% price change vs pre-crisis). Figures not independently verified for this dashboard. <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">sachadray.github.io/hormuz-vietnam-tracker</a></td></tr>
+          <tr><td>WB TLER Feb 2026 / EITI / MoF</td><td>Petroleum Fund balance ($18.6bn), ESI framework, fiscal data. Source: <em>Between Promise and Vulnerability</em>, WB EFI-EAP, Feb 2026.</td></tr>
+          <tr><td>IEA / World Bank</td><td>Oil import dependency ratios for ASEAN comparison. TL has no domestic refinery &mdash; 100% of fuel is imported.</td></tr>
+        </tbody>
+      </table>
     </div>
+ 
+    <!-- UPDATE SCHEDULE + ASSUMPTIONS -->
     <div>
       <div class="method-box" style="margin-bottom:16px">
-        <h3>Update Schedule &amp; Effort</h3>
-        <div class="method-row">
-          <div><span class="tag tag-auto">Automatic</span></div>
-          <div class="method-row-detail">None currently. All data is manually compiled. A future version could auto-fetch global oil prices via public APIs.</div>
-        </div>
-        <div class="method-row">
-          <div><span class="tag tag-manual">Manual &mdash; low effort</span></div>
-          <div class="method-row-detail">Global oil prices (Brent, WTI, Gold, VIX): update ~weekly from public sources. ~5 minutes per update.</div>
-        </div>
-        <div class="method-row">
-          <div><span class="tag tag-manual">Manual &mdash; event-driven</span></div>
-          <div class="method-row-detail">TL fuel prices: update only when ANPM announces a ceiling change (irregular; roughly monthly or less). Timeline: update when notable press events occur.</div>
-        </div>
-        <div class="method-row">
-          <div><span class="tag tag-manual">Manual &mdash; periodic</span></div>
-          <div class="method-row-detail">Asia comparison data: update weekly from Vietnam Hormuz Tracker and EAP Fuel Policy database.</div>
-        </div>
+        <h3>Update Schedule &amp; Manual Effort</h3>
+        <table class="mtable">
+          <thead><tr><th>Data Series</th><th>Frequency</th><th>Effort</th><th>Source</th></tr></thead>
+          <tbody>
+            <tr><td>Brent / WTI crude</td><td>Weekly</td><td><span class="tag tag-manual">~5 min</span></td><td>WB Pink Sheet / press</td></tr>
+            <tr><td>Gold / VIX</td><td>Weekly</td><td><span class="tag tag-manual">~5 min</span></td><td>Market data / press</td></tr>
+            <tr><td>Singapore spot prices</td><td>Weekly</td><td><span class="tag tag-manual">~5 min</span></td><td>Platts / press</td></tr>
+            <tr><td>Hormuz transits</td><td>Weekly</td><td><span class="tag tag-manual">~5 min</span></td><td>HormuzTracker.com</td></tr>
+            <tr><td>TL fuel ceiling prices</td><td>Event-driven</td><td><span class="tag tag-manual">~10 min</span></td><td>ANPM announcement</td></tr>
+            <tr><td>TL market price obs.</td><td>Event-driven</td><td><span class="tag tag-manual">~10 min</span></td><td>Press monitoring</td></tr>
+            <tr><td>Gov. announcements / timeline</td><td>Event-driven</td><td><span class="tag tag-manual">~15 min</span></td><td>TATOLI / Lusa / GMN</td></tr>
+            <tr><td>Asia comparison data</td><td>Weekly</td><td><span class="tag tag-manual">~10 min</span></td><td>Vietnam Hormuz Tracker</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:11px;color:var(--text3);margin-top:10px">Total estimated update effort: <strong style="color:var(--text2)">~30&ndash;60 minutes per week</strong> during active crisis phase, falling to ~15 minutes/week if global prices stabilise. No automated data feeds currently integrated.</p>
       </div>
       <div class="method-box">
-        <h3>Subjective Judgements &amp; Limitations</h3>
+        <h3>Key Assumptions &amp; Limitations</h3>
         <div class="method-row">
           <div><span class="tag tag-judgment">Judgment</span></div>
-          <div class="method-row-detail"><strong>Market price observations</strong> are from isolated press reports, not a systematic survey. The $1.40 diesel figure is from two named stations on one date. Actual market variation is significant and poorly documented &mdash; as noted, some stations are below the $1.23 petrol ceiling. These figures should be treated as indicative.</div>
+          <div class="method-row-detail"><strong>TL market price observations</strong> are from isolated press reports (TATOLI, Lusa), not a systematic survey. The $1.40 diesel figure is from two named Dili stations on one date (Mar 11). Actual prices vary significantly across stations and districts. Some stations (e.g. David Freedman&rsquo;s local station) report petrol at $1.20 &mdash; below the $1.23 ceiling. These figures are indicative only.</div>
         </div>
         <div class="method-row">
           <div><span class="tag tag-judgment">Judgment</span></div>
-          <div class="method-row-detail"><strong>Asia comparison figures</strong> for non-TL countries are sourced from the Vietnam Hormuz Tracker and EAP Fuel Policy database; they have not been independently verified for this dashboard.</div>
+          <div class="method-row-detail"><strong>Hormuz transit data</strong> from HormuzTracker / AISstream.io counts AIS-tracked vessels. Military or untracked vessels may be understated. The &lsquo;normal&rsquo; baseline of 138 ships/day is the Feb 2026 average before the crisis.</div>
         </div>
         <div class="method-row">
           <div><span class="tag tag-judgment">Judgment</span></div>
-          <div class="method-row-detail"><strong>Historical global market data</strong> (Brent, WTI, Gold, Singapore spot prior to crisis) uses indicative values for trend illustration only. Exact historical figures should be verified against primary sources before citing.</div>
+          <div class="method-row-detail"><strong>Historical global market data</strong> (Brent, WTI, Gold, Singapore spot) uses indicative values for trend illustration. Verify against primary sources (ICE, NYMEX, LBMA) before citing in official publications.</div>
         </div>
         <div class="method-row">
           <div><span class="tag tag-judgment">Judgment</span></div>
-          <div class="method-row-detail"><strong>Hormuz transit figures</strong> are approximations based on press reports; no primary shipping data source is currently integrated.</div>
+          <div class="method-row-detail"><strong>Asia comparison figures</strong> for non-TL countries are sourced from the Vietnam Hormuz Tracker and EAP Fuel Policy database; not independently verified for this dashboard.</div>
         </div>
-        <p style="margin-top:12px;font-size:12px;color:var(--text3)">This dashboard is a monitoring tool for analytical purposes. Data should be verified against primary sources before use in official publications.</p>
+        <div class="method-row">
+          <div><span class="tag tag-judgment">Judgment</span></div>
+          <div class="method-row-detail"><strong>Gold data context:</strong> Gold peaked at ~$5,594/oz in January 2026 due to factors predating the crisis. It has fallen ~23% since that peak to ~$4,320 by Mar 24. This counter-trend move reflects partial risk-off reversal and should not be interpreted as crisis-driven appreciation.</div>
+        </div>
+        <p style="margin-top:12px;font-size:11px;color:var(--text3)">This dashboard is a monitoring tool for analytical purposes. Data should be independently verified before use in official WBG publications or external communications. &nbsp;&middot;&nbsp; Methodology adapted from <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">HormuzTracker.com</a> (CC BY 4.0).</p>
       </div>
     </div>
   </div>
 </div>
-
+ 
 <!-- FOOTER -->
 <div class="footer">
   <span>Sources: ANPM &middot; TATOLI &middot; Lusa/AMAN &middot; Plataforma Media &middot; ETO &middot; PITSA &middot; Tane Konsumid&oacute;r &middot; <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank">Vietnam Hormuz Tracker</a> &middot; WB EAP Fuel Policy DB &middot; WB Pink Sheet</span>
   <span>WB Macro-Fiscal Team (EEAM2) &middot; Dili, Timor-Leste &middot; <a href="#" onclick="switchTab('method');return false;">Sources &amp; Method &rarr;</a></span>
 </div>
-
+ 
 <script>
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['overview','markets','timor','asia','method'][i]===id));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
   setTimeout(renderCharts,50);
 }
-
+ 
 Chart.defaults.color='#9ab0c4';
 Chart.defaults.font.family="'IBM Plex Sans',system-ui,sans-serif";
 Chart.defaults.font.size=11;
 const gridColor='rgba(255,255,255,.06)';
 const axisColor='rgba(255,255,255,.15)';
-
+ 
 function baseOpts(){
   return {
     responsive:true,maintainAspectRatio:false,
@@ -525,13 +573,13 @@ function baseOpts(){
     }
   };
 }
-
+ 
 const months=['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','24 Mar'];
-
+ 
 let rendered=false;
 function renderCharts(){
   if(rendered)return; rendered=true;
-
+ 
   // CRUDE OIL
   new Chart(document.getElementById('crudChart'),{
     type:'line',
@@ -543,7 +591,7 @@ function renderCharts(){
       plugins:{...baseOpts().plugins,legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
       scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'USD/bbl',color:'#5d7a8a'}}}}
   });
-
+ 
   // GOLD — corrected data: gold was ALREADY HIGH pre-crisis and has FALLEN during crisis
   // Jan 2026 all-time high ~$5,594; by Mar 24 retreated to ~$4,320 (Vietnam tracker)
   new Chart(document.getElementById('goldChart'),{
@@ -564,7 +612,7 @@ function renderCharts(){
            ticks:{callback:v=>'$'+v.toLocaleString()}}
       }}
   });
-
+ 
   // SINGAPORE SPOT
   new Chart(document.getElementById('sgChart'),{
     type:'line',
@@ -576,7 +624,7 @@ function renderCharts(){
       plugins:{...baseOpts().plugins,legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:11}}}},
       scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'USD/L',color:'#5d7a8a'}}}}
   });
-
+ 
   // HORMUZ TRANSITS
   new Chart(document.getElementById('hormuzChart'),{
     type:'bar',
@@ -589,14 +637,14 @@ function renderCharts(){
     }]},
     options:{...baseOpts(),scales:{...baseOpts().scales,y:{...baseOpts().scales.y,title:{display:true,text:'Ships / day',color:'#5d7a8a'}}}}
   });
-
+ 
   // TL PRICE HISTORY — fixed diesel market series
   const tlMonths=['Jan 24','Apr 24','Jul 24','Oct 24','Jan 25','Apr 25','Jul 25','Oct 25','Jan 26','Feb 26','9 Mar 26'];
   const tlPetrol= [0.95,0.99,0.97,0.97,1.00,1.05,1.07,1.10,1.10,1.10,1.23];
   const tlDiesel= [0.90,0.94,0.92,0.92,0.95,1.00,1.02,1.05,1.05,1.05,1.22];
   // Market observation: only one data point (Mar 11), shown as a distinct visible dot
   const tlDslMkt= [null,null,null,null,null,null,null,null,null,null,1.40];
-
+ 
   new Chart(document.getElementById('tlPriceChart'),{
     type:'line',
     data:{labels:tlMonths,datasets:[
@@ -623,7 +671,7 @@ function renderCharts(){
       },
       scales:{...baseOpts().scales,y:{...baseOpts().scales.y,min:0.85,title:{display:true,text:'USD / L',color:'#5d7a8a'}}}}
   });
-
+ 
   // TL % CHANGE BAR
   new Chart(document.getElementById('tlChangeChart'),{
     type:'bar',
@@ -642,12 +690,12 @@ function renderCharts(){
         x:{...baseOpts().scales.x,ticks:{color:'#9ab0c4',maxRotation:30,font:{size:10}}}
       }}
   });
-
+ 
   // ASIA GAS
   const countries=['Timor-Leste','Vietnam','Malaysia','Cambodia','China','Japan','Korea','Indonesia','Philippines','Thailand','Singapore','Taiwan','Lao PDR'];
   const gasChg=[11.8,25.0,31.0,36.0,4.5,22.0,5.0,2.0,18.0,-3.0,30.0,5.0,31.0];
   const dslChg=[16.2,34.0,62.0,59.0,5.5,28.0,8.0,3.0,24.0,-4.0,55.0,4.0,65.0];
-
+ 
   new Chart(document.getElementById('asiaGasChart'),{
     type:'bar',
     data:{labels:countries,datasets:[{label:'Petrol % change',data:gasChg,
@@ -661,7 +709,7 @@ function renderCharts(){
         y:{grid:{color:gridColor},ticks:{color:countries.map(c=>c==='Timor-Leste'?'#ff6b7a':'#9ab0c4')},border:{color:axisColor}}
       }}
   });
-
+ 
   new Chart(document.getElementById('asiaDieselChart'),{
     type:'bar',
     data:{labels:countries,datasets:[{label:'Diesel % change',data:dslChg,
@@ -680,3 +728,4 @@ renderCharts();
 </script>
 </body>
 </html>
+ 
