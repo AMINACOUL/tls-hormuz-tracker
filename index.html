@@ -188,7 +188,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="sitrep">
   <div class="sitrep-label" style="display:flex;justify-content:space-between;align-items:center">Situation Report <span style="font-size:10px;color:var(--text3);font-style:italic">Edit via ⚙ admin panel</span></div>
   <p id="sitrepText">Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the crisis peak but remaining ~45% above the pre-crisis baseline. Timor-Leste&rsquo;s ANPM-regulated ceiling prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). <strong style="color:#ff6b7a">Observed market prices at some Dili stations have exceeded these ceilings</strong> (diesel reported at $1.40/L on Mar 11 &mdash; see Sources &amp; Method tab for data notes). PM Xanana Gusmão committed to year-end supply security (Mar 19) and signalled prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced; Petroleum Fund at $18.77bn. <em>The Diplomat</em> (Mar 2026) identifies Timor-Leste explicitly among the region&rsquo;s most exposed economies alongside Cambodia, Laos, and Myanmar. ASEAN economic ministers have warned that disruptions are &ldquo;leading to higher freight, insurance, and logistics costs and contributing to inflationary pressures on energy, food, and other essential goods&rdquo; across Southeast Asia.</p>
-  <div class="sitrep-author" id="sitrepAuthor">World Bank Timor-Leste Country Team &middot; 24 March 2026</div>
+  <div class="sitrep-author" id="sitrepAuthor">24 March 2026</div>
 </div>
 
 <!-- KPI CARDS ROW 1 — Global -->
@@ -925,7 +925,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         </div>
         <div class="admin-field">
           <label>Author / date line</label>
-          <input type="text" id="adSitrepAuthor" placeholder="World Bank Timor-Leste Country Team · 24 Mar 2026"/>
+          <input type="text" id="adSitrepAuthor" placeholder=" · 24 Mar 2026"/>
         </div>
       </div>
 
@@ -1337,7 +1337,7 @@ const SEED = {
   cpi:0.8,
   precrisis:{brent:68, wti:64},
   sitrep: document.getElementById('sitrepText')?.textContent || '',
-  sitrepAuthor: document.getElementById('sitrepAuthor')?.textContent || 'World Bank Timor-Leste Country Team · 24 Mar 2026'
+  sitrepAuthor: document.getElementById('sitrepAuthor')?.textContent || ' · 24 Mar 2026'
 };
 
 let adminUnlocked = false;
