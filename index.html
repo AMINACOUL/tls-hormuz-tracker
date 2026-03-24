@@ -534,13 +534,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   <!-- CONTEXT BOX -->
   <div style="background:rgba(46,196,182,.07);border:1px solid rgba(46,196,182,.2);border-left:3px solid var(--green);border-radius:6px;padding:14px 16px;margin-bottom:16px">
     <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--green);text-transform:uppercase;margin-bottom:6px">Why Food Prices Matter for Timor-Leste</div>
-    <p style="font-size:13px;color:#9ab0c4;line-height:1.6"><strong style="color:var(--text)">Food is 64% of the TL CPI basket</strong> (INETL Series 3) &mdash; one of the highest shares globally. <strong style="color:var(--text)">Rice alone accounts for 17% of CPI</strong> and is almost entirely imported from Vietnam and Thailand. An IMF working paper (2026) confirms that global food and rice prices are the single most important drivers of TL inflation, with near-immediate pass-through given dollarisation. The Hormuz crisis creates a dual food risk: (1) <strong style="color:#f4a261">direct shipping disruption</strong> to TL food imports; (2) <strong style="color:#f4a261">fertilizer supply shock</strong> &mdash; 30% of globally traded fertilizers transit Hormuz &mdash; threatening 2026&ndash;27 rice yields in TL&rsquo;s key supplier countries. Fertilizer prices are estimated up 15&ndash;20% (FAO, Mar 2026).</p>
+    <p style="font-size:13px;color:#9ab0c4;line-height:1.6"><strong style="color:var(--text)">Food is 64% of the TL CPI basket</strong> (INETL Series 3) &mdash; one of the highest shares globally. <strong style="color:var(--text)">Rice alone accounts for 17% of CPI</strong> with imports covering approximately <strong style="color:var(--text)">60&ndash;90% of domestic cereal consumption</strong>, sourced primarily from <strong style="color:var(--text)">India, Vietnam, and China</strong>, with annual volumes typically 135,000&ndash;160,000 tonnes (OEC World / FAO GIEWS). An IMF working paper (2026) confirms that global food and rice prices are the single most important drivers of TL inflation, with near-immediate pass-through given dollarisation. The Hormuz crisis creates a dual food risk: (1) <strong style="color:#f4a261">direct shipping disruption</strong> to TL food imports from India, Vietnam &amp; China; (2) <strong style="color:#f4a261">fertilizer supply shock</strong> &mdash; 30% of globally traded fertilizers transit Hormuz &mdash; threatening 2026&ndash;27 rice yields in key supplier countries, particularly India. Fertilizer prices estimated up 15&ndash;20% (FAO, Mar 2026).</p>
   </div>
 
   <div class="chart-grid" style="margin-bottom:16px">
     <div class="chart-box">
       <h3>International Rice Export Prices</h3>
-      <p class="chart-sub">USD/tonne &middot; 5% broken white rice from major exporters. TL imports primarily from Vietnam and Thailand (PITSA/ETO Singapore sourcing). Data: USDA / Platts / FAO / Vietnam Hormuz Tracker.</p>
+      <p class="chart-sub">USD/tonne &middot; 5% broken white rice from major exporters. TL sources rice primarily from <strong>India, Vietnam &amp; China</strong> (60&ndash;90% of domestic consumption; 135,000&ndash;160,000 tonnes/year — OEC World / FAO GIEWS). Data: USDA WASDE / FAO / Platts / trade press.</p>
       <div class="chart-wrap" style="height:260px"><canvas id="ricePriceChart"></canvas></div>
     </div>
     <div class="chart-box">
@@ -572,7 +572,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <tr>
             <td><strong>Rice supply chain</strong></td>
             <td>Thai rice exports to Middle East stalled &rarr; paradoxically may free up supply for Asia short-term</td>
-            <td>Moderate (TL mainly imports from Vietnam/Thailand)</td>
+            <td>High (TL imports 60&ndash;90% of cereal consumption from India, Vietnam &amp; China; ~135,000&ndash;160,000t/yr)</td>
             <td>1&ndash;3 months</td>
             <td><span class="badge-amber">MODERATE</span></td>
           </tr>
@@ -647,7 +647,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
 
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:12px;margin-top:12px;font-size:11px;color:var(--text3)">
-    <strong style="color:var(--text2)">Data notes:</strong> FAO Food Price Index released monthly (last: 6 Mar 2026, covering Feb 2026). FAO Rice Price Index latest: 103.2 pts (Feb 2026). INETL CPI released monthly with ~2-week lag; latest available is Jan 2026. Rice export prices: USDA WASDE Feb 2026 / trade press. TL food import prices: WFP Market Monitor (quarterly). Fertilizer price estimate from FAO Mar 2026 assessment. CPI forecast: IMF Article IV Jul 2025 &mdash; predates Hormuz shock; actual 2026 inflation likely higher.
+    <strong style="color:var(--text2)">Data notes:</strong> FAO Food Price Index released monthly (last: 6 Mar 2026, covering Feb 2026). FAO Rice Price Index latest: 103.2 pts (Feb 2026). INETL CPI released monthly with ~2-week lag; latest available is Jan 2026. Rice export prices: USDA WASDE Feb 2026 / trade press. TL food import prices: WFP Market Monitor (quarterly). Rice import volumes and source countries: OEC World (oec.world/en/profile/bilateral-product/rice/reporter/tls) &amp; FAO GIEWS (fao.org/giews/countrybrief/country.jsp?code=TLS). Annual TL rice imports: 135,000&ndash;160,000 tonnes (60&ndash;90% of domestic cereal consumption). Primary sources: India, Vietnam, China. Fertilizer price estimate from FAO Mar 2026 assessment. CPI forecast: IMF Article IV Jul 2025 &mdash; predates Hormuz shock; actual 2026 inflation likely higher.
   </div>
 </div>
 
@@ -691,6 +691,9 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <tr><td>FAO Food Price Index</td><td class="val">123.9</td><td>Index pts</td><td>Jan 2026</td><td>FAO (released 6 Feb 2026)</td></tr>
           <tr><td>FAO Rice Price Index</td><td class="val">102.8</td><td>Index pts</td><td>Jan 2026</td><td>FAO (released 6 Feb 2026)</td></tr>
           <tr><td>TL Rice import price</td><td class="val">0.76</td><td>USD/kg</td><td>2024 avg</td><td>WFP Market Monitor Q4 2024</td></tr>
+          <tr><td>TL Annual rice imports</td><td class="val">135,000&ndash;160,000</td><td>tonnes/yr</td><td>Recent avg</td><td>OEC World / FAO GIEWS</td></tr>
+          <tr><td>TL Rice import share</td><td class="val">60&ndash;90%</td><td>of cereal consumption</td><td>Structural</td><td>OEC World / FAO GIEWS</td></tr>
+          <tr><td>TL Rice import sources</td><td class="val">India, Vietnam, China</td><td>&mdash;</td><td>Primary</td><td>OEC World / FAO GIEWS</td></tr>
           <tr><td>TL CPI (headline)</td><td class="val">0.8</td><td>% y/y</td><td>Jan 2026 est.</td><td>INETL Series 3 / Trading Economics</td></tr>
           <tr><td>Petroleum Fund</td><td class="val">18.77</td><td>USD bn</td><td>Feb 2026</td><td>WB Timor-Leste Economic Report (Feb 2026) / MoF</td></tr>
         </tbody>
@@ -733,6 +736,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <tr><td>ICE Futures / NYMEX / WB Pink Sheet</td><td>Brent and WTI crude oil prices. Updated manually from press / WB Pink Sheet. Historical series illustrative only.</td></tr>
           <tr><td>LBMA / CBOE / market data</td><td>Gold (USD/oz) and VIX. Manually updated. Note: gold peaked at ~$5,594 in January 2026 (pre-crisis) due to unrelated factors; it has since fallen to ~$4,320. VIX is a proxy for global risk sentiment, not TL-specific risk.</td></tr>
           <tr><td>Platts / press estimates</td><td>Singapore spot fuel prices (gasoline and diesel). Indicative of TL import costs &mdash; both PITSA (Pertamina) and ETO source from Singapore refiners.</td></tr>
+          <tr><td>OEC World / FAO GIEWS</td><td>TL rice import profile: volumes (135,000&ndash;160,000t/yr), source countries (India, Vietnam, China), import dependency (60&ndash;90% of cereal consumption). URLs: oec.world/en/profile/bilateral-product/rice/reporter/tls &amp; fao.org/giews/countrybrief/country.jsp?code=TLS. Publicly available.</td></tr>
           <tr><td>Vietnam Hormuz Tracker / EAP Fuel Policy DB</td><td>Asia comparison data (% price change vs pre-crisis). Figures not independently verified for this dashboard. <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">sachadray.github.io/hormuz-vietnam-tracker</a></td></tr>
           <tr><td>WB TL Economic Report / EITI / MoF</td><td>Petroleum Fund balance ($18.77bn), ESI framework, fiscal data. Source: WB Timor-Leste Economic Report (Feb 2026).</td></tr>
           <tr><td>IEA / World Bank</td><td>Oil import dependency ratios for ASEAN comparison. TL has no domestic refinery &mdash; 100% of fuel is imported.</td></tr>
