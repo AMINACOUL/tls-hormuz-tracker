@@ -172,7 +172,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="header">
   <div class="header-top">
     <span class="crisis-badge">&#x25CF; Crisis Monitoring</span>
-    <span class="header-meta">Day 25 &nbsp;&middot;&nbsp; Last updated: 24 Mar 2026 &nbsp;&middot;&nbsp; <a href="https://claudeblattman.com" target="_blank" style="color:#4895ef;text-decoration:none">claudeblattman.com</a></span>
+    <span class="header-meta">Day 26 &nbsp;&middot;&nbsp; Last updated: 25 Mar 2026 &nbsp;&middot;&nbsp; <a href="https://claudeblattman.com" target="_blank" style="color:#4895ef;text-decoration:none">claudeblattman.com</a></span>
     <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
       <span id="livePill" class="seed-pill">● SEED DATA</span>
       <button class="gear-btn" onclick="toggleAdmin()" title="Admin panel — update manual data">⚙</button>
@@ -187,8 +187,8 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <!-- SITUATION REPORT -->
 <div class="sitrep">
   <div class="sitrep-label" style="display:flex;justify-content:space-between;align-items:center">Situation Report <span style="font-size:10px;color:var(--text3);font-style:italic">Edit via ⚙ admin panel</span></div>
-  <p id="sitrepText">Brent fell to ~$98.83/bbl and WTI to ~$90.67 on March 24 &mdash; retreating from the crisis peak but remaining ~45% above the pre-crisis baseline. Timor-Leste&rsquo;s ANPM-regulated ceiling prices rose on March 9: Petrol RON91 $1.10&rarr;$1.23 (+11.8%); Diesel $1.05&rarr;$1.22 (+16.2%). <strong style="color:#ff6b7a">Observed market prices at some Dili stations have exceeded these ceilings</strong> (diesel reported at $1.40/L on Mar 11 &mdash; see Sources &amp; Method tab for data notes). PM Xanana Gusmão committed to year-end supply security (Mar 19) and signalled prices &ldquo;not expected to increase.&rdquo; Pertamina next cargo arrives Mar 25&ndash;27. No subsidy introduced; Petroleum Fund at $18.77bn. <em>The Diplomat</em> (Mar 2026) identifies Timor-Leste explicitly among the region&rsquo;s most exposed economies alongside Cambodia, Laos, and Myanmar. ASEAN economic ministers have warned that disruptions are &ldquo;leading to higher freight, insurance, and logistics costs and contributing to inflationary pressures on energy, food, and other essential goods&rdquo; across Southeast Asia.</p>
-  <div class="sitrep-author" id="sitrepAuthor">24 March 2026</div>
+  <p id="sitrepText"><strong style="color:#ff6b7a">&#x1F6A8; BREAKING (25 Mar 2026):</strong> Timor-Leste&rsquo;s Council of Ministers approved an emergency fuel decree setting new maximum retail prices (Petrol $1.50/L, Diesel $1.65/L) and introducing a state subsidy mechanism via the State General Budget &mdash; a significant policy shift from full market passthrough. This is the second price ceiling adjustment since the crisis onset. &nbsp;&#x2014;&nbsp; Brent at ~$100.11/bbl (Mar 25) &mdash; highly volatile: peaked $112 Fri Mar 21, crashed to ~$97 Mon Mar 23 on Trump&rsquo;s diplomatic signals, rebounded to $104.49 Tue before settling. WTI ~$92.35/bbl. <strong style="color:#ffd166">Key development (Mar 23):</strong> Trump postponed Iran power plant strikes for 5 days citing &ldquo;very good and productive conversations&rdquo; &mdash; Iran denied direct talks and insisted the Strait would not return to pre-war levels. A 5-day diplomatic window is open; Pakistan offered to host talks. Brent EIA forecast: &gt;$95/bbl through Q2, then falling to ~$70 year-end (highly scenario-dependent). TL fuel ceilings remain at Mar 9 levels (Petrol $1.23, Diesel $1.22); PITSA Pertamina cargo arrived Mar 25&ndash;27 as scheduled. Petroleum Fund: $18.91bn (Lowy Institute, late 2025). IEA warns this is the &ldquo;greatest global energy security challenge in history.&rdquo; Death toll: 2,000+ across the region. Hormuz remains effectively closed &mdash; US confirms Iranian mines (Maham 3 &amp; 7 limpet mines) in the strait.</p>
+  <div class="sitrep-author" id="sitrepAuthor">25 March 2026</div>
 </div>
 
 <!-- KPI CARDS ROW 1 — Global -->
@@ -201,23 +201,23 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">Brent Crude</div>
-    <div class="kpi-value" id="kpiBrent">98.83<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiBrentBadge">+45.3% vs pre-crisis</div>
+    <div class="kpi-value" id="kpiBrent">100.11<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiBrentBadge">+47.2% vs pre-crisis &middot; volatile</div>
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">WTI Crude</div>
-    <div class="kpi-value" id="kpiWti">90.67<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiWtiBadge">+48.6% vs pre-crisis</div>
+    <div class="kpi-value" id="kpiWti">92.35<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiWtiBadge">+44.3% vs pre-crisis</div>
   </div>
   <div class="kpi-card amber">
-    <div class="kpi-label">Petrol RON91 (ANPM ceiling)</div>
-    <div class="kpi-value">1.23<span class="kpi-unit"> $/L</span></div>
-    <div class="kpi-badge up">+11.8% &nbsp;($1.10 &rarr; $1.23)</div>
+    <div class="kpi-label">Petrol RON91 (new ceiling)</div>
+    <div class="kpi-value" style="color:#ff6b7a">1.50<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">+36.4% vs pre-crisis &nbsp;($1.10&rarr;$1.50) &middot; 25 Mar</div>
   </div>
   <div class="kpi-card amber">
-    <div class="kpi-label">Diesel (ANPM ceiling)</div>
-    <div class="kpi-value">1.22<span class="kpi-unit"> $/L</span></div>
-    <div class="kpi-badge up">+16.2% &nbsp;($1.05 &rarr; $1.22)</div>
+    <div class="kpi-label">Diesel (new ceiling)</div>
+    <div class="kpi-value" style="color:#ff6b7a">1.65<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">+57.1% vs pre-crisis &nbsp;($1.05&rarr;$1.65) &middot; 25 Mar</div>
   </div>
 </div>
 
@@ -228,25 +228,25 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <div class="kpi-value" style="color:#ff6b7a">1.40<span class="kpi-unit"> $/L</span></div>
     <div class="kpi-badge warn">&#x26A0; Reported above ANPM ceiling</div>
   </div>
-  <div class="kpi-card amber">
-    <div class="kpi-label">Kerosene (ANPM ceiling)</div>
-    <div class="kpi-value">0.69<span class="kpi-unit"> $/L</span></div>
-    <div class="kpi-badge up">+9.5% &nbsp;($0.63 &rarr; $0.69)</div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Aviation Fuel (new ceiling)</div>
+    <div class="kpi-value">2.50<span class="kpi-unit"> $/L</span></div>
+    <div class="kpi-badge up">New &middot; Avtur &middot; 25 Mar decree</div>
   </div>
-  <div class="kpi-card amber">
-    <div class="kpi-label">LPG 12kg Cylinder</div>
-    <div class="kpi-value">16.50<span class="kpi-unit"> $</span></div>
-    <div class="kpi-badge up">+10.0% &nbsp;($15.00 &rarr; $16.50)</div>
+  <div class="kpi-card red">
+    <div class="kpi-label">LPG (new ceiling)</div>
+    <div class="kpi-value">4.20<span class="kpi-unit"> $/kg</span></div>
+    <div class="kpi-badge up">New &middot; GPL &middot; 25 Mar decree</div>
   </div>
   <div class="kpi-card blue">
     <div class="kpi-label">Petroleum Fund</div>
-    <div class="kpi-value">18.77<span class="kpi-unit"> $bn</span></div>
-    <div class="kpi-badge neutral">Jan 2026 &middot; Depletion ~2037 &middot; ESI intact</div>
+    <div class="kpi-value">18.91<span class="kpi-unit"> $bn</span></div>
+    <div class="kpi-badge neutral">Late 2025 &middot; Lowy Institute &middot; Depletion ~2037</div>
   </div>
   <div class="kpi-card warn">
     <div class="kpi-label">Gov. Response</div>
-    <div class="kpi-value" style="font-size:15px;color:#ffb300">MONITORING</div>
-    <div class="kpi-badge warn">No subsidy &middot; PM: prices stable</div>
+    <div class="kpi-value" style="font-size:13px;color:#ff6b7a">SUBSIDY DECREE</div>
+    <div class="kpi-badge up">&#x26A0; Council of Ministers &middot; 25 Mar 2026</div>
   </div>
 </div>
 </div>
@@ -283,7 +283,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 <!-- PRICE METHODOLOGY NOTE -->
 <div class="price-note">
-  <strong>&#9432; Price data note:</strong> All RON91 and diesel KPI figures above are <strong>ANPM-regulated ceiling prices</strong> &mdash; the legal maximum set by the National Petroleum Authority, valid nationally. Actual pump prices at individual stations vary significantly: some stations charge less than the ceiling; some press reports recorded diesel at $1.40 at specific Dili stations on Mar 11 (above the $1.22 ceiling). The ceiling is updated by ANPM announcement only when market conditions change (last: 09 Mar 2026). <strong>Frequency:</strong> ANPM updates are event-driven (irregular). Press market surveys are ad hoc. See <strong>Sources &amp; Method</strong> tab for full methodology.
+  <strong>&#x1F6A8; BREAKING 25 Mar 2026 &mdash; Council of Ministers Emergency Decree:</strong> New maximum retail prices gazetted: Petrol <strong>$1.50/L</strong>, Diesel <strong>$1.65/L</strong>, Avtur $2.50/L, LPG $4.20/kg. A <strong>state subsidy mechanism</strong> has been introduced: importers present actual import costs and the difference is covered through the State General Budget. This is a major policy shift from full market passthrough. Measures are temporary until end 2026 (extendable). Enforcement will focus on preventing diversion of subsidised fuel outside national territory. Source: SMN News TL &middot; Governo de Timor-Leste &middot; 25 Mar 2026.
 </div>
 
 <!-- TABS -->
@@ -307,6 +307,11 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <table class="timeline">
         <thead><tr><th>Date</th><th>Actor</th><th>Event</th></tr></thead>
         <tbody>
+          <tr style="background:rgba(230,57,70,.08)">
+            <td class="tl-date" style="color:#ff6b7a;font-weight:600">25 Mar 2026</td>
+            <td class="tl-actor" style="color:#ff6b7a">Council of Ministers</td>
+            <td class="tl-event"><span class="badge-red">&#x1F6A8; BREAKING</span> Council of Ministers approves emergency temporary measures for fuel price stabilisation and supply guarantee. <strong>New maximum retail prices:</strong> Petrol $1.50/L (+36.4% vs pre-crisis), Diesel $1.65/L (+57.1% vs pre-crisis), Aviation fuel $2.50/L, LPG $4.20/kg. <strong>State subsidy introduced:</strong> importers present actual import costs; state covers difference via State General Budget. Decree is temporary to end-2026, extendable. Enforcement: prevention of subsidised fuel diversion. <small>Source: SMN News TL &middot; Governo Timor-Leste &middot; 25 Mar 2026. Proposed by Minister Francisco da Costa Monteiro. Objectives: protect household purchasing power, reduce economic impact of price increases, ensure normal economic activity and national fuel availability.</small></td>
+          </tr>
           <tr>
             <td class="tl-date">28 Feb 2026</td>
             <td class="tl-actor">US / Israel / Iran</td>
@@ -362,6 +367,21 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
             <td class="tl-actor">ASEAN Economic Ministers</td>
             <td class="tl-event"><span class="badge-amber">REGIONAL</span> ASEAN ministers warn disruptions are &ldquo;leading to higher freight, insurance, and logistics costs and contributing to inflationary pressures on energy, food, and other essential goods.&rdquo; <small>The Diplomat, Mar 2026. Thailand: diesel price cap + work-from-home orders. Indonesia: subsidies under pressure at $102/bbl vs $70/bbl budget assumption. Vietnam: tapping fuel price stabilisation fund.</small></td>
           </tr>
+          <tr>
+            <td class="tl-date">21 Mar 2026</td>
+            <td class="tl-actor">Global Markets</td>
+            <td class="tl-event"><span class="badge-red">PRICE PEAK</span> Brent breaches $112/bbl — highest since crisis onset. VIX elevated. IEA warns crisis is &ldquo;worse than 1970s oil shocks&rdquo; and &ldquo;greatest global energy security challenge in history.&rdquo; <small>US confirms Iranian Maham 3 &amp; 7 limpet mines in Hormuz strait. Death toll exceeds 2,000 across region (Iran 1,200+, Lebanon 1,000+, US 13 service members).</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">23 Mar 2026</td>
+            <td class="tl-actor">Trump / Iran</td>
+            <td class="tl-event"><span class="badge-amber">DIPLOMATIC WINDOW</span> Trump postpones Iran power plant strikes for 5 days citing &ldquo;very good and productive conversations.&rdquo; Brent sank ~7% to ~$97 on the news. <small>Iran denied direct talks (Foreign Ministry: &ldquo;no dialogue between Tehran and Washington&rdquo;). Iran acknowledged receiving US proposals via intermediaries. Israel&rsquo;s Channel 12: Washington seeking 1-month ceasefire. NYT: US sent Iran 15-point peace plan. Pakistan offered to host talks. Iran&rsquo;s Defense Council: &ldquo;non-belligerent&rdquo; nations may transit via coordination with Iran.</small></td>
+          </tr>
+          <tr>
+            <td class="tl-date">24&ndash;25 Mar 2026</td>
+            <td class="tl-actor">Markets / Diplomacy</td>
+            <td class="tl-event"><span class="badge-amber">VOLATILE</span> Brent rebounds to $104.49 (Tue) as Iran denies talks and strikes continue on both sides. US and Israel struck Iranian gas supply line and Bushehr nuclear plant. Iran fired missiles at Tel Aviv. <small>Brent trading range $96–$104.49. EIA STEO (Mar 10): Brent forecast &gt;$95/bbl next 2 months, then &lt;$80 Q3, ~$70 year-end. PITSA Pertamina cargo arrives Mar 25–27 as scheduled. Lowy Institute analysis: Petroleum Fund at $18.91bn (late 2025, fell $340M in Q4); warns TL &ldquo;approaching a critical threshold.&rdquo;</small></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -376,20 +396,25 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <div style="font-size:13px;color:var(--text)">Will the government introduce a formal price cap or subsidy?</div>
           <div style="font-size:12px;color:var(--text2);margin-top:4px">PM&rsquo;s Mar 19 statement is a political signal, not a formal directive. Watch for an ANPM announcement. Any subsidy would have fiscal sustainability implications given the Petroleum Fund&rsquo;s finite horizon.</div>
         </div>
-        <div style="background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.25);border-radius:6px;padding:14px">
-          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;margin-bottom:6px">2 &mdash; New Cargo Pricing (Mar 25&ndash;27)</div>
-          <div style="font-size:13px;color:var(--text)">Will the incoming Pertamina cargo trigger a second official ceiling adjustment?</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:4px">New stock will be priced at current (higher) Singapore spot rates. Watch for an ANPM announcement in early April.</div>
+        <div style="background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.3);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:#ff6b7a;text-transform:uppercase;margin-bottom:6px">2 &mdash; &#x2705; RESOLVED: Second Ceiling Adjustment &amp; Subsidy Decree</div>
+          <div style="font-size:13px;color:var(--text)">Council of Ministers approved emergency decree on 25 March 2026.</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">New ceilings: Petrol $1.50/L (+$0.27 from $1.23), Diesel $1.65/L (+$0.43 from $1.22). State subsidy mechanism introduced via State General Budget. Measures temporary to end-2026. Next watchpoint: implementation quality, state budget cost, and whether Brent de-escalation reduces subsidy burden before April.</div>
         </div>
         <div style="background:rgba(72,149,239,.08);border:1px solid rgba(72,149,239,.25);border-radius:6px;padding:14px">
           <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--blue);text-transform:uppercase;margin-bottom:6px">3 &mdash; Brent Price Trajectory</div>
           <div style="font-size:13px;color:var(--text)">Will the retreat below $100/bbl hold?</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:4px">Current: $98.83. The Trump postponement of further Iran strikes is the key variable. Sustained easing could reduce pressure for a second TL adjustment. IEA Executive Director Birol: <em>&ldquo;the greatest global energy security challenge in history.&rdquo;</em></div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Current: $100.11 (highly volatile — range $97–$112 this week). 5-day diplomatic window open (Trump postponement Mar 23); Iran denies direct talks. EIA forecasts Brent &gt;$95/bbl through Q2, then &lt;$80 in Q3. Sustained easing could defer a second TL ceiling adjustment. IEA: <em>&ldquo;the greatest global energy security challenge in history — worse than the 1970s.&rdquo;</em></div>
         </div>
         <div style="background:rgba(123,45,139,.08);border:1px solid rgba(123,45,139,.25);border-radius:6px;padding:14px">
           <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:#c084db;text-transform:uppercase;margin-bottom:6px">5 &mdash; Regional Supply Chain Spillovers</div>
           <div style="font-size:13px;color:var(--text)">Will regional policy responses affect TL&rsquo;s supply chain?</div>
           <div style="font-size:12px;color:var(--text2);margin-top:4px"><em>The Diplomat</em> identifies TL as among the most exposed in SEA alongside Cambodia, Laos &amp; Myanmar. Key risks: China banned diesel/gasoline/aviation fuel exports (pushing SEA buyers to scramble); Thailand banned oil exports except to Cambodia/Laos; Indonesia subsidies under severe pressure. Australia/Singapore supply chain deal (Mar 24) is positive for TL&rsquo;s Singapore-sourced imports.</div>
+        </div>
+        <div style="background:rgba(46,196,182,.08);border:1px solid rgba(46,196,182,.25);border-radius:6px;padding:14px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--green);text-transform:uppercase;margin-bottom:6px">6 &mdash; 5-Day Diplomatic Window (Mar 23&ndash;28)</div>
+          <div style="font-size:13px;color:var(--text)">Will the Trump-Iran diplomatic window yield a ceasefire or Hormuz reopening?</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Trump postponed Iran power plant strikes for 5 days (Mar 23). Iran denied direct talks but acknowledged receiving US proposals via intermediaries. Pakistan offered to host talks. If a deal holds: Brent could fall sharply toward $70–80/bbl range (EIA Q3 forecast), reducing pressure on TL for a second ceiling adjustment. If talks collapse: Brent could retest $110–$115+ and a second ANPM ceiling hike becomes likely in April.</div>
         </div>
         <div style="background:rgba(244,162,97,.08);border:1px solid rgba(244,162,97,.25);border-radius:6px;padding:14px">
           <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--amber);text-transform:uppercase;margin-bottom:6px">4 &mdash; ANPM Ceiling Enforcement</div>
@@ -466,10 +491,10 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <table class="price-table" style="margin-top:4px">
         <thead><tr><th>Fuel Type</th><th>Pre-Crisis Ceiling</th><th>Current Ceiling</th><th>% Change</th><th>Market Obs. (Mar 11)</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>Petrol RON91</td><td class="val">$1.10</td><td class="val">$1.23</td><td class="chg-up">+11.8%</td><td class="val">$1.20&ndash;1.30</td><td style="font-size:12px;color:var(--text2)">Variation across stations</td></tr>
-          <tr class="critical"><td>Diesel</td><td class="val">$1.05</td><td class="val">$1.22</td><td class="chg-up">+16.2%</td><td class="warn-text">up to $1.40 &#x26A0;</td><td style="font-size:12px;color:var(--text2)">Some stations above ceiling</td></tr>
-          <tr><td>Kerosene</td><td class="val">$0.63</td><td class="val">$0.69</td><td class="chg-up">+9.5%</td><td class="val">n/a</td><td style="font-size:12px;color:var(--text2)">Official ceiling</td></tr>
-          <tr><td>LPG 12kg</td><td class="val">$15.00</td><td class="val">$16.50</td><td class="chg-up">+10.0%</td><td class="val">n/a</td><td style="font-size:12px;color:var(--text2)">Official ceiling</td></tr>
+          <tr class="critical"><td><strong>Petrol RON91</strong> <span class="badge-red" style="font-size:10px">UPDATED</span></td><td class="val">$1.10</td><td class="val" style="color:#ff6b7a">$1.50</td><td class="chg-up">+36.4%</td><td class="val">n/a (new decree)</td><td style="font-size:12px;color:var(--text2)">25 Mar 2026 emergency decree</td></tr>
+          <tr class="critical"><td><strong>Diesel</strong> <span class="badge-red" style="font-size:10px">UPDATED</span></td><td class="val">$1.05</td><td class="val" style="color:#ff6b7a">$1.65</td><td class="chg-up">+57.1%</td><td class="warn-text">Prev. obs. $1.40 &#x26A0;</td><td style="font-size:12px;color:var(--text2)">25 Mar 2026 emergency decree</td></tr>
+          <tr class="critical"><td><strong>Aviation Fuel</strong> <span class="badge-red" style="font-size:10px">NEW</span></td><td class="val">n/a</td><td class="val" style="color:#ff6b7a">$2.50</td><td class="chg-up">New cap</td><td class="val">n/a</td><td style="font-size:12px;color:var(--text2)">Avtur — 25 Mar decree</td></tr>
+          <tr><td><strong>LPG</strong> <span class="badge-red" style="font-size:10px">UPDATED</span></td><td class="val">n/a</td><td class="val" style="color:#ff6b7a">$4.20/kg</td><td class="chg-up">New cap</td><td class="val">n/a</td><td style="font-size:12px;color:var(--text2)">GPL — 25 Mar decree; state subsidy applies</td></tr>
         </tbody>
       </table>
     </div>
@@ -487,8 +512,8 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         <div class="info-box">
           <h3>Fiscal Context</h3>
           <ul>
-            <li class="green">No subsidy &mdash; ESI intact</li>
-            <li>Petroleum Fund: $18.77bn</li>
+            <li class="red"><strong>Subsidy introduced</strong> &mdash; 25 Mar emergency decree</li>
+            <li>Petroleum Fund: $18.91bn</li>
             <li class="red">Fund depletion: ~2037</li>
             <li class="amber">Petrol imports: ~$160&ndash;180M/yr</li>
           </ul>
@@ -537,7 +562,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <td>100% imported; ~0% Gulf direct</td>
           <td>~2 months (ETO/PITSA stock)</td>
           <td>Full passthrough; no subsidy; PM price signal</td>
-          <td>Petroleum Fund $18.77bn; ESI discipline</td>
+          <td>Petroleum Fund $18.91bn; ESI discipline</td>
           <td><span class="badge-red">Most exposed (poorest tier)</span></td>
         </tr>
         <tr>
@@ -702,7 +727,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         <li class="amber">Fertilizer price update (FAO April release)</li>
         <li>WFP Market Monitor Q1 2026 (due April)</li>
         <li>Thailand fertilizer/rice export policy post-ban</li>
-        <li class="red">Inflation pass-through expected May&ndash;Jun 2026</li>
+        <li class="red">Subsidy decree (25 Mar) partially shields CPI — fiscal cost TBD; net inflation impact depends on budget pass-through speed</li>
       </ul>
     </div>
   </div>
@@ -799,7 +824,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           <tr><td>TL Rice import share</td><td class="val">60&ndash;90%</td><td>of cereal consumption</td><td>Structural</td><td>OEC World / FAO GIEWS</td></tr>
           <tr><td>TL Rice import sources</td><td class="val">India, Vietnam, China</td><td>&mdash;</td><td>Primary</td><td>OEC World / FAO GIEWS</td></tr>
           <tr><td>TL CPI (headline)</td><td class="val">0.8</td><td>% y/y</td><td>Jan 2026 est.</td><td>INETL Series 3 / Trading Economics</td></tr>
-          <tr><td>Petroleum Fund</td><td class="val">18.77</td><td>USD bn</td><td>Feb 2026</td><td>WB Timor-Leste Economic Report (Feb 2026) / MoF</td></tr>
+          <tr><td>Petroleum Fund</td><td class="val">18.91</td><td>USD bn</td><td>Late 2025</td><td>Lowy Institute (Mar 2026); WB TLER Feb 2026: $18.77bn (Jan 2026)</td></tr>
         </tbody>
       </table>
     </div>
@@ -836,12 +861,14 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         <tbody>
           <tr><td>HormuzTracker.com (CC BY 4.0)</td><td>Primary crisis data aggregator. Hormuz ship transit counts (AISstream.io AIS data), crisis severity score (editorial composite of 5 sub-scores), crisis timeline. Baseline methodology adapted for TL context.</td></tr>
           <tr><td>ANPM / ANAER</td><td>Official TL fuel ceiling prices (Petrol RON91, diesel, kerosene, LPG). Regulated prices announced irregularly when market conditions require. TL uses USD so no FX conversion needed. Last update: 09 Mar 2026.</td></tr>
+          <tr><td>SMN News TL (Smnewstl.com)</td><td>Timor-Leste government decree coverage. Source for Council of Ministers emergency fuel decree (25 Mar 2026): new price ceilings and state subsidy mechanism. Tetum-language reporting verified against Lusa/TATOLI.</td></tr>
           <tr><td>TATOLI / Lusa / Plataforma Media / Independente</td><td>Press-reported market observations &amp; government announcements. Spot price surveys at named Dili stations. <strong>Not a systematic national survey</strong> &mdash; significant station-to-station variation exists.</td></tr>
           <tr><td>ICE Futures / NYMEX / WB Pink Sheet</td><td>Brent and WTI crude oil prices. Updated manually from press / WB Pink Sheet. Historical series illustrative only.</td></tr>
           <tr><td>LBMA / CBOE / market data</td><td>Gold (USD/oz) and VIX. Manually updated. Note: gold peaked at ~$5,594 in January 2026 (pre-crisis) due to unrelated factors; it has since fallen to ~$4,320. VIX is a proxy for global risk sentiment, not TL-specific risk.</td></tr>
           <tr><td>Platts / press estimates</td><td>Singapore spot fuel prices (gasoline and diesel). Indicative of TL import costs &mdash; both PITSA (Pertamina) and ETO source from Singapore refiners.</td></tr>
           <tr><td>OEC World / FAO GIEWS</td><td>TL rice import profile: volumes (135,000&ndash;160,000t/yr), source countries (India, Vietnam, China), import dependency (60&ndash;90% of cereal consumption). URLs: oec.world/en/profile/bilateral-product/rice/reporter/tls &amp; fao.org/giews/countrybrief/country.jsp?code=TLS. Publicly available.</td></tr>
           <tr><td>Vietnam Hormuz Tracker / EAP Fuel Policy DB</td><td>Asia comparison data (% price change vs pre-crisis). Figures not independently verified for this dashboard. <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">sachadray.github.io/hormuz-vietnam-tracker</a></td></tr>
+          <tr><td>Lowy Institute</td><td>TL energy shock analysis (Mar 2026): Petroleum Fund at $18.91bn late 2025, fell $340M in Q4. Analysis of TL fiscal exposure to Iran war. <a href="https://www.lowyinstitute.org/the-interpreter/oil-shock-timor-leste-s-economy" target="_blank" style="color:var(--blue)">lowyinstitute.org</a></td></tr>
           <tr><td>WB TL Economic Report / EITI / MoF</td><td>Petroleum Fund balance ($18.77bn), ESI framework, fiscal data. Source: WB Timor-Leste Economic Report (Feb 2026).</td></tr>
           <tr><td>IEA / World Bank</td><td>Oil import dependency ratios for ASEAN comparison. TL has no domestic refinery &mdash; 100% of fuel is imported.</td></tr>
         </tbody>
@@ -1061,7 +1088,7 @@ function baseOpts(){
   };
 }
 
-const months=['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','24 Mar'];
+const months=['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','25 Mar'];
 
 let rendered=false;
 function renderCharts(){
@@ -1071,8 +1098,8 @@ function renderCharts(){
   new Chart(document.getElementById('crudChart'),{
     type:'line',
     data:{labels:months,datasets:[
-      {label:'Brent',data:[73,72,72,73,68,82,106,115,102,98.83],borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.08)',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],fill:true,tension:.3},
-      {label:'WTI',data:[69,68,68,69,64,75,98,106,94,90.67],borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
+      {label:'Brent',data:[73,72,72,73,68,82,106,115,102,100.11],borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.08)',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],fill:true,tension:.3},
+      {label:'WTI',data:[69,68,68,69,64,75,98,106,94,92.35],borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
     ]},
     options:{...baseOpts(),
       plugins:{...baseOpts().plugins,
@@ -1138,11 +1165,11 @@ function renderCharts(){
   });
 
   // TL PRICE HISTORY — fixed diesel market series
-  const tlMonths=['Jan 24','Apr 24','Jul 24','Oct 24','Jan 25','Apr 25','Jul 25','Oct 25','Jan 26','Feb 26','9 Mar 26'];
-  const tlPetrol= [0.95,0.99,0.97,0.97,1.00,1.05,1.07,1.10,1.10,1.10,1.23];
-  const tlDiesel= [0.90,0.94,0.92,0.92,0.95,1.00,1.02,1.05,1.05,1.05,1.22];
+  const tlMonths=['Jan 24','Apr 24','Jul 24','Oct 24','Jan 25','Apr 25','Jul 25','Oct 25','Jan 26','Feb 26','9 Mar 26','25 Mar 26'];
+  const tlPetrol= [0.95,0.99,0.97,0.97,1.00,1.05,1.07,1.10,1.10,1.10,1.23,1.50];
+  const tlDiesel= [0.90,0.94,0.92,0.92,0.95,1.00,1.02,1.05,1.05,1.05,1.22,1.65];
   // Market observation: only one data point (Mar 11), shown as a distinct visible dot
-  const tlDslMkt= [null,null,null,null,null,null,null,null,null,null,1.40];
+  const tlDslMkt= [null,null,null,null,null,null,null,null,null,null,1.40,null];
 
   new Chart(document.getElementById('tlPriceChart'),{
     type:'line',
@@ -1176,10 +1203,10 @@ function renderCharts(){
   new Chart(document.getElementById('tlChangeChart'),{
     type:'bar',
     data:{
-      labels:['Petrol RON91 (ceiling)','Diesel (ceiling)','Diesel (market obs.)','Kerosene','LPG 12kg'],
+      labels:['Petrol RON91 (new)','Diesel (new)','Diesel (prev. obs.)','Aviation Fuel (new)','LPG (new)'],
       datasets:[{
-        label:'% change vs Feb 2026',
-        data:[11.8,16.2,33.3,9.5,10.0],
+        label:'% change vs pre-crisis',
+        data:[36.4,57.1,33.3,null,null],
         backgroundColor:['rgba(244,162,97,.7)','rgba(72,149,239,.7)','rgba(230,57,70,.85)','rgba(46,196,182,.6)','rgba(46,196,182,.5)'],
         borderColor:['#f4a261','#4895ef','#e63946','#2ec4b6','#2ec4b6'],
         borderWidth:1,borderRadius:3
