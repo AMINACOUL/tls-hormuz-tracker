@@ -187,7 +187,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <!-- SITUATION REPORT -->
 <div class="sitrep">
   <div class="sitrep-label" style="display:flex;justify-content:space-between;align-items:center">Situation Report <span style="font-size:10px;color:var(--text3);font-style:italic">Edit via ⚙ admin panel</span></div>
-  <p id="sitrepText" contenteditable="true" spellcheck="false" style="outline:none;cursor:text;border-bottom:1px dashed rgba(244,162,97,.25);padding-bottom:4px" title="Click to edit"><strong style="color:#ff6b7a">&#x1F6A8; BREAKING (25 Mar 2026):</strong> Timor-Leste&rsquo;s Council of Ministers approved an emergency fuel decree setting new maximum retail prices (Petrol $1.50/L, Diesel $1.65/L) and introducing a state subsidy mechanism via the State General Budget &mdash; a significant policy shift from full market passthrough. This is the second price ceiling adjustment since the crisis onset. &nbsp;&#x2014;&nbsp; Brent at ~$96.68/bbl (Mar 26, easing on Iran peace talks signal) &mdash; highly volatile: peaked $112 Fri Mar 21, crashed to ~$97 Mon Mar 23 on Trump&rsquo;s diplomatic signals, rebounded to $104.49 Tue before settling. WTI ~$90.32/bbl. <strong style="color:#ffd166">Key development (Mar 23):</strong> Trump postponed Iran power plant strikes for 5 days citing &ldquo;very good and productive conversations&rdquo; &mdash; Iran denied direct talks and insisted the Strait would not return to pre-war levels. A 5-day diplomatic window is open; Pakistan offered to host talks. Brent EIA forecast: &gt;$95/bbl through Q2, then falling to ~$70 year-end (highly scenario-dependent). TL fuel ceilings remain at Mar 9 levels (Petrol $1.23, Diesel $1.22); PITSA Pertamina cargo arrived Mar 25&ndash;27 as scheduled. Petroleum Fund: $18.77bn (BCTL, Jan 2026). IEA warns this is the &ldquo;greatest global energy security challenge in history.&rdquo; Death toll: 2,000+ across the region. Hormuz remains effectively closed &mdash; US confirms Iranian mines (Maham 3 &amp; 7 limpet mines) in the strait.</p>
+  <p id="sitrepText" contenteditable="true" spellcheck="false" style="outline:none;cursor:text;border-bottom:1px dashed rgba(244,162,97,.25);padding-bottom:4px" title="Click to edit"><strong style="color:#ff6b7a">&#x1F6A8; BREAKING (25 Mar 2026):</strong> Timor-Leste&rsquo;s Council of Ministers approved an emergency fuel decree setting new maximum retail prices (Petrol $1.50/L, Diesel $1.65/L) and introducing a state subsidy mechanism via the State General Budget &mdash; a significant policy shift from full market passthrough. This is the second price ceiling adjustment since the crisis onset. &nbsp;&#x2014;&nbsp; Brent at ~$108.01/bbl (Mar 27) — surged +5.7% after Iran rejected direct US talks and laid out its own conditions; Brent-WTI spread $13.53. Week range: $96.68–$113 &mdash; highly volatile: peaked $112 Fri Mar 21, crashed to ~$97 Mon Mar 23 on Trump&rsquo;s diplomatic signals, rebounded to $104.49 Tue before settling. WTI ~$94.48/bbl. Goldman Sachs base case: Hormuz normalises April over 4 weeks; but risk premium elevated given Iran rejection. <strong style="color:#ffd166">Key development (Mar 23):</strong> Trump postponed Iran power plant strikes for 5 days citing &ldquo;very good and productive conversations&rdquo; &mdash; Iran denied direct talks and insisted the Strait would not return to pre-war levels. A 5-day diplomatic window is open; Pakistan offered to host talks. Brent EIA forecast: &gt;$95/bbl through Q2, then falling to ~$70 year-end (highly scenario-dependent). TL fuel ceilings remain at Mar 9 levels (Petrol $1.23, Diesel $1.22); PITSA Pertamina cargo arrived Mar 25&ndash;27 as scheduled. Petroleum Fund: $18.77bn (BCTL, Jan 2026). IEA warns this is the &ldquo;greatest global energy security challenge in history.&rdquo; Death toll: 2,000+ across the region. Hormuz remains effectively closed &mdash; US confirms Iranian mines (Maham 3 &amp; 7 limpet mines) in the strait.</p>
   <div class="sitrep-author" id="sitrepAuthor"></div>
 </div>
 
@@ -201,13 +201,13 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">Brent Crude</div>
-    <div class="kpi-value" id="kpiBrent">96.68<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiBrentBadge">+42.2% vs pre-crisis &middot; easing on Iran talks</div>
+    <div class="kpi-value" id="kpiBrent">108.01<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiBrentBadge">+58.8% vs pre-crisis &middot; Iran rejected talks</div>
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">WTI Crude</div>
-    <div class="kpi-value" id="kpiWti">90.32<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiWtiBadge">+41.1% vs pre-crisis &middot; fell on talks signal</div>
+    <div class="kpi-value" id="kpiWti">94.48<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiWtiBadge">+47.6% vs pre-crisis &middot; rebounded</div>
   </div>
   <div class="kpi-card amber">
     <div class="kpi-label">Petrol RON91 (new ceiling)</div>
@@ -307,6 +307,11 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <table class="timeline">
         <thead><tr><th>Date</th><th>Actor</th><th>Event</th></tr></thead>
         <tbody>
+          <tr style="background:rgba(230,57,70,.06)">
+            <td class="tl-date">26&ndash;27 Mar</td>
+            <td class="tl-actor">Iran / Markets</td>
+            <td class="tl-event"><span class="badge-red">ESCALATION</span> Iran formally rejected US ceasefire proposal and laid out its own conditions. FM Araghchi: exchanges through Pakistani mediators &ldquo;do not constitute negotiations.&rdquo; Brent surged +5.7% to $108.01/bbl; WTI $94.48. Brent-WTI spread $13.53 — widest since crisis onset. Iraqi force majeure on foreign oilfields (declared Mar 20) remains in force. <small>Goldman Sachs: market pricing geopolitical risk premium above fundamentals. Base case: Hormuz normalises April over 4 weeks — now under serious doubt. 5-day diplomatic window expires ~Mar 28.</small></td>
+          </tr>
           <tr>
             <td class="tl-date">24 Mar 2026</td>
             <td class="tl-actor">WTO / AXSMarine</td>
@@ -409,7 +414,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         <div style="background:rgba(72,149,239,.08);border:1px solid rgba(72,149,239,.25);border-radius:6px;padding:14px">
           <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--blue);text-transform:uppercase;margin-bottom:6px">3 &mdash; Brent Price Trajectory</div>
           <div style="font-size:13px;color:var(--text)">Will the retreat below $100/bbl hold?</div>
-          <div style="font-size:12px;color:var(--text2);margin-top:4px">Current: $96.68/bbl (Mar 26) &mdash; down ~7% in 2 days on Iran peace talks signal (Goldman base case: Hormuz normalises April over 4 weeks). 5-day window expires ~Mar 28. Iran rejects US proposals; conditions not yet met. EIA: Brent &gt;$95/bbl through Q2, then &lt;$80 Q3. WTO/AXSMarine Tracker: outbound crude, LNG &amp; fertilizer near zero since Feb 28 &mdash; confirms sustained closure. IEA: <em>&ldquo;the greatest global energy security challenge in history.&rdquo;</em></div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Current: $108.01/bbl (Mar 27) &mdash; surged +5.7% after Iran rejected US ceasefire proposal and laid out its own conditions. 5-day window expires ~Mar 28; prospects dimming. Iran rejects US proposals; conditions not yet met. EIA: Brent &gt;$95/bbl through Q2, then &lt;$80 Q3. WTO/AXSMarine Tracker: outbound crude, LNG &amp; fertilizer near zero since Feb 28 &mdash; confirms sustained closure. IEA: <em>&ldquo;the greatest global energy security challenge in history.&rdquo;</em></div>
         </div>
         <div style="background:rgba(123,45,139,.08);border:1px solid rgba(123,45,139,.25);border-radius:6px;padding:14px">
           <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:#c084db;text-transform:uppercase;margin-bottom:6px">5 &mdash; Regional Supply Chain Spillovers</div>
@@ -482,6 +487,17 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
       <div class="chart-wrap" style="height:280px"><canvas id="tlPriceChart"></canvas></div>
       <div class="tzone-legend"><span><span class="tzone-dot tzone-g"></span>Normal</span><span><span class="tzone-dot tzone-a"></span>Elevated</span><span><span class="tzone-dot tzone-r"></span>Critical</span> &nbsp; Petrol: Green <$1.15 · Amber $1.15–1.40 · Red >$1.40</div><div class="chart-src"><span class="chart-src-text">ANPM / ANAER · TATOLI (market obs.) · Seed — update via ⚙</span><span class="manual-badge">MANUAL</span></div>
     </div>
+    <div class="chart-box">
+      <h3>Estimated Fiscal Cost — Emergency Decree Scenarios</h3>
+      <p class="chart-sub">Estimated annual subsidy cost ($M/yr) under four Brent price scenarios. At current Brent (~$97/bbl) no subsidy is triggered &mdash; the new ceilings remain above landed import cost. Fiscal risk materialises only if Brent exceeds ~$115&ndash;120/bbl. Source: WB EEAM2 team estimate, Mar 2026.</p>
+      <div class="chart-wrap" style="height:260px"><canvas id="fiscalChart"></canvas></div>
+      <div class="tzone-legend" style="margin-top:8px">
+        <span><span class="tzone-dot tzone-g"></span>No subsidy triggered</span>
+        <span><span class="tzone-dot tzone-a"></span>Material but manageable</span>
+        <span><span class="tzone-dot tzone-r"></span>Significant fiscal burden</span>
+      </div>
+    </div>
+
     <div class="chart-box">
       <h3>Price Change vs Pre-Crisis Baseline</h3>
       <p class="chart-sub">% change from Feb 2026 ANPM ceiling &middot; Diesel (market) bar reflects the single Mar 11 press observation, not a systematic survey.</p>
@@ -1162,7 +1178,7 @@ function baseOpts(){
   };
 }
 
-const months=['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','26 Mar'];
+const months=['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','28 Feb','5 Mar','12 Mar','19 Mar','27 Mar'];
 
 let rendered=false;
 function renderCharts(){
@@ -1172,8 +1188,8 @@ function renderCharts(){
   new Chart(document.getElementById('crudChart'),{
     type:'line',
     data:{labels:months,datasets:[
-      {label:'Brent',data:[73,72,72,73,68,82,106,115,102,96.68],borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.08)',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],fill:true,tension:.3},
-      {label:'WTI',data:[69,68,68,69,64,75,98,106,94,90.32],borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
+      {label:'Brent',data:[73,72,72,73,68,82,106,115,102,108.01],borderColor:'#e63946',backgroundColor:'rgba(230,57,70,.08)',borderWidth:2,pointRadius:[2,2,2,2,2,4,3,3,3,5],fill:true,tension:.3},
+      {label:'WTI',data:[69,68,68,69,64,75,98,106,94,94.48],borderColor:'#f4a261',backgroundColor:'rgba(244,162,97,.06)',borderWidth:1.5,pointRadius:[2,2,2,2,2,3,2,2,2,4],fill:true,tension:.3}
     ]},
     options:{...baseOpts(),
       plugins:{...baseOpts().plugins,
@@ -1268,21 +1284,31 @@ function renderCharts(){
             text:ds.label,fillStyle:ds.borderColor,strokeStyle:ds.borderColor,
             lineWidth:i===2?0:2,pointStyle:i===2?'circle':'line',hidden:false,datasetIndex:i
           }))
+        }},
+        annotation:{annotations:{
+          petrolOld:{type:'line',yMin:1.23,yMax:1.23,borderColor:'rgba(230,57,70,.3)',borderWidth:1,borderDash:[4,3],
+            label:{content:'Old $1.23',display:true,position:'start',font:{size:9},color:'rgba(230,57,70,.6)',backgroundColor:'transparent'}},
+          dieselOld:{type:'line',yMin:1.22,yMax:1.22,borderColor:'rgba(72,149,239,.3)',borderWidth:1,borderDash:[4,3],
+            label:{content:'Old $1.22',display:true,position:'start',font:{size:9},color:'rgba(72,149,239,.6)',backgroundColor:'transparent'}},
+          petrolNew:{type:'line',yMin:1.50,yMax:1.50,borderColor:'rgba(230,57,70,.85)',borderWidth:2,borderDash:[6,3],
+            label:{content:'Decree $1.50 ↑',display:true,position:'end',font:{size:10},color:'#e63946',backgroundColor:'transparent'}},
+          dieselNew:{type:'line',yMin:1.65,yMax:1.65,borderColor:'rgba(244,162,97,.85)',borderWidth:2,borderDash:[6,3],
+            label:{content:'Decree $1.65 ↑',display:true,position:'end',font:{size:10},color:'#f4a261',backgroundColor:'transparent'}}
         }}
       },
-      scales:{...baseOpts().scales,y:{...baseOpts().scales.y,min:0.85,title:{display:true,text:'USD / L',color:'#5d7a8a'}}}}
+      scales:{...baseOpts().scales,y:{...baseOpts().scales.y,min:0.85,max:1.80,title:{display:true,text:'USD / L',color:'#5d7a8a'}}}}
   });
 
   // TL % CHANGE BAR
   new Chart(document.getElementById('tlChangeChart'),{
     type:'bar',
     data:{
-      labels:['Petrol RON91 (new)','Diesel (new)','Diesel (prev. obs.)','Aviation Fuel (new)','LPG (new)'],
+      labels:['Petrol RON91','Diesel','Diesel (market obs. Mar 11)','Kerosene','LPG 12kg'],
       datasets:[{
-        label:'% change vs pre-crisis',
-        data:[36.4,57.1,33.3,null,null],
-        backgroundColor:['rgba(244,162,97,.7)','rgba(72,149,239,.7)','rgba(230,57,70,.85)','rgba(46,196,182,.6)','rgba(46,196,182,.5)'],
-        borderColor:['#f4a261','#4895ef','#e63946','#2ec4b6','#2ec4b6'],
+        label:'% change vs pre-crisis (Feb 2026 → 25 Mar 2026 decree)',
+        data:[36.4,57.1,33.3,9.5,10.0],
+        backgroundColor:['rgba(230,57,70,.8)','rgba(230,57,70,.9)','rgba(244,162,97,.7)','rgba(72,149,239,.6)','rgba(72,149,239,.5)'],
+        borderColor:['#e63946','#e63946','#f4a261','#4895ef','#4895ef'],
         borderWidth:1,borderRadius:3
       }]},
     options:{...baseOpts(),
@@ -1432,7 +1458,7 @@ renderCharts();
 
 // Seed data constants — all values sourced from ANPM, WB, HormuzTracker
 const SEED = {
-  brent:96.68, wti:90.32, ttf:61.5, gasoline:3.94, vix:24.85, gold:4320,
+  brent:108.01, wti:94.48, ttf:61.5, gasoline:3.94, vix:24.85, gold:4320,
   transits:5, fund:18.77, petrol:1.23, diesel:1.22, dieselMkt:1.40,
   kero:0.69, lpg:16.50, faoFood:125.3, faoRice:103.2, thaiRice:380,
   cpi:0.8,
@@ -1670,6 +1696,41 @@ fetchOilPrices();
   if(dateEl) dateEl.textContent = dateStr;
   if(authorEl) authorEl.textContent = dateStr;
 })();
+
+  // ── FISCAL COST SCENARIO CHART ──────────────────────────────────────────
+  // Source: WB EEAM2 team estimate Mar 2026. Volumes: diesel 97M L/yr, petrol 62M L/yr.
+  // Freight markup $0.33/L base. Subsidy = MAX(0, landed - ceiling). Annualised.
+  if(document.getElementById('fiscalChart')) {
+    new Chart(document.getElementById('fiscalChart'),{
+      type:'bar',
+      data:{
+        labels:['A — Current\n~$97/bbl','B — Moderate\n$110/bbl','C — Severe\n$120/bbl','D — Extreme\n$130+/bbl'],
+        datasets:[
+          {label:'Petrol subsidy cost ($M/yr)',
+           data:[0, 0, 8.0, 19.2],
+           backgroundColor:['rgba(46,196,182,.5)','rgba(46,196,182,.5)','rgba(244,162,97,.7)','rgba(230,57,70,.8)'],
+           borderColor:['#2ec4b6','#2ec4b6','#f4a261','#e63946'],
+           borderWidth:1.5,borderRadius:4,stack:'cost'},
+          {label:'Diesel subsidy cost ($M/yr)',
+           data:[0, 0, 0, 9.7],
+           backgroundColor:['rgba(46,196,182,.25)','rgba(46,196,182,.25)','rgba(244,162,97,.4)','rgba(230,57,70,.5)'],
+           borderColor:['#2ec4b6','#2ec4b6','#f4a261','#e63946'],
+           borderWidth:1.5,borderRadius:4,stack:'cost'}
+        ]},
+      options:{...baseOpts(),
+        plugins:{...baseOpts().plugins,
+          legend:{display:true,labels:{color:'#9ab0c4',boxWidth:12,font:{size:10}}}
+        },
+        scales:{...baseOpts().scales,
+          y:{...baseOpts().scales.y,
+             stacked:true,
+             title:{display:true,text:'Subsidy cost ($M/year)',color:'#5d7a8a'},
+             max:32,
+             ticks:{callback:v=>v===0?'$0':('$'+v+'M')}},
+          x:{...baseOpts().scales.x,stacked:true}
+        }}
+    });
+  }
 
 // ── SITREP: contenteditable auto-save + sitrepDate auto-update ──
 (function(){
