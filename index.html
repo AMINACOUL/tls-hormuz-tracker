@@ -185,10 +185,74 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 </div>
 
 <!-- SITUATION REPORT -->
-<div class="sitrep">
-  <div class="sitrep-label" style="display:flex;justify-content:space-between;align-items:center">Situation Report <span style="font-size:10px;color:var(--text3);font-style:italic">Edit via ⚙ admin panel</span></div>
-  <p id="sitrepText" contenteditable="true" spellcheck="false" style="outline:none;cursor:text;border-bottom:1px dashed rgba(244,162,97,.25);padding-bottom:4px" title="Click to edit"><strong style="color:#ff6b7a">&#x1F6A8; SITUATION REPORT — 5 April 2026 | Day 36</strong> &nbsp;&#x2014;&nbsp; <strong style="color:#ffd166">&#x1F1F9;&#x1F1F1; TIMOR-LESTE GOVERNMENT MEASURES:</strong> Council of Ministers emergency decree (25 Mar 2026) sets new maximum retail prices: Petrol $1.50/L (+36.4% vs pre-crisis) &middot; Diesel $1.65/L (+57.1%) &middot; Avtur $2.50/L &middot; LPG $4.20/kg. State subsidy mechanism introduced for first time: importers present actual import costs; State General Budget covers the gap below the ceiling. Measures temporary to end-2026, extendable. Petroleum Fund: $18.77bn (BCTL, Jan 2026). Next PITSA cargo supply status: monitoring. &nbsp;&#x2014;&nbsp; <strong style="color:#ff6b7a">&#x26A1; OIL (5 Apr):</strong> Brent ~$108.89/bbl &middot; WTI ~$102.88/bbl. Brent surged +55% in March &mdash; largest monthly gain since the contract&rsquo;s inception in 1988 (prev. record: +46% Gulf War Sep 1990). Intraday Apr 2: WTI topped $110, Brent above $109 after Trump national address. Europe diesel futures crossed $200/bbl (first time since 2022). US gasoline >$4/gallon (first time since 2022). Goldman Sachs: $14&ndash;18/bbl geopolitical risk premium; $110 avg Mar&ndash;Apr. If Hormuz stays shut 10 weeks, Brent may exceed 2008 record of $147/bbl (Goldman). Dubai physical crude peaked at $126/bbl. &nbsp;&#x2014;&nbsp; <strong style="color:#ff6b7a">&#x23F0; DEADLINE NOW HOURS AWAY:</strong> April 6, 8 PM ET &mdash; Trump&rsquo;s ultimatum: Hormuz open or "blow up and obliterate" Iran&rsquo;s oil wells, Kharg Island, electric plants and desalination facilities. Apr 4 new threat: "hell will reign down." Indirect talks via Pakistan (VP Vance + Iran Parliament Speaker Ghalibaf), Egypt, Turkey &mdash; no breakthrough. Iran&rsquo;s 5-point counteroffer demands Hormuz sovereignty + war reparations (likely nonstarter). Iran allowing ~20 boats through (yuan-based toll: up to $2M per crossing). Pentagon preparing ground operations; possible Kharg Island raid. US Kharg Island airstrikes already conducted (Trump: "totally demolished most of it"). Israel killed IRGC Navy chief Alireza Tangsiri (who oversaw blockade). New Supreme Leader Mojtaba Khamenei vows Hormuz stays closed. IEA&rsquo;s Birol: "April will be MUCH WORSE than March &mdash; in April, there is nothing." BCA Research: supply losses to double from ~5 mbd to ~9 mbd by mid-April. Rystad: global system shifted from "buffered to fragile." IEA lost supply: 12 mbd &mdash; more than TWO of the 1973/1979 oil crises combined. OECD: G20 2026 inflation +1.2pp to 4.0%; US to 4.2%. &nbsp;&#x2014;&nbsp; <strong style="color:#f4a261">&#x1F33E; FOOD &amp; AGRICULTURE:</strong> FAO Food Price Index March 2026: <strong>128.5 points (+2.4% MoM)</strong> &mdash; 6-month high &middot; second consecutive monthly increase. All commodity groups rose. Wheat +4.3% (US drought + Australia expected to reduce plantings on fertiliser costs). Vegetable oils +8.9pts &mdash; palm oil highest since mid-2022. Rice &minus;3.0% in March (harvest pressure, weaker import demand, currency depreciation). Thai 5% broken rice: ~$349/t; Vietnam: ~$344/t; India: ~$355/t. WFP warns conflict could push <strong>45 million additional people into acute hunger by mid-2026</strong>. &nbsp;&#x2014;&nbsp; <strong style="color:#f4a261">&#x26A0; FERTILIZER:</strong> World Bank: urea prices +46% MoM (Feb&rarr;Mar 2026) &mdash; largest monthly spike on record. FOB Egypt granular urea ~$700/MT (from $400&ndash;490 pre-war). US Gulf urea ~$800/MT (from $350 late 2025). CRU Group: 30% of global urea trade disrupted. ~1 million MT fertiliser physically stranded in Gulf (21+ ships). China banned exports of nitrogen-potassium blends + phosphate fertilisers through Aug 2026 &mdash; closing major alternative supply route. FAO: fertiliser prices 15&ndash;20% higher avg H1 2026. Iran accepted UN request for humanitarian/agricultural shipments &mdash; first breakthrough but not yet implemented. &nbsp;&#x2014;&nbsp; <strong style="color:#ff6b7a">&#x1F4B0; TL FISCAL ALERT:</strong> Brent ~$109/bbl &mdash; TL now in Scenario B territory approaching Scenario C. Petrol landed cost ~$1.45&ndash;1.50/L vs ceiling $1.50 &mdash; subsidy gap imminent. If Brent rises to $120+, petrol subsidy triggered (~$8M/yr; $6M for decree period). ESI ($563M/yr) can fully absorb. No PF drawdown needed. April 6 outcome is the single most important fiscal variable for Timor-Leste.</p>
-  <div class="sitrep-author" id="sitrepAuthor"></div>
+<div class="sitrep" style="padding:14px 20px 12px">
+
+  <!-- SITREP HEADER -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid rgba(230,57,70,.25);padding-bottom:8px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946">&#x1F6A8; Situation Report</span>
+      <span id="sitrepDayBadge" style="background:rgba(230,57,70,.15);color:#e63946;border:1px solid rgba(230,57,70,.3);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.05em">Day 36 · 5 Apr 2026</span>
+    </div>
+    <span style="font-size:10px;color:var(--text3);font-style:italic">&#9998; Click any section to edit &middot; auto-saves</span>
+  </div>
+
+  <!-- SITREP BODY — structured sections -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 20px" id="sitrepGrid">
+
+    <!-- TL MEASURES -->
+    <div style="grid-column:1/-1">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F1F9;&#x1F1F1; Timor-Leste Government Response</div>
+      <div id="sitrepTL" contenteditable="true" spellcheck="false" class="sitrep-section-text"
+           style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(230,57,70,.4);padding-left:10px"
+           title="Click to edit">
+        Council of Ministers emergency decree (25 Mar 2026): <strong>Petrol $1.50/L</strong> (+36.4% vs pre-crisis) &middot; <strong>Diesel $1.65/L</strong> (+57.1%) &middot; Avtur $2.50/L &middot; LPG $4.20/kg. State subsidy mechanism introduced for the first time — importers present actual import costs; State General Budget covers the gap. Measures temporary to end-2026, extendable. Petroleum Fund: $18.77bn (BCTL, Jan 2026). ETO/PITSA 4-month fuel reserve buffer in place.
+      </div>
+    </div>
+
+    <!-- OIL & GEOPOLITICS -->
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x26A1; Oil &amp; Geopolitics</div>
+      <div id="sitrepOil" contenteditable="true" spellcheck="false" class="sitrep-section-text"
+           style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(230,57,70,.4);padding-left:10px"
+           title="Click to edit">
+        Brent ~$108.89/bbl · WTI ~$102.88/bbl. <strong style="color:#e63946">+55% in March — record since 1988</strong> (prev. record +46%, Gulf War Sep 1990). Apr 2: WTI topped $110; Europe diesel crossed $200/bbl; US gasoline >$4/gallon (first time since 2022). Goldman: $14–18/bbl geopolitical risk premium. If Hormuz stays shut 10 weeks, Brent may exceed 2008 record ($147/bbl). Dubai physical crude peaked at $126/bbl.
+        <br><br>
+        <strong style="color:#e63946">&#x23F0; April 6 deadline:</strong> Trump ultimatum — Hormuz open or obliterate Iran's oil wells, Kharg Island, electric plants &amp; desalination. Indirect talks via Pakistan/Egypt/Turkey ongoing; no breakthrough. Iran's 5-point counteroffer demands Hormuz sovereignty + reparations. IEA Birol: <em>"April will be MUCH WORSE than March — in April, there is nothing."</em> BCA Research: supply losses double to ~9 mbd by mid-April. IEA: 12 mbd lost — more than two 1973/1979 oil crises combined. OECD: G20 2026 inflation raised to 4.0% (+1.2pp).
+      </div>
+    </div>
+
+    <!-- FOOD, RICE & FERTILIZER -->
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F33E; Food, Rice &amp; Fertilizer</div>
+      <div id="sitrepFood" contenteditable="true" spellcheck="false" class="sitrep-section-text"
+           style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(230,57,70,.4);padding-left:10px"
+           title="Click to edit">
+        <strong>FAO Food Price Index March 2026: 128.5 pts (+2.4% MoM)</strong> — 6-month high, 2nd consecutive monthly rise. All commodity groups up. Wheat +4.3% (US drought + Australia reducing plantings on fertiliser costs). Veg oils +8.9pts (palm oil highest since mid-2022). <strong>Rice −3.0%</strong> in March (harvest pressure, weaker demand, currency depreciation). Thai 5%: ~$349/t · Vietnam: ~$344/t · India: ~$355/t. WFP: conflict could push <strong style="color:#e63946">45 million additional people into acute hunger by mid-2026</strong>.
+        <br><br>
+        <strong style="color:#e63946">Fertilizer:</strong> World Bank: urea +<strong>46% MoM</strong> (Feb→Mar) — largest monthly spike on record. FOB Egypt urea ~$700/MT (from $400–490 pre-war). US Gulf ~$800/MT. 30% of global urea trade disrupted (CRU Group). ~1Mt stranded in Gulf. China banned N-K blends + phosphate exports through Aug 2026 — closing major alternative supply route. FAO: fertiliser prices 15–20% higher H1 2026. Iran accepted UN request for agricultural shipments — not yet implemented.
+      </div>
+    </div>
+
+    <!-- TL FISCAL ALERT -->
+    <div style="grid-column:1/-1">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F4B0; Timor-Leste Fiscal Alert</div>
+      <div id="sitrepFiscal" contenteditable="true" spellcheck="false" class="sitrep-section-text"
+           style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(230,57,70,.4);padding-left:10px;background:rgba(230,57,70,.04);padding:8px 10px;border-radius:0 4px 4px 0"
+           title="Click to edit">
+        Brent ~$109/bbl — TL now in <strong>Scenario B approaching Scenario C</strong>. Petrol landed cost ~$1.45–1.50/L vs ceiling $1.50 — subsidy gap <strong style="color:#e63946">imminent</strong>. If Brent rises to $120+: petrol subsidy triggered (~$8M/yr; $6M for decree period). ESI ($563M/yr) can fully absorb. No PF drawdown needed in any scenario. <strong>April 6 outcome is the single most important fiscal variable for Timor-Leste.</strong>
+      </div>
+    </div>
+
+  </div><!-- /sitrepGrid -->
+
+  <!-- Hidden legacy element for admin panel backward-compat -->
+  <p id="sitrepText" style="display:none"></p>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--border2)">
+    <div class="sitrep-author" style="font-size:11px;color:var(--text3)">Updated: <span id="sitrepAuthor"></span></div>
+    <div style="font-size:10px;color:var(--text3)">Sources: ANPM &middot; BCTL &middot; FAO &middot; WB &middot; IEA &middot; CNBC &middot; Axios &middot; Al Jazeera</div>
+  </div>
+
 </div>
 
 <!-- KPI CARDS ROW 1 — Global -->
@@ -1927,7 +1991,42 @@ fetchOilPrices(); // then try live oil
     });
   }
 
-// ── SITREP: contenteditable auto-save + sitrepDate auto-update ──
+// ── SITREP: auto-save all sections + update day badge ────────────
+(function(){
+  // Update day badge
+  const crisisStart = new Date('2026-02-28T00:00:00Z');
+  const now = new Date();
+  const dayNum = Math.floor((now - crisisStart) / 86400000) + 1;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateShort = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  const badgeEl = document.getElementById('sitrepDayBadge');
+  if (badgeEl) badgeEl.textContent = 'Day ' + dayNum + ' · ' + dateShort;
+
+  // Auto-save each section independently
+  const sections = ['sitrepTL','sitrepOil','sitrepFood','sitrepFiscal'];
+  sections.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Load saved
+    const saved = localStorage.getItem('tl_' + id);
+    if (saved) el.innerHTML = saved;
+    // Save on input (debounced)
+    let t;
+    el.addEventListener('input', function() {
+      clearTimeout(t);
+      t = setTimeout(function() { localStorage.setItem('tl_' + id, el.innerHTML); }, 800);
+    });
+    el.addEventListener('blur', function() {
+      localStorage.setItem('tl_' + id, el.innerHTML);
+      el.style.borderLeftColor = 'rgba(230,57,70,.4)';
+    });
+    el.addEventListener('focus', function() {
+      el.style.borderLeftColor = 'rgba(230,57,70,.8)';
+    });
+  });
+})();
+
+// ── Legacy sitrepDate ────────────────────────────────────────────────
 (function(){
   // Wire sitrepDate span to auto-update date
   var months=['January','February','March','April','May','June',
