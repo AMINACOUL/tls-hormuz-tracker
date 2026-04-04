@@ -196,18 +196,18 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="kpi-grid">
   <div class="kpi-card red">
     <div class="kpi-label">Hormuz Transits</div>
-    <div class="kpi-value">5<span class="kpi-unit"> ships/day</span></div>
+    <div class="kpi-value" id="kpiTransits">5<span class="kpi-unit"> ships/day</span></div>
     <div class="kpi-badge up">&#x25BC; &minus;96.4% vs pre-crisis baseline (138/day)</div>
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">Brent Crude</div>
-    <div class="kpi-value" id="kpiBrent">108.01<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiBrentBadge">+58.8% vs pre-crisis &middot; Iran rejected talks</div>
+    <div class="kpi-value" id="kpiBrent">108.89<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiBrentBadge">+55% March 2026 &middot; record since 1988</div>
   </div>
   <div class="kpi-card red">
     <div class="kpi-label">WTI Crude</div>
-    <div class="kpi-value" id="kpiWti">94.48<span class="kpi-unit"> $/bbl</span></div>
-    <div class="kpi-badge up" id="kpiWtiBadge">+47.6% vs pre-crisis &middot; rebounded</div>
+    <div class="kpi-value" id="kpiWti">102.88<span class="kpi-unit"> $/bbl</span></div>
+    <div class="kpi-badge up" id="kpiWtiBadge">+48% vs pre-crisis</div>
   </div>
   <div class="kpi-card amber">
     <div class="kpi-label">Petrol RON91 (new ceiling)</div>
@@ -256,28 +256,28 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="kpi-grid">
   <div class="kpi-card" style="background:#0f1a0f;border-color:rgba(46,196,182,.25)">
     <div class="kpi-label">FAO Food Price Index</div>
-    <div class="kpi-value" style="font-size:17px">125.3<span class="kpi-unit"> pts</span></div>
+    <div class="kpi-value" id="kpiFaoFood" style="font-size:17px">128.5<span class="kpi-unit"> pts</span></div>
     <div class="kpi-badge warn">Feb 2026 &mdash; 14-month high. Next release: Apr 3</div>
     <div class="kpi-badge up">+1.0% Feb&rsquo;26 &middot; 5-mo high</div>
   </div>
   <div class="kpi-card" style="background:#0f1a0f;border-color:rgba(46,196,182,.25)">
     <div class="kpi-label">FAO Rice Price Index</div>
-    <div class="kpi-value" style="font-size:17px">103.2<span class="kpi-unit"> pts</span></div>
+    <div class="kpi-value" id="kpiFaoRice" style="font-size:17px">100.1<span class="kpi-unit"> pts</span></div>
     <div class="kpi-badge neutral">+0.4% Feb&rsquo;26 &middot; Basmati/Japonica demand</div>
   </div>
   <div class="kpi-card" style="background:#0f1a0f;border-color:rgba(46,196,182,.25)">
     <div class="kpi-label">Thai 5% Rice (export)</div>
-    <div class="kpi-value" style="font-size:17px">360<span class="kpi-unit"> $/t</span></div>
+    <div class="kpi-value" id="kpiThaiRice" style="font-size:17px">349<span class="kpi-unit"> $/t</span></div>
     <div class="kpi-badge warn">+8% since war began &middot; FAO Apr 3 release key</div>
   </div>
   <div class="kpi-card" style="background:#1a1006;border-color:rgba(244,162,97,.25)">
     <div class="kpi-label">Fertilizer Price Est.</div>
-    <div class="kpi-value" style="font-size:17px;color:#f4a261">+68%<span class="kpi-unit"> urea</span></div>
+    <div class="kpi-value" id="kpiFert" style="font-size:17px;color:#f4a261">+46%<span class="kpi-unit"> urea MoM</span></div>
     <div class="kpi-badge warn">&#x26A0; Egypt urea $700/t (was $400-490) &middot; FAO: 15-20% avg rise H1</div>
   </div>
   <div class="kpi-card" style="background:#0d1b2a;border-color:rgba(72,149,239,.25)">
     <div class="kpi-label">TL CPI Inflation (2026f)</div>
-    <div class="kpi-value" style="font-size:17px">1.8<span class="kpi-unit">% y/y</span></div>
+    <div class="kpi-value" id="kpiCpi" style="font-size:17px">1.8<span class="kpi-unit">% y/y</span></div>
     <div class="kpi-badge up">Pre-Hormuz IMF forecast &mdash; upside risk now</div>
   </div>
 </div>
@@ -1598,10 +1598,10 @@ renderCharts();
 
 // Seed data constants — all values sourced from ANPM, WB, HormuzTracker
 const SEED = {
-  brent:108.89, wti:102.88, ttf:61.5, gasoline:3.94, vix:24.85, gold:4320,
-  transits:5, fund:18.77, petrol:1.23, diesel:1.22, dieselMkt:1.40,
-  kero:0.69, lpg:16.50, faoFood:125.3, faoRice:103.2, thaiRice:360,
-  cpi:0.8,
+  brent:108.89, wti:102.88, ttf:65.2, gasoline:4.05, vix:28.4, gold:3085,
+  transits:5, fund:18.77, petrol:1.50, diesel:1.65, dieselMkt:1.65,
+  kero:0.75, lpg:4.20, faoFood:128.5, faoRice:100.1, thaiRice:349,
+  fertUrea:700, fertPct:46, cpi:1.8,
   precrisis:{brent:68, wti:64},
   sitrep: document.getElementById('sitrepText')?.textContent || '',
   sitrepAuthor: document.getElementById('sitrepAuthor')?.textContent || ' · 24 Mar 2026'
@@ -1648,23 +1648,73 @@ async function fetchOilPrices() {
 }
 
 function updateOilKPIs(brent, wti, isLive) {
-  const brentEl = document.getElementById('kpiBrent');
-  const wtiEl = document.getElementById('kpiWti');
-  const brentBadge = document.getElementById('kpiBrentBadge');
-  const pillEl = document.getElementById('livePill');
+  renderAllKPIs({ brent, wti }, isLive);
+}
+
+// ── renderAllKPIs — single source of truth for all KPI DOM updates ──
+// Call with a data object (partial ok); falls back to SEED for missing keys.
+function renderAllKPIs(overrides, isLive) {
+  const saved = loadSavedData();
+  const d = Object.assign({}, SEED, saved, overrides || {});
+  const isLiveMode = isLive !== undefined ? isLive : !!saved.brent;
+
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const setText = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
+  const unit = (val, u) => val + '<span class="kpi-unit"> ' + u + '</span>';
+
+  // ── Oil ──────────────────────────────────────────────────────────
+  const brent = parseFloat(d.brent) || SEED.brent;
+  const wti   = parseFloat(d.wti)   || SEED.wti;
+  set('kpiBrent', unit(brent.toFixed(2), '$/bbl'));
+  set('kpiWti',   unit(wti.toFixed(2),   '$/bbl'));
+  const pc  = SEED.precrisis.brent;
+  const pct = ((brent / pc - 1) * 100).toFixed(1);
+  setText('kpiBrentBadge', '+' + pct + '% vs pre-crisis');
+  setText('kpiWtiBadge',   '+' + (((wti / SEED.precrisis.wti) - 1) * 100).toFixed(1) + '% vs pre-crisis');
+
+  // ── Hormuz transits ───────────────────────────────────────────────
+  set('kpiTransits', unit(parseFloat(d.transits || SEED.transits), 'ships/day'));
+
+  // ── TL Fuel prices ────────────────────────────────────────────────
+  const petrol = parseFloat(d.petrol || SEED.petrol);
+  const diesel = parseFloat(d.diesel || SEED.diesel);
+  // TL fuel price KPIs are static (decree ceilings) — just ensure they show decree values
+  // They are hardcoded in HTML as they are policy numbers, not market-moving
+
+  // ── Food / Agriculture ────────────────────────────────────────────
+  const faoFood  = parseFloat(d.faoFood  || SEED.faoFood);
+  const faoRice  = parseFloat(d.faoRice  || SEED.faoRice);
+  const thaiRice = parseFloat(d.thaiRice || SEED.thaiRice);
+  const fertPct  = parseFloat(d.fertPct  || SEED.fertPct  || 46);
+  const fertUrea = parseFloat(d.fertUrea || SEED.fertUrea || 700);
+  const cpi      = parseFloat(d.cpi      || SEED.cpi);
+
+  if (document.getElementById('kpiFaoFood'))
+    set('kpiFaoFood', unit(faoFood.toFixed(1), 'pts'));
+  if (document.getElementById('kpiFaoRice'))
+    set('kpiFaoRice', unit(faoRice.toFixed(1), 'pts'));
+  if (document.getElementById('kpiThaiRice'))
+    set('kpiThaiRice', unit(thaiRice.toFixed(0), '$/t'));
+  if (document.getElementById('kpiFert'))
+    set('kpiFert', '<span style="color:#f4a261">+' + fertPct.toFixed(0) + '%</span><span class="kpi-unit"> urea MoM</span>');
+  if (document.getElementById('kpiCpi'))
+    set('kpiCpi', unit(cpi.toFixed(1), '% y/y'));
+
+  // ── Live pill & footer ────────────────────────────────────────────
+  const pillEl   = document.getElementById('livePill');
   const footerEl = document.getElementById('footerLiveStatus');
-  if (brentEl) brentEl.innerHTML = brent.toFixed(2) + '<span class="kpi-unit"> $/bbl</span>';
-  if (wtiEl) wtiEl.innerHTML = wti.toFixed(2) + '<span class="kpi-unit"> $/bbl</span>';
-  const pc = SEED.precrisis.brent;
-  const pct = ((brent/pc-1)*100).toFixed(1);
-  if (brentBadge) brentBadge.textContent = '+' + pct + '% vs pre-crisis';
   if (pillEl) {
-    pillEl.textContent = isLive ? '● LIVE' : '● SEED DATA';
-    pillEl.className = isLive ? 'live-pill' : 'seed-pill';
+    pillEl.textContent = isLiveMode ? '● LIVE' : '● SEED DATA';
+    pillEl.className   = isLiveMode ? 'live-pill' : 'seed-pill';
   }
-  if (footerEl) footerEl.textContent = isLive
-    ? 'Oil prices: LIVE from oilpriceapi.com'
-    : 'Oil prices: seed data (update via ⚙)';
+  if (footerEl) footerEl.textContent = isLiveMode
+    ? 'Oil: LIVE from oilpriceapi.com · Food/rice/fertilizer: latest manual update'
+    : 'All data: seed values · update oil live or all via ⚙';
+
+  // ── Update KPI badge text for food ─────────────────────────────────
+  const foodBadgeEl = document.querySelector('[data-kpi="faoFoodBadge"]');
+  if (foodBadgeEl) foodBadgeEl.textContent =
+    faoFood > 126 ? '⚠ Above 6-month avg — conflict-driven' : 'Feb 2026 · FAO';
 }
 
 // ── Storage helpers ────────────────────────────────────────────────
@@ -1751,6 +1801,8 @@ function populateAdminFields() {
   setVal('adFaoRice','faoRice',SEED.faoRice);
   setVal('adThaiRice','thaiRice',SEED.thaiRice);
   setVal('adCpi','cpi',SEED.cpi);
+  setVal('adFertUrea','fertUrea',SEED.fertUrea||700);
+  setVal('adFertPct','fertPct',SEED.fertPct||46);
 }
 
 function saveAdmin() {
@@ -1783,6 +1835,8 @@ function saveAdmin() {
     faoRice: getN('adFaoRice', SEED.faoRice),
     thaiRice: getN('adThaiRice', SEED.thaiRice),
     cpi: getN('adCpi', SEED.cpi),
+    fertUrea: getN('adFertUrea', SEED.fertUrea||700),
+    fertPct: getN('adFertPct', SEED.fertPct||46),
     savedAt: new Date().toISOString()
   };
 
@@ -1800,8 +1854,8 @@ function saveAdmin() {
     document.getElementById('sitrepAuthor').textContent = data.sitrepAuthor;
   }
 
-  // Update oil KPIs with new seed values
-  updateOilKPIs(data.brent, data.wti, false);
+  // Re-render ALL KPIs from saved data
+  renderAllKPIs(data, false);
 
   // Close panel
   document.getElementById('adminOverlay').classList.remove('open');
@@ -1819,7 +1873,8 @@ document.getElementById('adminOverlay')?.addEventListener('click', function(e) {
 
 // ── INIT ────────────────────────────────────────────────────────────
 applySavedData();
-fetchOilPrices();
+renderAllKPIs(); // render all KPIs from SEED/saved on load
+fetchOilPrices(); // then try live oil
 
 
 // ── AUTO-DATE & DAY COUNTER: crisis started Feb 28 2026 ─────────────
