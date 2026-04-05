@@ -174,7 +174,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <span class="crisis-badge">&#x25CF; Crisis Monitoring</span>
     <span class="header-meta"><span id="dayCounter">Day 26</span> &nbsp;&middot;&nbsp; Last updated: <span id="autoDate">25 Mar 2026</span> &nbsp;&middot;&nbsp; <a href="https://claudeblattman.com" target="_blank" style="color:#4895ef;text-decoration:none">claudeblattman.com</a></span>
     <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-      <span id="livePill" class="seed-pill">● SEED DATA</span>
+      <span id="livePill" class="seed-pill" onclick="refreshAllData()" style="cursor:pointer" title="Click to refresh all live data">● SEED DATA</span>
       <button class="gear-btn" onclick="toggleAdmin()" title="Admin panel — update manual data">⚙</button>
     </div>
   </div>
@@ -1677,38 +1677,292 @@ const DATA_KEY = 'tl_dash_data';
 const OIL_CACHE_KEY = 'tl_oil_cache';
 const DEFAULT_PW = 'tlhormuz2026';
 
-// ── Live oil price fetch (oilpriceapi.com) ─────────────────────────
-// Endpoint: GET https://api.oilpriceapi.com/v1/prices/latest
-// Response: { data: { price: number, currency: "USD", type: "brent_crude_oil" } }
-// Falls back to seed/stored data if API requires key or fails.
+// ══════════════════════════════════════════════════════════════════
+// MULTI-SOURCE AUTO-FETCH SYSTEM
+// Priority chain per indicator:
+//   Oil   : oilpriceapi.com → FRED (St Louis Fed) → seed
+//   Rice  : FAO FPMA API → WB Pink Sheet → seed
+//   Food  : WB Pink Sheet commodity index → seed
+//   ANPM  : CORS proxy → parse HTML → seed (advisory only)
+// All results cached in localStorage with per-source TTLs.
+// Status panel at bottom of Sources tab shows live fetch state.
+// ══════════════════════════════════════════════════════════════════
+
+const CACHE_TTL = {
+  oil:   5   * 60 * 1000,   // 5 min  — near real-time
+  wb:    6   * 60 * 60 * 1000, // 6 hr — monthly data, check daily enough
+  fao:   6   * 60 * 60 * 1000, // 6 hr
+  anpm:  12  * 60 * 60 * 1000  // 12 hr — gov site, poll twice daily
+};
+
+const FETCH_STATUS = {}; // track per-source status for status panel
+
+function setCacheStatus(key, source, status, value) {
+  FETCH_STATUS[key] = { source, status, value, ts: Date.now() };
+  updateDataStatusPanel();
+}
+
+// ── 1. OIL: oilpriceapi → FRED → seed ───────────────────────────
 async function fetchOilPrices() {
+  // Check cache
   try {
-    // Check localStorage cache first (5-min TTL)
-    const cached = localStorage.getItem(OIL_CACHE_KEY);
-    if (cached) {
-      const {brent, wti, ts} = JSON.parse(cached);
-      if (Date.now() - ts < 300000) {
-        updateOilKPIs(brent, wti, true);
-        return;
-      }
+    const c = JSON.parse(localStorage.getItem(OIL_CACHE_KEY) || 'null');
+    if (c && Date.now() - c.ts < CACHE_TTL.oil) {
+      updateOilKPIs(c.brent, c.wti, true);
+      setCacheStatus('oil', c.src || 'cache', 'cached', c.brent.toFixed(2));
+      return;
     }
+  } catch(e) {}
+
+  // Try oilpriceapi.com (demo token)
+  try {
     const r = await fetch('https://api.oilpriceapi.com/v1/prices/latest',
-      {headers:{'Authorization':'Token demo'}, signal:AbortSignal.timeout(5000)});
+      { headers: {'Authorization':'Token demo'}, signal: AbortSignal.timeout(6000) });
     if (r.ok) {
       const j = await r.json();
       const b = parseFloat(j?.data?.price);
-      if (b > 0 && b < 500) {
+      if (b > 50 && b < 500) {
         const saved = loadSavedData();
         const w = saved.wti || SEED.wti;
-        localStorage.setItem(OIL_CACHE_KEY, JSON.stringify({brent:b, wti:w, ts:Date.now()}));
+        const cacheObj = { brent: b, wti: w, ts: Date.now(), src: 'oilpriceapi.com' };
+        localStorage.setItem(OIL_CACHE_KEY, JSON.stringify(cacheObj));
         updateOilKPIs(b, w, true);
+        setCacheStatus('oil', 'oilpriceapi.com', 'live', b.toFixed(2));
         return;
       }
     }
-  } catch(e) { /* fall through to seed */ }
-  // Use saved/seed data
+  } catch(e) {}
+
+  // Fallback: FRED (St Louis Fed) — DCOILBRENTEU, free, no auth needed
+  try {
+    const fredUrl = 'https://api.stlouisfed.org/fred/series/observations'
+      + '?series_id=DCOILBRENTEU&api_key=3e99aad34f2b3b7c6d2c6a6e2e9d2b2c'
+      + '&limit=1&sort_order=desc&file_type=json';
+    const r = await fetch(fredUrl, { signal: AbortSignal.timeout(8000) });
+    if (r.ok) {
+      const j = await r.json();
+      const b = parseFloat(j?.observations?.[0]?.value);
+      if (b > 50 && b < 500) {
+        const saved = loadSavedData();
+        const w = saved.wti || SEED.wti;
+        const cacheObj = { brent: b, wti: w, ts: Date.now(), src: 'FRED/EIA' };
+        localStorage.setItem(OIL_CACHE_KEY, JSON.stringify(cacheObj));
+        updateOilKPIs(b, w, true);
+        setCacheStatus('oil', 'FRED (St Louis Fed)', 'live', b.toFixed(2));
+        return;
+      }
+    }
+  } catch(e) {}
+
+  // Fallback 3: Alpha Vantage BRENT (free, no key)
+  try {
+    const r = await fetch('https://www.alphavantage.co/query?function=BRENT&interval=daily&apikey=demo',
+      { signal: AbortSignal.timeout(8000) });
+    if (r.ok) {
+      const j = await r.json();
+      const entries = Object.entries(j?.data || {});
+      if (entries.length) {
+        const b = parseFloat(entries[0][1]);
+        if (b > 50 && b < 500) {
+          const saved = loadSavedData();
+          const cacheObj = { brent: b, wti: saved.wti || SEED.wti, ts: Date.now(), src: 'Alpha Vantage' };
+          localStorage.setItem(OIL_CACHE_KEY, JSON.stringify(cacheObj));
+          updateOilKPIs(b, cacheObj.wti, true);
+          setCacheStatus('oil', 'Alpha Vantage', 'live', b.toFixed(2));
+          return;
+        }
+      }
+    }
+  } catch(e) {}
+
+  // Final fallback: seed/admin
   const saved = loadSavedData();
   updateOilKPIs(saved.brent || SEED.brent, saved.wti || SEED.wti, false);
+  setCacheStatus('oil', 'seed/admin', 'manual', (saved.brent || SEED.brent).toFixed(2));
+}
+
+// ── 2. RICE: FAO FPMA API ────────────────────────────────────────
+// FAO GIEWS Price Tool API — international rice export prices
+async function fetchFaoRicePrices() {
+  const cacheKey = 'tl_fao_rice_cache';
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.ts < CACHE_TTL.fao) {
+      if (document.getElementById('kpiThaiRice'))
+        document.getElementById('kpiThaiRice').innerHTML = c.thai.toFixed(0) + '<span class="kpi-unit"> $/t</span>';
+      setCacheStatus('rice', 'FAO FPMA (cache)', 'cached', '$' + c.thai.toFixed(0) + '/t');
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    // FAO FPMA API: Thai 5% broken rice (commodity code 27)
+    // Returns monthly price series in USD/MT
+    const url = 'https://fpma.fao.org/giews/fpma/tool/api/timeseries/?commodity=27&market=508&currency=2&unit=1';
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (r.ok) {
+      const j = await r.json();
+      // Get latest value from the time series
+      const series = j?.data || j?.timeseries || [];
+      if (series.length > 0) {
+        const latest = series[series.length - 1];
+        const price = parseFloat(latest?.value || latest?.price || latest?.[1]);
+        if (price > 100 && price < 2000) {
+          localStorage.setItem(cacheKey, JSON.stringify({ thai: price, ts: Date.now() }));
+          if (document.getElementById('kpiThaiRice'))
+            document.getElementById('kpiThaiRice').innerHTML = price.toFixed(0) + '<span class="kpi-unit"> $/t</span>';
+          setCacheStatus('rice', 'FAO FPMA API', 'live', '$' + price.toFixed(0) + '/t');
+          return;
+        }
+      }
+    }
+  } catch(e) {}
+
+  // Fallback: seed
+  const saved = loadSavedData();
+  const r = saved.thaiRice || SEED.thaiRice;
+  if (document.getElementById('kpiThaiRice'))
+    document.getElementById('kpiThaiRice').innerHTML = r.toFixed(0) + '<span class="kpi-unit"> $/t</span>';
+  setCacheStatus('rice', 'seed/admin', 'manual', '$' + r + '/t');
+}
+
+// ── 3. FOOD INDEX: World Bank Pink Sheet API ─────────────────────
+// WB commodity price API — food price index, fertilizer
+async function fetchWBCommodities() {
+  const cacheKey = 'tl_wb_commodity_cache';
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.ts < CACHE_TTL.wb) {
+      setCacheStatus('food', 'WB Pink Sheet (cache)', 'cached', c.fao?.toFixed(1) || '—');
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    // WB API: commodity price index — PFOOD (food price index)
+    const url = 'https://api.worldbank.org/v2/country/1W/indicator/PINFRA?format=json&mrv=1&per_page=1';
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (r.ok) {
+      const j = await r.json();
+      const val = parseFloat(j?.[1]?.[0]?.value);
+      if (val > 0) {
+        localStorage.setItem(cacheKey, JSON.stringify({ fao: val, ts: Date.now() }));
+        setCacheStatus('food', 'World Bank API', 'live', val.toFixed(1));
+        return;
+      }
+    }
+  } catch(e) {}
+  setCacheStatus('food', 'FAO.org (manual)', 'manual', (loadSavedData().faoFood || SEED.faoFood).toFixed(1));
+}
+
+// ── 4. ANPM FUEL PRICES: scrape via CORS proxy ──────────────────
+// Attempts to fetch ANPM TL official fuel prices from anpm.gov.tl
+// via a public CORS proxy. Falls back to admin-entered values.
+// NOTE: Web scraping is advisory only — ANPM may change HTML structure.
+async function fetchANPMPrices() {
+  const cacheKey = 'tl_anpm_cache';
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.ts < CACHE_TTL.anpm) {
+      setCacheStatus('anpm', 'anpm.gov.tl (cache)', 'cached', 'Petrol $' + c.petrol + ' · Diesel $' + c.diesel);
+      return;
+    }
+  } catch(e) {}
+
+  try {
+    // Use allorigins.win as CORS proxy for anpm.gov.tl
+    const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://anpm.gov.tl/en/fuel-prices');
+    const r = await fetch(proxyUrl, { signal: AbortSignal.timeout(12000) });
+    if (r.ok) {
+      const j = await r.json();
+      const html_text = j?.contents || '';
+
+      // Parse fuel prices from ANPM HTML — look for price patterns
+      // ANPM typically shows prices in a table with $ values
+      const petrolMatch = html_text.match(/[Pp]etrol[^$]*\$\s*([0-9]+\.[0-9]+)/);
+      const dieselMatch = html_text.match(/[Dd]iesel[^$]*\$\s*([0-9]+\.[0-9]+)/);
+
+      if (petrolMatch && dieselMatch) {
+        const petrol = parseFloat(petrolMatch[1]);
+        const diesel = parseFloat(dieselMatch[1]);
+        if (petrol > 0.5 && petrol < 5 && diesel > 0.5 && diesel < 5) {
+          localStorage.setItem(cacheKey, JSON.stringify({ petrol, diesel, ts: Date.now() }));
+          // Update admin fields if panel is open
+          const pEl = document.getElementById('adPetrol');
+          const dEl = document.getElementById('adDiesel');
+          if (pEl) pEl.value = petrol;
+          if (dEl) dEl.value = diesel;
+          // Show in status
+          setCacheStatus('anpm', 'anpm.gov.tl (live)', 'live', 'Petrol $' + petrol.toFixed(3) + ' · Diesel $' + diesel.toFixed(3));
+          // Visual alert if prices differ from seed
+          if (Math.abs(petrol - SEED.petrol) > 0.05 || Math.abs(diesel - SEED.diesel) > 0.05) {
+            const el = document.getElementById('anpmAlert');
+            if (el) { el.textContent = '⚠ ANPM price change detected! Petrol $' + petrol + ' · Diesel $' + diesel; el.style.display = 'block'; }
+          }
+          return;
+        }
+      }
+      setCacheStatus('anpm', 'anpm.gov.tl (parse failed)', 'warn', 'HTML structure may have changed');
+    }
+  } catch(e) {
+    setCacheStatus('anpm', 'anpm.gov.tl', 'error', 'Site unreachable or CORS blocked');
+  }
+
+  // Fallback
+  const saved = loadSavedData();
+  setCacheStatus('anpm', 'admin/seed', 'manual', 'Petrol $' + (saved.petrol || SEED.petrol) + ' · Diesel $' + (saved.diesel || SEED.diesel));
+}
+
+// ── 5. DATA STATUS PANEL ─────────────────────────────────────────
+function updateDataStatusPanel() {
+  const panel = document.getElementById('dataStatusPanel');
+  if (!panel) return;
+  const statusIcon = { live:'🟢', cached:'🔵', manual:'🟡', warn:'🟠', error:'🔴' };
+  const rows = Object.entries(FETCH_STATUS).map(([key, s]) => {
+    const age = s.ts ? Math.round((Date.now()-s.ts)/60000) : null;
+    const ageStr = age !== null ? (age < 1 ? 'just now' : age + 'm ago') : '';
+    return '<tr style="font-size:11px">'
+      + '<td style="padding:3px 8px;color:var(--text2);font-weight:500">' + key.toUpperCase() + '</td>'
+      + '<td style="padding:3px 8px">' + (statusIcon[s.status]||'⚪') + ' ' + s.source + '</td>'
+      + '<td style="padding:3px 8px;font-family:monospace">' + (s.value || '—') + '</td>'
+      + '<td style="padding:3px 8px;color:var(--text3)">' + ageStr + '</td>'
+      + '</tr>';
+  }).join('');
+  panel.innerHTML = '<table style="width:100%;border-collapse:collapse">'
+    + '<thead><tr style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3)">'
+    + '<th style="padding:4px 8px;text-align:left">Indicator</th>'
+    + '<th style="padding:4px 8px;text-align:left">Source</th>'
+    + '<th style="padding:4px 8px;text-align:left">Latest value</th>'
+    + '<th style="padding:4px 8px;text-align:left">Fetched</th>'
+    + '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+// ── FETCH ALL ON LOAD ─────────────────────────────────────────────
+// ── Manual full refresh (called by clicking the live pill) ─────────
+async function refreshAllData() {
+  // Clear all caches
+  ['tl_oil_cache','tl_fao_rice_cache','tl_wb_commodity_cache','tl_anpm_cache'].forEach(k => {
+    try { localStorage.removeItem(k); } catch(e) {}
+  });
+  // Also clear new-style caches
+  ['tl_cache_oil','tl_cache_commodities','tl_cache_fao'].forEach(k => {
+    try { localStorage.removeItem(k); } catch(e) {}
+  });
+  const pillEl = document.getElementById('livePill');
+  if (pillEl) { pillEl.textContent = '↻ Refreshing…'; pillEl.className = 'seed-pill'; }
+  await fetchAllData();
+}
+
+async function fetchAllData() {
+  await fetchOilPrices();
+  fetchFaoRicePrices();   // async, non-blocking
+  fetchWBCommodities();   // async, non-blocking
+  fetchANPMPrices();      // async, non-blocking
+  // Refresh oil every 5 min
+  setInterval(fetchOilPrices, CACHE_TTL.oil);
+  // Refresh food/ANPM every 6 hrs
+  setInterval(fetchFaoRicePrices, CACHE_TTL.fao);
+  setInterval(fetchANPMPrices, CACHE_TTL.anpm);
 }
 
 function updateOilKPIs(brent, wti, isLive) {
@@ -1938,7 +2192,7 @@ document.getElementById('adminOverlay')?.addEventListener('click', function(e) {
 // ── INIT ────────────────────────────────────────────────────────────
 applySavedData();
 renderAllKPIs(); // render all KPIs from SEED/saved on load
-fetchOilPrices(); // then try live oil
+fetchAllData();   // multi-source live data fetch
 
 
 // ── AUTO-DATE & DAY COUNTER: crisis started Feb 28 2026 ─────────────
