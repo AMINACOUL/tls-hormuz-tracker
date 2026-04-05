@@ -185,6 +185,12 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 </div>
 
 <!-- SITUATION REPORT -->
+<!-- ALERT BANNER — shown when thresholds breached -->
+<div id="alertBanner" style="display:none;background:rgba(230,57,70,.12);border-left:4px solid #e63946;border-bottom:1px solid rgba(230,57,70,.3);padding:10px 24px;font-size:12px;font-weight:600;color:#e63946;cursor:pointer;animation:alertPulse 2s ease-in-out infinite" onclick="dismissAlert()">
+  <span id="alertBannerText">⚠ Threshold alert</span>
+  <span style="float:right;opacity:.6;font-weight:400">Click to dismiss</span>
+</div>
+
 <div class="sitrep" style="padding:14px 20px 12px">
 
   <!-- SITREP HEADER -->
@@ -347,6 +353,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   <div class="tab" onclick="switchTab('asia')">Asia Comparison</div>
   <div class="tab" onclick="switchTab('food')">Food &amp; Rice</div>
   <div class="tab" onclick="switchTab('method')">Sources &amp; Method</div>
+      <div class="tab" id="tabAlerts" onclick="switchTab('alerts')">🔔 Alertes</div>
 </div>
 
 <!-- PANEL: CRISIS OVERVIEW -->
@@ -1327,6 +1334,71 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
         </div>
       </div>
 
+      <!-- ALERT THRESHOLDS -->
+      <div class="admin-section" style="border:1px solid rgba(230,57,70,.3);background:rgba(230,57,70,.05)">
+        <div class="admin-section-title" style="color:#e63946">🔔 Alert Thresholds &amp; Notifications</div>
+        <p style="font-size:11px;color:var(--text3);margin-bottom:8px">Set price thresholds. When breached, the tracker shows a banner alert and optionally sends a browser push notification.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div class="admin-field">
+            <label>Brent alert level ($/bbl)</label>
+            <input type="number" step="1" id="alertBrent" placeholder="120"/>
+          </div>
+          <div class="admin-field">
+            <label>Brent critical level ($/bbl)</label>
+            <input type="number" step="1" id="alertBrentCrit" placeholder="130"/>
+          </div>
+          <div class="admin-field">
+            <label>FAO Food Index alert (pts)</label>
+            <input type="number" step="1" id="alertFao" placeholder="132"/>
+          </div>
+          <div class="admin-field">
+            <label>Thai rice alert ($/t)</label>
+            <input type="number" step="1" id="alertRice" placeholder="400"/>
+          </div>
+          <div class="admin-field">
+            <label>TL petrol subsidy trigger ($/L)</label>
+            <input type="number" step="0.01" id="alertPetrolGap" placeholder="1.50"/>
+          </div>
+          <div class="admin-field">
+            <label>Urea surge alert (%/month)</label>
+            <input type="number" step="1" id="alertUrea" placeholder="30"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button onclick="requestNotificationPermission()" style="flex:1;background:#2ec4b6;color:#fff;border:none;border-radius:5px;padding:8px;font-size:11px;font-weight:700;cursor:pointer">🔔 Enable Push Notifications</button>
+          <button onclick="testAlert()" style="flex:1;background:#f4a261;color:#fff;border:none;border-radius:5px;padding:8px;font-size:11px;font-weight:700;cursor:pointer">Test Alert</button>
+        </div>
+        <div id="notifStatus" style="font-size:10px;color:var(--text3);margin-top:4px;text-align:center">Notification permission: checking…</div>
+      </div>
+
+      <!-- BACKEND ARCHITECTURE -->
+      <div class="admin-section" style="border:1px solid rgba(72,149,239,.3);background:rgba(72,149,239,.04)">
+        <div class="admin-section-title" style="color:#4895ef">☁️ Backend Persistence Architecture</div>
+        <p style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:8px">
+          Currently data is stored in browser localStorage (lost on cache clear). To make data persistent and shareable across devices, a lightweight backend is needed. Recommended architecture:
+        </p>
+        <div style="background:#0d1b26;border-radius:6px;padding:10px;font-family:monospace;font-size:10px;color:#7dd3fc;line-height:1.7">
+          <span style="color:#94a3b8"># Option A — Free tier (GitHub Actions + GitHub Pages)</span><br>
+          # 1. Cron job every 30min → fetch APIs → write JSON to gh-pages<br>
+          # 2. Dashboard fetches from raw.githubusercontent.com<br>
+          # 3. Zero cost, no server needed<br><br>
+          <span style="color:#94a3b8"># Option B — Render.com (free tier)</span><br>
+          # FastAPI Python backend · PostgreSQL · Auto-sleep after 15min idle<br>
+          # POST /api/data → save snapshot<br>
+          # GET /api/history?days=30 → return price history<br><br>
+          <span style="color:#94a3b8"># Option C — Supabase (free tier, recommended)</span><br>
+          # PostgreSQL + REST API auto-generated<br>
+          # Table: price_snapshots (ts, brent, wti, thai_rice, fao_food, urea_pct)<br>
+          # Dashboard fetches: GET /rest/v1/price_snapshots?order=ts.desc&limit=90<br>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button onclick="exportDashboardData()" style="flex:1;background:#4895ef;color:#fff;border:none;border-radius:5px;padding:8px;font-size:11px;font-weight:700;cursor:pointer">⬇ Export Data (JSON)</button>
+          <button onclick="importDashboardData()" style="flex:1;background:#243547;color:var(--text);border:1px solid var(--border2);border-radius:5px;padding:8px;font-size:11px;font-weight:700;cursor:pointer">⬆ Import JSON</button>
+        </div>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(this)"/>
+        <p style="font-size:10px;color:var(--text3);margin-top:4px">Export saves all admin data + history as JSON. Import restores it. Use to backup before clearing cache.</p>
+      </div>
+
       <div class="admin-section">
         <div class="admin-section-title">Change Admin Password</div>
         <div class="admin-field">
@@ -1345,7 +1417,116 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
 </div>
 
+<!-- ALERTS PANEL -->
+<div class="panel" id="panel-alerts">
+  <div class="panel-section">
+
+    <h2 style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:4px">Système d'Alertes — Price Threshold Monitor</h2>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.6">Configure les seuils de prix. Quand un seuil est franchi, une bannière apparaît automatiquement en haut du dashboard. Active les notifications push pour être alerté sans ouvrir le tracker.</p>
+
+    <!-- CURRENT STATUS -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px">Brent Now</div>
+        <div id="alertDisplayBrent" style="font-size:22px;font-weight:700;color:var(--text);font-family:'IBM Plex Mono',monospace">—</div>
+        <div id="alertStatusBrent" style="font-size:11px;margin-top:4px;color:var(--green)">● Below threshold</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px">FAO Food Index</div>
+        <div id="alertDisplayFao" style="font-size:22px;font-weight:700;color:var(--text);font-family:'IBM Plex Mono',monospace">—</div>
+        <div id="alertStatusFao" style="font-size:11px;margin-top:4px;color:var(--green)">● Below threshold</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;text-align:center">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px">Thai Rice $/t</div>
+        <div id="alertDisplayRice" style="font-size:22px;font-weight:700;color:var(--text);font-family:'IBM Plex Mono',monospace">—</div>
+        <div id="alertStatusRice" style="font-size:11px;margin-top:4px;color:var(--green)">● Below threshold</div>
+      </div>
+    </div>
+
+    <!-- THRESHOLD SETTINGS -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px;margin-bottom:16px">
+      <h3 style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:12px">⚙ Configure Alert Thresholds</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Brent alert ($/bbl)</label>
+          <input type="number" id="alertBrent2" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:6px 10px;font-size:13px" placeholder="120"/>
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Brent critical ($/bbl)</label>
+          <input type="number" id="alertBrentCrit2" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:6px 10px;font-size:13px" placeholder="130"/>
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">FAO Index alert (pts)</label>
+          <input type="number" id="alertFao2" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:6px 10px;font-size:13px" placeholder="132"/>
+        </div>
+        <div>
+          <label style="font-size:11px;color:var(--text2);display:block;margin-bottom:4px">Thai rice alert ($/t)</label>
+          <input type="number" id="alertRice2" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:5px;padding:6px 10px;font-size:13px" placeholder="400"/>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button onclick="saveAlertsPanel()" style="flex:1;background:#e63946;color:#fff;border:none;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">✓ Save Thresholds</button>
+        <button onclick="testAlert()" style="background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:10px 16px;font-size:12px;cursor:pointer">Test</button>
+      </div>
+    </div>
+
+    <!-- PUSH NOTIFICATIONS -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px;margin-bottom:16px">
+      <h3 style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px">🔔 Push Notifications (Browser)</h3>
+      <p style="font-size:11px;color:var(--text2);margin-bottom:10px;line-height:1.6">
+        Reçois des alertes directement dans ton navigateur quand un seuil est franchi — même si l'onglet est en arrière-plan. Fonctionne sur Chrome, Firefox, Edge, Safari iOS 16.4+.
+      </p>
+      <div id="notifStatus2" style="font-size:11px;color:var(--text3);background:var(--bg3);border-radius:5px;padding:8px 12px;margin-bottom:10px">Statut: vérification…</div>
+      <div style="display:flex;gap:8px">
+        <button onclick="requestNotificationPermission()" style="flex:1;background:#2ec4b6;color:#fff;border:none;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">🔔 Activer les notifications push</button>
+        <button onclick="testAlert()" style="background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:10px 16px;font-size:12px;cursor:pointer">Test notification</button>
+      </div>
+    </div>
+
+    <!-- BACKEND ARCHITECTURE -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px;margin-bottom:16px">
+      <h3 style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px">☁️ Architecture Backend (Persistance)</h3>
+      <p style="font-size:11px;color:var(--text2);margin-bottom:10px;line-height:1.6">
+        Actuellement, les données sont stockées dans le <code style="background:var(--bg3);padding:1px 5px;border-radius:3px">localStorage</code> du navigateur. 
+        Pour une persistance inter-appareils et un historique des prix, un backend léger est recommandé.
+        Les options ci-dessous sont toutes gratuites pour ce cas d'usage.
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+        <div style="background:var(--bg3);border-radius:6px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#4895ef;margin-bottom:6px">Option A — GitHub Actions</div>
+          <div style="font-size:10px;color:var(--text2);line-height:1.6">Cron 30min → fetch APIs → write JSON → GitHub Pages. Zéro coût, zéro serveur. Idéal pour démarrer.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:6px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#2ec4b6;margin-bottom:6px">Option B — Supabase</div>
+          <div style="font-size:10px;color:var(--text2);line-height:1.6">PostgreSQL + REST API auto-généré. Table <code>price_snapshots</code>. Dashboard fetch direct. Gratuit jusqu'à 500MB.</div>
+        </div>
+        <div style="background:var(--bg3);border-radius:6px;padding:12px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#f4a261;margin-bottom:6px">Option C — Render.com</div>
+          <div style="font-size:10px;color:var(--text2);line-height:1.6">FastAPI Python + PostgreSQL. POST /api/data, GET /api/history. Sleep après 15min. Gratuit tier.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="exportDashboardData()" style="flex:1;background:#4895ef;color:#fff;border:none;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">⬇ Exporter les données (JSON)</button>
+        <button onclick="importDashboardData()" style="flex:1;background:var(--bg3);color:var(--text);border:1px solid var(--border2);border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer">⬆ Importer JSON</button>
+      </div>
+      <input type="file" id="importFile2" accept=".json" style="display:none" onchange="handleImport(this)"/>
+      <p style="font-size:10px;color:var(--text3);margin-top:8px">L'export sauvegarde toutes les données admin + l'historique des prix. Utilise-le avant de vider le cache.</p>
+    </div>
+
+    <!-- PRICE HISTORY TABLE -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <h3 style="font-size:12px;font-weight:600;color:var(--text)">📈 Historique des prix (localStorage)</h3>
+        <button onclick="clearHistory()" style="background:var(--bg3);color:var(--text3);border:1px solid var(--border2);border-radius:4px;padding:4px 10px;font-size:10px;cursor:pointer">Effacer</button>
+      </div>
+      <div id="historyTable" style="font-size:11px;color:var(--text2);max-height:200px;overflow-y:auto">Aucun historique enregistré.</div>
+    </div>
+
+  </div>
+</div>
+
 <!-- FOOTER -->
+
 <div class="footer">
   <span>Data: <strong><a href="https://claudeblattman.com" target="_blank" style="color:var(--blue)">claudeblattman.com</a></strong> &middot; <strong><a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">HormuzTracker.com (CC BY 4.0)</a></strong> &middot; ANPM &middot; INETL &middot; WFP &middot; World Bank &middot; FAO &middot; IMF &middot; oilpriceapi.com</span>
   <span style="display:flex;gap:12px"><span id="footerLiveStatus" style="color:var(--text3);font-size:11px">Oil prices: seed data</span><a href="#" onclick="switchTab('method');return false;">Sources &amp; Method &rarr;</a></span>
@@ -1354,6 +1535,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <script>
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['overview','markets','timor','asia','food','method'][i]===id));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['overview','markets','timor','asia','food','method','alerts'][i]===id));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+id));
   setTimeout(renderCharts,50);
 }
@@ -2306,5 +2488,374 @@ fetchAllData();   // multi-source live data fetch
     if(e.key==='Enter'&&!e.shiftKey)e.preventDefault();
   });
 })();
+
+// ══════════════════════════════════════════════════════════════════
+// IMPROVEMENT 1 — API STATUS: already handled by fetchAllData()
+//
+// IMPROVEMENT 2 — BACKEND PERSISTENCE: export/import + history log
+// (Full backend requires server; these helpers enable data portability)
+//
+// IMPROVEMENT 3 — ALERT SYSTEM: threshold monitoring + push notifications
+// ══════════════════════════════════════════════════════════════════
+
+// ── Alert Thresholds ─────────────────────────────────────────────
+const DEFAULT_THRESHOLDS = {
+  brent: 120,       // $/bbl — alert level
+  brentCrit: 130,   // $/bbl — critical level
+  fao: 132,         // FAO FFPI points
+  rice: 400,        // Thai 5% $/t
+  petrolGap: 1.50,  // TL petrol ceiling (subsidy trigger)
+  urea: 30,         // % monthly change
+};
+
+function loadThresholds() {
+  try { return Object.assign({}, DEFAULT_THRESHOLDS, JSON.parse(localStorage.getItem('tl_thresholds') || '{}')); }
+  catch(e) { return DEFAULT_THRESHOLDS; }
+}
+function saveThresholds(t) {
+  localStorage.setItem('tl_thresholds', JSON.stringify(t));
+}
+
+function populateAlertFields() {
+  const t = loadThresholds();
+  ['alertBrent','alertBrentCrit','alertFao','alertRice','alertPetrolGap','alertUrea'].forEach(id => {
+    const el = document.getElementById(id);
+    const key = id.replace('alert','').replace(/^./, c => c.toLowerCase());
+    if (el) el.value = t[key] || '';
+  });
+}
+
+function saveAlertThresholds() {
+  const t = {
+    brent: parseFloat(document.getElementById('alertBrent')?.value) || DEFAULT_THRESHOLDS.brent,
+    brentCrit: parseFloat(document.getElementById('alertBrentCrit')?.value) || DEFAULT_THRESHOLDS.brentCrit,
+    fao: parseFloat(document.getElementById('alertFao')?.value) || DEFAULT_THRESHOLDS.fao,
+    rice: parseFloat(document.getElementById('alertRice')?.value) || DEFAULT_THRESHOLDS.rice,
+    petrolGap: parseFloat(document.getElementById('alertPetrolGap')?.value) || DEFAULT_THRESHOLDS.petrolGap,
+    urea: parseFloat(document.getElementById('alertUrea')?.value) || DEFAULT_THRESHOLDS.urea,
+  };
+  saveThresholds(t);
+}
+
+// ── Threshold checker — called after every data update ───────────
+const DISMISSED_ALERTS = new Set();
+
+function checkThresholds(data) {
+  const t = loadThresholds();
+  const saved = Object.assign({}, SEED, loadSavedData(), data || {});
+  const brent = parseFloat(saved.brent) || 0;
+  const faoFood = parseFloat(saved.faoFood) || 0;
+  const thaiRice = parseFloat(saved.thaiRice) || 0;
+  const fertPct = parseFloat(saved.fertPct) || 0;
+
+  const alerts = [];
+
+  if (brent >= t.brentCrit) {
+    alerts.push({ level: 'critical', key: 'brent_crit',
+      msg: `🔴 CRITICAL: Brent crude at $${brent.toFixed(2)}/bbl — exceeds critical threshold $${t.brentCrit}. TL Scenario D fiscal costs imminent.` });
+  } else if (brent >= t.brent) {
+    alerts.push({ level: 'warn', key: 'brent_warn',
+      msg: `⚠ ALERT: Brent crude at $${brent.toFixed(2)}/bbl — above $${t.brent} threshold. TL Scenario C subsidy risk.` });
+  }
+
+  if (faoFood >= t.fao) {
+    alerts.push({ level: 'warn', key: 'fao_warn',
+      msg: `⚠ ALERT: FAO Food Price Index at ${faoFood.toFixed(1)} pts — above ${t.fao} threshold. Global food inflation accelerating.` });
+  }
+
+  if (thaiRice >= t.rice) {
+    alerts.push({ level: 'warn', key: 'rice_warn',
+      msg: `⚠ ALERT: Thai rice at $${thaiRice.toFixed(0)}/t — above $${t.rice}/t threshold. TL import cost rising.` });
+  }
+
+  if (fertPct >= t.urea) {
+    alerts.push({ level: 'warn', key: 'urea_warn',
+      msg: `⚠ ALERT: Urea prices up +${fertPct.toFixed(0)}%/month — above +${t.urea}% threshold. H2 food production risk.` });
+  }
+
+  // Show the highest-priority alert
+  const active = alerts.filter(a => !DISMISSED_ALERTS.has(a.key));
+  const banner = document.getElementById('alertBanner');
+  const bannerText = document.getElementById('alertBannerText');
+  if (active.length > 0 && banner && bannerText) {
+    const top = active[0];
+    bannerText.textContent = top.msg;
+    banner.style.display = 'block';
+    banner.style.background = top.level === 'critical' ? 'rgba(230,57,70,.18)' : 'rgba(230,57,70,.12)';
+    // Push notification
+    if (active.length > 0) sendPushNotification(active[0].msg, active.length);
+  } else if (banner) {
+    banner.style.display = 'none';
+  }
+
+  // Log to history
+  logDataPoint(saved);
+}
+
+function dismissAlert() {
+  const bannerText = document.getElementById('alertBannerText');
+  if (bannerText) {
+    // Extract key from current alert
+    const txt = bannerText.textContent;
+    if (txt.includes('Brent') && txt.includes('critical')) DISMISSED_ALERTS.add('brent_crit');
+    else if (txt.includes('Brent')) DISMISSED_ALERTS.add('brent_warn');
+    else if (txt.includes('FAO')) DISMISSED_ALERTS.add('fao_warn');
+    else if (txt.includes('rice')) DISMISSED_ALERTS.add('rice_warn');
+    else if (txt.includes('Urea')) DISMISSED_ALERTS.add('urea_warn');
+  }
+  const banner = document.getElementById('alertBanner');
+  if (banner) banner.style.display = 'none';
+}
+
+function testAlert() {
+  const banner = document.getElementById('alertBanner');
+  const bannerText = document.getElementById('alertBannerText');
+  if (banner && bannerText) {
+    bannerText.textContent = '🧪 TEST ALERT — Your alert system is working. Thresholds are active.';
+    banner.style.display = 'block';
+    sendPushNotification('TL Hormuz Tracker: Alert system test — notifications are working! ✅', 0);
+  }
+}
+
+// ── Push Notifications ───────────────────────────────────────────
+let notificationEnabled = false;
+const sentNotifications = new Map(); // key → last sent timestamp
+
+async function requestNotificationPermission() {
+  const statusEl = document.getElementById('notifStatus');
+  if (!('Notification' in window)) {
+    if (statusEl) statusEl.textContent = '❌ Browser does not support push notifications.';
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  notificationEnabled = permission === 'granted';
+  if (statusEl) statusEl.textContent = permission === 'granted'
+    ? '✅ Notifications enabled — you will be alerted when thresholds are breached.'
+    : '❌ Notifications denied — enable in browser settings to receive alerts.';
+}
+
+function sendPushNotification(message, count) {
+  if (!notificationEnabled || !('Notification' in window) || Notification.permission !== 'granted') return;
+  // Deduplicate: don't resend same alert within 30 minutes
+  const key = message.substring(0, 40);
+  const lastSent = sentNotifications.get(key) || 0;
+  if (Date.now() - lastSent < 30 * 60 * 1000) return;
+  sentNotifications.set(key, Date.now());
+
+  new Notification('🇹🇱 TL Hormuz Tracker', {
+    body: message,
+    icon: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇹🇱</text></svg>',
+    badge: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><circle cx=%2212%22 cy=%2212%22 r=%2210%22 fill=%22%23e63946%22/></svg>',
+    tag: 'tl-hormuz-alert',
+    requireInteraction: count > 0,
+  });
+}
+
+// ── Check notification permission on load ────────────────────────
+(function() {
+  if ('Notification' in window) {
+    notificationEnabled = Notification.permission === 'granted';
+    const el = document.getElementById('notifStatus');
+    if (el) el.textContent = 'Notification permission: ' + Notification.permission;
+  }
+})();
+
+// ── IMPROVEMENT 2 — Data export/import for backup ────────────────
+function logDataPoint(data) {
+  // Keep a rolling 90-day history in localStorage
+  try {
+    const hist = JSON.parse(localStorage.getItem('tl_history') || '[]');
+    const point = {
+      ts: Date.now(),
+      brent: data.brent, wti: data.wti,
+      faoFood: data.faoFood, thaiRice: data.thaiRice,
+      fertPct: data.fertPct,
+    };
+    // Add only if >1hr since last entry
+    const last = hist[hist.length - 1];
+    if (!last || (Date.now() - last.ts) > 3600000) {
+      hist.push(point);
+      if (hist.length > 2160) hist.splice(0, hist.length - 2160); // keep 90 days at 1hr intervals
+      localStorage.setItem('tl_history', JSON.stringify(hist));
+    }
+  } catch(e) {}
+}
+
+function exportDashboardData() {
+  try {
+    const exportData = {
+      exported: new Date().toISOString(),
+      version: 'TL-Hormuz-Tracker-v3',
+      adminData: JSON.parse(localStorage.getItem('tl_dash_data') || '{}'),
+      thresholds: loadThresholds(),
+      sitrep: {
+        tl: document.getElementById('sitrepTL')?.innerHTML || '',
+        oil: document.getElementById('sitrepOil')?.innerHTML || '',
+        food: document.getElementById('sitrepFood')?.innerHTML || '',
+        fiscal: document.getElementById('sitrepFiscal')?.innerHTML || '',
+      },
+      history: JSON.parse(localStorage.getItem('tl_history') || '[]'),
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'TL-Hormuz-Dashboard-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch(e) { alert('Export failed: ' + e.message); }
+}
+
+function importDashboardData() {
+  document.getElementById('importFile')?.click();
+}
+
+function handleImport(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.adminData) localStorage.setItem('tl_dash_data', JSON.stringify(data.adminData));
+      if (data.thresholds) saveThresholds(data.thresholds);
+      if (data.history) localStorage.setItem('tl_history', JSON.stringify(data.history));
+      if (data.sitrep) {
+        ['tl','oil','food','fiscal'].forEach(k => {
+          const el = document.getElementById('sitrep' + k.charAt(0).toUpperCase() + k.slice(1));
+          if (el && data.sitrep[k]) el.innerHTML = data.sitrep[k];
+          localStorage.setItem('tl_sitrep' + k.charAt(0).toUpperCase() + k.slice(1), data.sitrep[k] || '');
+        });
+      }
+      applySavedData();
+      renderAllKPIs();
+      populateAlertFields();
+      alert('✅ Data imported successfully from ' + (data.exported || 'unknown date'));
+    } catch(err) { alert('❌ Import failed: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+// ── Wire into admin panel populate/save ──────────────────────────
+const _origPopulate = typeof populateAdminFields === 'function' ? populateAdminFields : null;
+populateAdminFields = function() {
+  if (_origPopulate) _origPopulate();
+  populateAlertFields();
+};
+
+const _origSave = typeof saveAdmin === 'function' ? saveAdmin : null;
+saveAdmin = function() {
+  saveAlertThresholds();
+  if (_origSave) _origSave();
+};
+
+// ── Wire threshold check into renderAllKPIs ───────────────────────
+const _origRender = typeof renderAllKPIs === 'function' ? renderAllKPIs : null;
+renderAllKPIs = function(overrides, isLive) {
+  if (_origRender) _origRender(overrides, isLive);
+  checkThresholds(overrides);
+};
+
+// ── CSS for alert pulse animation ────────────────────────────────
+(function() {
+  const style = document.createElement('style');
+  style.textContent = '@keyframes alertPulse{0%,100%{border-left-color:#e63946}50%{border-left-color:#ff6b7a}}';
+  document.head.appendChild(style);
+})();
+
+// ── Run initial threshold check ───────────────────────────────────
+setTimeout(() => checkThresholds(loadSavedData()), 2000);
+
+// ── Sync secondary alert fields (Alertes tab) ────────────────────
+function saveAlertsPanel() {
+  const t = loadThresholds();
+  ['alertBrent2','alertBrentCrit2','alertFao2','alertRice2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el || !el.value) return;
+    const key = id.replace('2','').replace('alert','').replace(/^./, c => c.toLowerCase());
+    t[key] = parseFloat(el.value);
+  });
+  saveThresholds(t);
+  checkThresholds(loadSavedData());
+  alert('✅ Seuils sauvegardés!');
+}
+
+function populateAlertsPanel() {
+  const t = loadThresholds();
+  const saved = Object.assign({}, SEED, loadSavedData());
+  // Current values
+  const brent = parseFloat(saved.brent) || 0;
+  const faoFood = parseFloat(saved.faoFood) || 0;
+  const thaiRice = parseFloat(saved.thaiRice) || 0;
+  const setDisplay = (id, val, threshold, critThreshold) => {
+    const el = document.getElementById(id);
+    const statusEl = document.getElementById(id.replace('Display','Status'));
+    if (el) el.textContent = typeof val === 'number' ? val.toFixed(1) : val;
+    if (statusEl) {
+      if (critThreshold && val >= critThreshold) {
+        statusEl.textContent = '🔴 CRITICAL'; statusEl.style.color = '#e63946';
+      } else if (val >= threshold) {
+        statusEl.textContent = '⚠ ABOVE THRESHOLD'; statusEl.style.color = '#f4a261';
+      } else {
+        statusEl.textContent = '✅ Below threshold'; statusEl.style.color = 'var(--green)';
+      }
+    }
+  };
+  setDisplay('alertDisplayBrent', brent, t.brent, t.brentCrit);
+  setDisplay('alertDisplayFao', faoFood, t.fao);
+  setDisplay('alertDisplayRice', thaiRice, t.rice);
+  // Populate threshold inputs
+  if (document.getElementById('alertBrent2')) document.getElementById('alertBrent2').value = t.brent || '';
+  if (document.getElementById('alertBrentCrit2')) document.getElementById('alertBrentCrit2').value = t.brentCrit || '';
+  if (document.getElementById('alertFao2')) document.getElementById('alertFao2').value = t.fao || '';
+  if (document.getElementById('alertRice2')) document.getElementById('alertRice2').value = t.rice || '';
+  // Notification status
+  const notifEl = document.getElementById('notifStatus2');
+  if (notifEl && 'Notification' in window)
+    notifEl.textContent = 'Statut notifications: ' + Notification.permission
+      + (Notification.permission === 'granted' ? ' ✅' : ' — cliquez sur Activer');
+  // History
+  renderHistoryTable();
+}
+
+function renderHistoryTable() {
+  const hist = JSON.parse(localStorage.getItem('tl_history') || '[]');
+  const el = document.getElementById('historyTable');
+  if (!el) return;
+  if (!hist.length) { el.textContent = 'Aucun historique enregistré.'; return; }
+  const rows = hist.slice(-20).reverse().map(p => {
+    const d = new Date(p.ts);
+    const ds = d.getDate() + '/' + (d.getMonth()+1) + ' ' + d.getHours() + ':' + String(d.getMinutes()).padStart(2,'0');
+    return '<tr style="border-bottom:1px solid var(--border2)">'
+      + '<td style="padding:4px 8px;color:var(--text3)">' + ds + '</td>'
+      + '<td style="padding:4px 8px;font-family:monospace">$' + (p.brent||'—') + '</td>'
+      + '<td style="padding:4px 8px;font-family:monospace">$' + (p.wti||'—') + '</td>'
+      + '<td style="padding:4px 8px;font-family:monospace">' + (p.faoFood||'—') + '</td>'
+      + '<td style="padding:4px 8px;font-family:monospace">$' + (p.thaiRice||'—') + '/t</td>'
+      + '</tr>';
+  }).join('');
+  el.innerHTML = '<table style="width:100%;border-collapse:collapse">'
+    + '<thead><tr style="font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text3)">'
+    + '<th style="padding:4px 8px;text-align:left">Date</th>'
+    + '<th style="padding:4px 8px;text-align:left">Brent</th>'
+    + '<th style="padding:4px 8px;text-align:left">WTI</th>'
+    + '<th style="padding:4px 8px;text-align:left">FAO</th>'
+    + '<th style="padding:4px 8px;text-align:left">Thai Rice</th>'
+    + '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function clearHistory() {
+  if (confirm('Effacer tout l\'historique des prix?')) {
+    localStorage.removeItem('tl_history');
+    renderHistoryTable();
+  }
+}
+
+// Wire panel activation
+const _origSwitch = switchTab;
+switchTab = function(id) {
+  _origSwitch(id);
+  if (id === 'alerts') setTimeout(populateAlertsPanel, 50);
+};
 
 </script>
