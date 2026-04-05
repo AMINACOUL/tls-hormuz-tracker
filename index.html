@@ -33,6 +33,17 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 .sitrep p{font-size:13px;color:#d4c09a;line-height:1.6}
 .sitrep-author{margin-top:8px;font-size:12px;color:var(--text3);font-style:italic}
 .kpi-section{padding:0 24px 8px}
+
+/* ── Risk Matrix ─────────────────────────────────────────────────── */
+.risk-pill{display:flex;align-items:center;gap:5px;padding:5px 12px;border-right:1px solid var(--border2);white-space:nowrap;transition:background .15s}
+.risk-pill:hover{background:rgba(255,255,255,.04)}
+.risk-dot{font-size:14px;line-height:1;flex-shrink:0;transition:color .3s}
+.risk-label{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text2)}
+.risk-val{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-left:2px}
+.risk-green .risk-dot{color:#2ec4b6}.risk-green{background:rgba(46,196,182,.05)}
+.risk-amber .risk-dot{color:#f4a261}.risk-amber{background:rgba(244,162,97,.07)}
+.risk-red   .risk-dot{color:#e63946}.risk-red{background:rgba(230,57,70,.08)}
+
 .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px}
 .kpi-card{border-radius:6px;padding:12px 14px;border:1px solid transparent;min-width:0}
 .kpi-card.red{background:var(--card-red);border-color:rgba(230,57,70,.25)}
@@ -249,6 +260,63 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 </div>
 
+
+<!-- ═══════════════════════════════════════════════════════════════
+     RISK MATRIX — Vue d'ensemble décideur · 6 piliers · auto-updated
+     Pastilles: 🟢 Stable · 🟡 Vigilance · 🔴 Alerte
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="riskMatrix" style="background:var(--bg2);border-bottom:1px solid var(--border2);padding:10px 24px;display:flex;align-items:center;gap:0;flex-wrap:wrap">
+  <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-right:16px;white-space:nowrap;flex-shrink:0">Risk Matrix</div>
+
+  <!-- ENERGY -->
+  <div class="risk-pill" id="riskEnergy" onclick="switchTab('markets')" title="Énergie — cliquer pour détails" style="cursor:pointer">
+    <span class="risk-dot" id="riskEnergyDot">●</span>
+    <span class="risk-label">Énergie</span>
+    <span class="risk-val" id="riskEnergyVal">$109</span>
+  </div>
+
+  <!-- LOGISTICS -->
+  <div class="risk-pill" id="riskLogistics" onclick="switchTab('timor')" title="Logistique maritime — cliquer pour détails" style="cursor:pointer">
+    <span class="risk-dot" id="riskLogisticsDot">●</span>
+    <span class="risk-label">Logistique</span>
+    <span class="risk-val" id="riskLogisticsVal">5 ships</span>
+  </div>
+
+  <!-- FOOD -->
+  <div class="risk-pill" id="riskFood" onclick="switchTab('food')" title="Sécurité alimentaire — cliquer pour détails" style="cursor:pointer">
+    <span class="risk-dot" id="riskFoodDot">●</span>
+    <span class="risk-label">Alimentaire</span>
+    <span class="risk-val" id="riskFoodVal">128.5</span>
+  </div>
+
+  <!-- FISCAL -->
+  <div class="risk-pill" id="riskFiscal" onclick="switchTab('timor')" title="Risque fiscal — subsides" style="cursor:pointer">
+    <span class="risk-dot" id="riskFiscalDot">●</span>
+    <span class="risk-label">Fiscal TL</span>
+    <span class="risk-val" id="riskFiscalVal">Scen B</span>
+  </div>
+
+  <!-- FINANCIAL SOVEREIGNTY -->
+  <div class="risk-pill" id="riskSovereign" onclick="switchTab('timor')" title="Souveraineté financière — Petroleum Fund" style="cursor:pointer">
+    <span class="risk-dot" id="riskSovereignDot">●</span>
+    <span class="risk-label">PF $18.77bn</span>
+    <span class="risk-val" id="riskSovereignVal">Stable</span>
+  </div>
+
+  <!-- SOCIAL RISK -->
+  <div class="risk-pill" id="riskSocial" onclick="switchTab('timor')" title="Risque social — inflation importée" style="cursor:pointer">
+    <span class="risk-dot" id="riskSocialDot">●</span>
+    <span class="risk-label">Social</span>
+    <span class="risk-val" id="riskSocialVal">Modéré</span>
+  </div>
+
+  <!-- DATA FRESHNESS indicator -->
+  <div style="margin-left:auto;font-size:10px;color:var(--text3);display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <span id="riskMatrixAge" title="Dernière mise à jour des données">⏱ —</span>
+    <button onclick="refreshAllData()" style="background:none;border:1px solid var(--border2);color:var(--text3);border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer" title="Forcer la mise à jour">↻</button>
+  </div>
+</div>
+
 <!-- KPI CARDS ROW 1 — Global -->
 <div class="kpi-section">
 <div class="kpi-grid">
@@ -277,6 +345,43 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     <div class="kpi-value" style="color:#ff6b7a">1.65<span class="kpi-unit"> $/L</span></div>
     <div class="kpi-badge up">+57.1% vs pre-crisis &nbsp;($1.05&rarr;$1.65) &middot; 25 Mar</div>
   </div>
+</div>
+
+<!-- KPI CARDS — LOGISTICS & MARITIME ─────────────────────────────── -->
+<div class="kpi-section">
+<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:8px 0 4px">🚢 Logistique &amp; Routes Maritimes</div>
+<div class="kpi-grid">
+  <div class="kpi-card red">
+    <div class="kpi-label">Singapore–Dili freight surcharge</div>
+    <div class="kpi-value" id="kpiFreight" style="font-size:17px;color:#ff6b7a">+40%<span class="kpi-unit"> vs pre-crisis</span></div>
+    <div class="kpi-badge warn">&#x26A0; War-risk insurance surged · Mar 15–30</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Vessels stranded (Gulf)</div>
+    <div class="kpi-value" id="kpiStranded" style="font-size:17px;color:#f4a261">~2,000<span class="kpi-unit"> ships</span></div>
+    <div class="kpi-badge warn">Either side Hormuz · Kpler est.</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">TL import route status</div>
+    <div class="kpi-value" id="kpiRouteStatus" style="font-size:14px;color:#f4a261">Singapore<br>via Cape</div>
+    <div class="kpi-badge warn">Rerouting +8–12 days transit</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-label">ETO/PITSA buffer stock</div>
+    <div class="kpi-value" id="kpiBuffer" style="font-size:17px;color:#2ec4b6">~4 months</div>
+    <div class="kpi-badge neutral">Strategic reserve · monitoring</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Hormuz daily oil flow lost</div>
+    <div class="kpi-value" id="kpiFlowLost" style="font-size:17px;color:#ff6b7a">12 mbd</div>
+    <div class="kpi-badge warn">IEA est. · &gt;2×1973/1979 crises combined</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">First Western ship transit</div>
+    <div class="kpi-value" style="font-size:13px;color:#2ec4b6">CMA CGM<br>(France)</div>
+    <div class="kpi-badge neutral">5 Apr 2026 · signal watched</div>
+  </div>
+</div>
 </div>
 
 <!-- KPI CARDS ROW 2 — TL Macro -->
@@ -309,6 +414,43 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 </div>
 </div>
 
+
+<!-- KPI CARDS — SOCIAL RISK & FINANCIAL SOVEREIGNTY ──────────────── -->
+<div class="kpi-section">
+<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:8px 0 4px">🏛️ Souveraineté Financière &amp; Risque Social</div>
+<div class="kpi-grid">
+  <div class="kpi-card green">
+    <div class="kpi-label">Petroleum Fund balance</div>
+    <div class="kpi-value" id="kpiPF" style="font-size:17px">$18.77<span class="kpi-unit"> bn</span></div>
+    <div class="kpi-badge neutral">BCTL Jan 2026 · depletion ~2037</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-label">ESI (annual sustainable draw)</div>
+    <div class="kpi-value" style="font-size:17px;color:#2ec4b6">$563<span class="kpi-unit"> M/yr</span></div>
+    <div class="kpi-badge neutral">3% rule · absorbs all subsidy scenarios</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Subsidy ratio (est. annualised)</div>
+    <div class="kpi-value" id="kpiSubRatio" style="font-size:17px;color:#f4a261">0.0–1.2<span class="kpi-unit">% OGE</span></div>
+    <div class="kpi-badge warn">Scen A–D range · MoF engagement needed</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">TL imported inflation est.</div>
+    <div class="kpi-value" id="kpiImportedInfl" style="font-size:17px;color:#f4a261">+2.5–4%<span class="kpi-unit"> pp risk</span></div>
+    <div class="kpi-badge warn">Energy + food pass-through · H2 2026</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">Social risk — food poverty HH</div>
+    <div class="kpi-value" style="font-size:14px;color:#ff6b7a">41%<span class="kpi-unit"> below $1.90/day</span></div>
+    <div class="kpi-badge warn">&#x26A0; Highly exposed to food price shock</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">LPG access — urban poor</div>
+    <div class="kpi-value" style="font-size:14px;color:#f4a261">~40%<span class="kpi-unit"> urban HH</span></div>
+    <div class="kpi-badge warn">LPG now capped $4.20/kg · 1st ever</div>
+  </div>
+</div>
+</div>
 
 <!-- KPI CARDS ROW 3 — Food & Prices -->
 <div class="kpi-grid">
@@ -1029,6 +1171,29 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 <!-- PANEL: SOURCES & METHOD -->
 <div class="panel" id="panel-method">
+
+      <div style="background:rgba(72,149,239,.06);border:1px solid rgba(72,149,239,.2);border-left:3px solid #4895ef;border-radius:0 6px 6px 0;padding:14px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4895ef;margin-bottom:6px">🛢️ Pourquoi MOPS et pas seulement le Brent ?</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6">
+          Le Timor-Leste n'achète pas du pétrole brut — il importe du <strong>carburant raffiné</strong> (essence, diesel) depuis Singapour.
+          Le prix de référence pertinent est le <strong>MOPS (Mean of Platts Singapore)</strong> — prix des produits raffinés dans le hub régional.
+          Le MOPS peut diverger du Brent : pendant la crise de Hormuz, le diesel MOPS a surpassé $200/bbl tandis que le Brent restait sous $120.
+          Ce tracker utilise une approximation linéaire : MOPS Gasoline 92 ≈ $0.077 + $0.0102 × Brent.
+          Un abonnement Platts (~$5,000/an) donnerait des données MOPS temps réel.
+          <strong>Implication TL :</strong> le prix réel payé par PITSA/ETO peut être plus élevé que l'estimation Brent.
+        </div>
+      </div>
+      <div style="background:rgba(244,162,97,.06);border:1px solid rgba(244,162,97,.2);border-left:3px solid #f4a261;border-radius:0 6px 6px 0;padding:14px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#f4a261;margin-bottom:6px">⏱ Ancrage temporel &amp; Maintenance de l'outil</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6">
+          Cet outil est en <strong>mode gestion de crise active</strong> — les références géopolitiques spécifiques le rendent sensible au vieillissement.
+          <strong>Pour rester pertinent :</strong> (1) La Matrice de Risque est recalculée automatiquement à partir des prix — valide même si le sitrep n'est pas mis à jour quotidiennement.
+          (2) Les KPIs s'actualisent via API (pétrole toutes les 5 min, riz/FAO toutes les 6h).
+          (3) Le sitrep est éditable directement — sections géopolitiques indépendantes des sections prix.
+          (4) Si le conflit se résout, modifier SEED.brent suffit à mettre à jour la Matrice, les subventions, le MOPS et tous les piliers de risque simultanément.
+          (5) Effort de maintenance estimé : ~15-30 min/semaine en phase active, ~5 min/semaine si les prix se stabilisent.
+        </div>
+      </div>
 <style>
 .mtable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:0}
 .mtable th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);padding:7px 12px;border-bottom:1px solid var(--border2);background:rgba(255,255,255,.02)}
@@ -2193,6 +2358,11 @@ function renderAllKPIs(overrides, isLive) {
   if (document.getElementById('kpiCpi'))
     set('kpiCpi', unit(cpi.toFixed(1), '% y/y'));
 
+  // ── Petroleum Fund ──────────────────────────────────────────────
+  const fund = parseFloat(d.fund) || SEED.fund;
+  if (document.getElementById('kpiPF'))
+    set('kpiPF', unit('$' + fund.toFixed(2), 'bn'));
+
   // ── Live pill & footer ────────────────────────────────────────────
   const pillEl   = document.getElementById('livePill');
   const footerEl = document.getElementById('footerLiveStatus');
@@ -2857,5 +3027,143 @@ switchTab = function(id) {
   _origSwitch(id);
   if (id === 'alerts') setTimeout(populateAlertsPanel, 50);
 };
+
+// ══════════════════════════════════════════════════════════════════
+// RISK MATRIX ENGINE — auto-computes 6 pillar risk levels
+// Called after every data update. Colors update in real time.
+// Pillars: Énergie · Logistique · Alimentaire · Fiscal · Souveraineté · Social
+// ══════════════════════════════════════════════════════════════════
+
+function updateRiskMatrix(data) {
+  const saved = Object.assign({}, SEED, loadSavedData(), data || {});
+  const brent     = parseFloat(saved.brent) || 109;
+  const faoFood   = parseFloat(saved.faoFood) || 128.5;
+  const thaiRice  = parseFloat(saved.thaiRice) || 346;
+  const transits  = parseFloat(saved.transits) || 5;
+  const fertPct   = parseFloat(saved.fertPct) || 46;
+
+  // ── Scoring helpers ───────────────────────────────────────────
+  // Returns 'green' | 'amber' | 'red'
+  const score = (val, greenMax, amberMax) =>
+    val <= greenMax ? 'green' : val <= amberMax ? 'amber' : 'red';
+
+  const setRisk = (id, level, label, val) => {
+    const pill = document.getElementById(id);
+    const dot  = document.getElementById(id + 'Dot');
+    const valEl = document.getElementById(id + 'Val');
+    if (!pill) return;
+    pill.className = 'risk-pill risk-' + level;
+    if (dot)  dot.style.color = level === 'green' ? '#2ec4b6' : level === 'amber' ? '#f4a261' : '#e63946';
+    if (valEl && val !== undefined) valEl.textContent = val;
+  };
+
+  // ── ENERGY: Brent price vs pre-crisis ─────────────────────────
+  // Green: <$90 | Amber: $90-120 | Red: >$120
+  const energyLevel = score(brent, 90, 120);
+  setRisk('riskEnergy', energyLevel, 'Énergie', '$' + brent.toFixed(0));
+
+  // ── LOGISTICS: Hormuz transits vs normal (138/day) ─────────────
+  // Green: >50/day | Amber: 10-50 | Red: <10
+  const logisticsLevel = score(138 - transits, 88, 128); // inverse: lost transits
+  const logLabel = transits < 10 ? 'Quasi-fermé' : transits < 50 ? 'Perturbé' : 'Limité';
+  setRisk('riskLogistics', logisticsLevel, 'Logistique', transits + ' ships');
+
+  // ── FOOD: FAO FFPI + fertilizer stress ─────────────────────────
+  // Green: FFPI<126 & fert<20% | Amber: <132 | Red: >132 or fert>40%
+  const foodLevel = (faoFood > 132 || fertPct > 40) ? 'red'
+    : (faoFood > 126 || fertPct > 20) ? 'amber' : 'green';
+  setRisk('riskFood', foodLevel, 'Alimentaire', faoFood.toFixed(1) + ' pts');
+
+  // ── FISCAL TL: subsidy scenario ────────────────────────────────
+  // Derived from Brent via subsidy model
+  // Green: Brent<110 (Scen A/B, no subsidy) | Amber: 110-125 | Red: >125
+  const fiscalLevel = brent < 110 ? 'green' : brent < 125 ? 'amber' : 'red';
+  const fiscalLabel = brent < 110 ? 'Scen A/B $0' : brent < 125 ? 'Scen C ~$8M' : 'Scen D ~$29M';
+  setRisk('riskFiscal', fiscalLevel, 'Fiscal TL', fiscalLabel);
+
+  // ── FINANCIAL SOVEREIGNTY: PF buffer ──────────────────────────
+  // PF $18.77bn with depletion ~2037. Stress if subsidy >2% ESI per yr.
+  // Green: subsidy <$5M/yr | Amber: $5-20M | Red: >$20M
+  const subsidy_est = brent < 110 ? 0 : brent < 120 ? 8 : brent < 130 ? 18 : 29;
+  const sovereignLevel = subsidy_est < 5 ? 'green' : subsidy_est < 20 ? 'amber' : 'red';
+  const sovereignLabel = subsidy_est < 5 ? 'Stable' : '$' + subsidy_est + 'M risque';
+  setRisk('riskSovereign', sovereignLevel, 'Souveraineté', sovereignLabel);
+
+  // Update subsidy ratio KPI
+  const subRatioEl = document.getElementById('kpiSubRatio');
+  if (subRatioEl) {
+    const pct = (subsidy_est / 2500 * 100).toFixed(1);
+    subRatioEl.innerHTML = (subsidy_est === 0 ? '0.0' : pct) + '<span class="kpi-unit">% OGE/yr</span>';
+    subRatioEl.style.color = subsidy_est < 5 ? 'var(--green)' : subsidy_est < 15 ? '#f4a261' : '#e63946';
+  }
+
+  // ── SOCIAL RISK: inflation pass-through to poor HH ─────────────
+  // 41% HH below $1.90/day. Food+energy share ~60% of their budget.
+  // Green: food+energy inflation <3% | Amber: 3-8% | Red: >8%
+  const foodInflEst = faoFood > 130 ? 6 : faoFood > 126 ? 3.5 : 1.5;
+  const energyInflEst = brent < 90 ? 1 : brent < 110 ? 3 : brent < 125 ? 5 : 8;
+  const totalInflRisk = foodInflEst + energyInflEst;
+  const socialLevel = totalInflRisk < 4 ? 'green' : totalInflRisk < 8 ? 'amber' : 'red';
+  const socialLabel = totalInflRisk.toFixed(1) + '% risk';
+  setRisk('riskSocial', socialLevel, 'Social', socialLabel);
+
+  // Update imported inflation KPI
+  const inflEl = document.getElementById('kpiImportedInfl');
+  if (inflEl) {
+    inflEl.innerHTML = '+' + totalInflRisk.toFixed(1) + '<span class="kpi-unit">% pp risk</span>';
+    inflEl.style.color = socialLevel === 'green' ? 'var(--green)' : socialLevel === 'amber' ? '#f4a261' : '#e63946';
+  }
+
+  // ── Update MOPS display (derived from Brent) ──────────────────
+  // MOPS = 0.077 + 0.0102 × Brent (gasoline) / diesel = petrol - 0.04
+  const mopsGas    = 0.077 + 0.0102 * brent;
+  const mopsDiesel = mopsGas - 0.04;
+  const mopsGasEl    = document.getElementById('kpiMopsGas');
+  const mopsDieselEl = document.getElementById('kpiMopsDiesel');
+  const mopsGasBadge = document.getElementById('kpiMopsGasBadge');
+  const mopsDbadge   = document.getElementById('kpiMopsDieselBadge');
+  if (mopsGasEl)    mopsGasEl.innerHTML    = mopsGas.toFixed(3) + '<span class="kpi-unit"> $/L</span>';
+  if (mopsDieselEl) mopsDieselEl.innerHTML = mopsDiesel.toFixed(3) + '<span class="kpi-unit"> $/L</span>';
+  // Show gap vs TL ceiling
+  const petrolGap = (1.50 - mopsGas - 0.33);
+  const dieselGap = (1.65 - mopsDiesel - 0.33);
+  if (mopsGasBadge) mopsGasBadge.textContent = petrolGap > 0
+    ? 'Below $1.50 ceiling by $' + petrolGap.toFixed(3)
+    : '⚠ Exceeds $1.50 ceiling by $' + Math.abs(petrolGap).toFixed(3);
+  if (mopsDbadge) mopsDbadge.textContent = dieselGap > 0
+    ? 'Below $1.65 ceiling by $' + dieselGap.toFixed(3)
+    : '⚠ Exceeds $1.65 ceiling by $' + Math.abs(dieselGap).toFixed(3);
+  if (mopsGasEl) mopsGasEl.style.color = petrolGap > 0 ? 'var(--green)' : '#e63946';
+  if (mopsDieselEl) mopsDieselEl.style.color = dieselGap > 0 ? 'var(--green)' : '#e63946';
+
+  // ── Data freshness badge ──────────────────────────────────────
+  const ageEl = document.getElementById('riskMatrixAge');
+  if (ageEl) {
+    const lastUpdate = saved.savedAt ? new Date(saved.savedAt) : null;
+    if (lastUpdate) {
+      const minAgo = Math.round((Date.now() - lastUpdate.getTime()) / 60000);
+      const freshness = minAgo < 60 ? minAgo + 'm ago'
+        : minAgo < 1440 ? Math.round(minAgo/60) + 'h ago'
+        : Math.round(minAgo/1440) + 'd ago';
+      ageEl.textContent = '⏱ ' + freshness;
+      ageEl.style.color = minAgo > 1440 ? '#e63946' : minAgo > 360 ? '#f4a261' : 'var(--text3)';
+    }
+  }
+}
+
+// ── Wire into renderAllKPIs ───────────────────────────────────────
+const _origRenderForMatrix = renderAllKPIs;
+renderAllKPIs = function(overrides, isLive) {
+  _origRenderForMatrix(overrides, isLive);
+  updateRiskMatrix(overrides);
+};
+
+// ── Initial render on load ────────────────────────────────────────
+setTimeout(() => updateRiskMatrix(loadSavedData()), 500);
+
+// ══════════════════════════════════════════════════════════════════
+// 6. MOPS NOTE in Sources tab + TEMPORAL RESILIENCE note
+// ══════════════════════════════════════════════════════════════════
+// MOPS explanation and tool maintenance guidance — added to Sources tab
 
 </script>
