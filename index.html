@@ -205,16 +205,27 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 <div class="sitrep" style="padding:14px 20px 12px">
 
   <!-- SITREP HEADER -->
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid rgba(230,57,70,.25);padding-bottom:8px">
-    <div style="display:flex;align-items:center;gap:10px">
-      <span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946">&#x1F6A8; Situation Report</span>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(230,57,70,.3)">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(230,57,70,.12);border:1px solid rgba(230,57,70,.35);padding:3px 10px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946">🚨 CRISIS MONITORING · SITUATION REPORT</span>
       <span id="sitrepDayBadge" style="background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.05em">Day 58 · 28 Apr 2026 · Week 9 · Iran New Proposal</span>
+      <span style="font-size:9px;color:var(--text3);font-style:italic">Last updated: 28 Apr 2026 · Auto-refresh every 4h</span>
     </div>
-    <span style="font-size:10px;color:var(--text3);font-style:italic">&#9998; Click any section to edit &middot; auto-saves</span>
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <span id="liveDataPill" style="display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);padding:2px 10px;border-radius:20px;font-size:9px;font-weight:600;color:#10b981;cursor:pointer" onclick="refreshAllData()">
+        ● LIVE DATA
+      </span>
+      <button onclick="document.getElementById('editModal')?.remove()" style="background:rgba(255,255,255,.07);border:1px solid var(--border2);color:var(--text2);padding:2px 10px;border-radius:3px;font-size:9px;cursor:pointer">✎ Edit Mode</button>
+    </div>
   </div>
 
-  <!-- SITREP BODY — structured sections -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 20px" id="sitrepGrid">
+  <!-- NARRATIVE SITREP BAR -->
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-left:3px solid #ef4444;border-radius:0 6px 6px 0;padding:11px 16px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.75">
+    <strong style="color:var(--text)">Brent crude surged back above $109/bbl on 28 April</strong> — up 14% in one week after the ceasefire expired on 21 April with no agreement. Iran has submitted a fresh proposal via Pakistani mediators (conditions: US lifts naval blockade, revised Hormuz transit framework, assurances against future strikes), but Trump is reportedly dissatisfied and the nuclear programme remains the central sticking point. The conflict is now in its <strong>ninth week</strong> with Hormuz flows at ~10% of normal capacity (Kpler). The Dated Brent spot price trades at a <strong>+$25/bbl premium</strong> over futures — the most extreme physical tightness since the 1973 oil shock. EIA confirms the Q1 2026 Brent price increase was the <strong>largest in history</strong> (inflation-adjusted, since 1988). For Timor-Leste: estimated pump prices remain below Decree-Law ceilings (Petrol ~$1.24/L vs $1.50 ceiling · Diesel ~$1.41/L vs $1.65 ceiling) — <strong>no government subsidy triggered</strong>. The strategic diesel reserve (80M litres · $168.8M · EDTL power generation through end-2026) insulates the country from supply shocks. FAO Food Price Index rose to 128.5 pts in March (+2.4% MoM) but rice prices fell 3.0% — positive for TL as a rice importer. Fertilizer alert: urea up +46% MoM, 1.3M MT/month stranded in Gulf — watch impact on H2 2026 wet-season planting.
+    <span style="float:right;opacity:.6;font-size:10px;margin-left:16px;white-space:nowrap">— Crisis Monitoring Unit · 28 Apr 2026</span>
+  </div>
+
+id="sitrepGrid">
 
     <!-- TL MEASURES -->
     <div style="grid-column:1/-1">
@@ -1129,8 +1140,8 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
           </tr>
           <tr>
             <td class="tl-date">3&ndash;4 Apr 2026</td>
-            <td class="tl-actor">FAO / World Bank / WFP</td>
-            <td class="tl-event"><span class="badge-amber">FOOD ALERT</span> <strong>FAO Food Price Index March 2026: 128.5 points (+2.4% MoM) &mdash; 6-month high.</strong> Second consecutive month of increase. All commodity groups rose. Wheat +4.3% (US drought + Australia reduced plantings on fertiliser costs). Vegetable oils +8.9 pts (+5.1% MoM; palm oil highest since mid-2022). <strong>Rice &minus;3.0%</strong> (harvest pressure, weaker import demand, currency depreciation). World Bank: urea prices surged <strong>+46% MoM</strong> (Feb&rarr;Mar 2026) &mdash; largest monthly jump on record. WFP warns conflict could push <strong>45 million additional people into acute hunger by mid-2026</strong>. China banned exports of nitrogen-potassium blends and phosphate fertilisers through August 2026 &mdash; closing the last major alternative supply route. <small>Sources: FAO.org / World Bank Food Security Update / UPI, 3&ndash;4 Apr 2026.</small></td>
+            <td class="tl-actor">FAO / WFP / IFPRI</td>
+            <td class="tl-event"><span class="badge-amber">FOOD ALERT</span> <strong>FAO Food Price Index March 2026: 128.5 points (+2.4% MoM) &mdash; 6-month high.</strong> Second consecutive month of increase. All commodity groups rose. Wheat +4.3% (US drought + Australia reduced plantings on fertiliser costs). Vegetable oils +8.9 pts (+5.1% MoM; palm oil highest since mid-2022). <strong>Rice &minus;3.0%</strong> (harvest pressure, weaker import demand, currency depreciation). Commodity markets: urea prices surged <strong>+46% MoM</strong> (Feb&rarr;Mar 2026) &mdash; largest monthly jump on record. WFP warns conflict could push <strong>45 million additional people into acute hunger by mid-2026</strong>. China banned exports of nitrogen-potassium blends and phosphate fertilisers through August 2026 &mdash; closing the last major alternative supply route. <small>Sources: FAO.org / WFP Food Security Update / UPI, 3&ndash;4 Apr 2026.</small></td>
           </tr>
           <tr style="background:rgba(46,196,182,.06)">
             <td class="tl-date" style="color:#2ec4b6;font-weight:600">2 Apr 2026</td>
@@ -1300,7 +1311,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
     </div>
     <div class="chart-box">
       <h3>Estimated Fiscal Cost — Emergency Decree Scenarios</h3>
-      <p class="chart-sub">Estimated annual subsidy cost ($M/yr) under four Brent price scenarios. At current Brent (~$97/bbl) no subsidy is triggered &mdash; the new ceilings remain above landed import cost. Fiscal risk materialises only if Brent exceeds ~$115&ndash;120/bbl. Source: WB EEAM2 team estimate, Mar 2026.</p>
+      <p class="chart-sub">Estimated annual subsidy cost ($M/yr) under four Brent price scenarios. At current Brent (~$97/bbl) no subsidy is triggered &mdash; the new ceilings remain above landed import cost. Fiscal risk materialises only if Brent exceeds ~$115&ndash;120/bbl. Source: Macro-Fiscal Team estimate, Mar 2026.</p>
       <div class="chart-wrap" style="height:260px"><canvas id="fiscalChart"></canvas></div>
       <div class="tzone-legend" style="margin-top:8px">
         <span><span class="tzone-dot tzone-g"></span>No subsidy triggered</span>
@@ -1354,7 +1365,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 <!-- FISCAL COST ANALYSIS BOX — 25 Mar 2026 Emergency Decree -->
 <div style="background:rgba(230,57,70,.06);border:1px solid rgba(230,57,70,.2);border-left:3px solid var(--red);border-radius:6px;padding:16px;margin-top:16px">
-  <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px">Estimated Fiscal Cost &mdash; Subsidy Decree (25 Mar 2026) &middot; WB EEAM2 Team Estimate</div>
+  <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px">Estimated Fiscal Cost &mdash; Subsidy Decree (25 Mar 2026) &middot; Macro-Fiscal Team Estimate</div>
   <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">The emergency decree sets consumer price ceilings and introduces a state subsidy: importers present actual landed costs; the State General Budget covers any shortfall below the ceiling. Fiscal cost depends entirely on Brent price trajectory. At current prices (~$100/bbl), the ceilings are <strong style="color:var(--green)">above</strong> landed import cost &mdash; no subsidy is triggered. Costs escalate sharply if Brent returns to crisis peak levels.</p>
 
   <table class="price-table" style="font-size:12px;margin-bottom:12px">
@@ -1786,7 +1797,7 @@ id="panel-asia">
 
     <!-- Price comparison chart ref + context -->
     <div style="background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-left:3px solid #8b5cf6;border-radius:0 6px 6px 0;padding:12px 14px;font-size:12px;color:var(--text2)">
-      <strong style="color:#8b5cf6">📊 Global Fertilizer Context (World Bank Commodities, Apr 2026)</strong><br>
+      <strong style="color:#8b5cf6">📊 Global Fertilizer Context (FAO / AMIS / Argus, Apr 2026)</strong><br>
       Urea (Egypt FOB): <strong>$700/MT</strong> (+46% MoM) ·
       Urea (US Gulf): <strong>$800/MT</strong> ·
       DAP (US): ~$620/MT (+28%) ·
@@ -2076,8 +2087,8 @@ id="panel-asia">
           <tr><td>OEC World / FAO GIEWS</td><td>TL rice import profile: volumes (135,000&ndash;160,000t/yr), source countries (India, Vietnam, China), import dependency (60&ndash;90% of cereal consumption). URLs: oec.world/en/profile/bilateral-product/rice/reporter/tls &amp; fao.org/giews/countrybrief/country.jsp?code=TLS. Publicly available.</td></tr>
           <tr><td>Vietnam Hormuz Tracker / EAP Fuel Policy DB</td><td>Asia comparison data (% price change vs pre-crisis). Figures not independently verified for this dashboard. <a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">sachadray.github.io/hormuz-vietnam-tracker</a></td></tr>
           <tr><td>Lowy Institute</td><td>TL energy shock analysis (Mar 2026): Petroleum Fund at $18.77bn late 2025, fell $340M in Q4. Analysis of TL fiscal exposure to Iran war. <a href="https://www.lowyinstitute.org/the-interpreter/oil-shock-timor-leste-s-economy" target="_blank" style="color:var(--blue)">lowyinstitute.org</a></td></tr>
-          <tr><td>WB TL Economic Report / EITI / MoF</td><td>Petroleum Fund balance ($18.77bn), ESI framework, fiscal data. Source: WB Timor-Leste Economic Report (Feb 2026).</td></tr>
-          <tr><td>IEA / World Bank</td><td>Oil import dependency ratios for ASEAN comparison. TL has no domestic refinery &mdash; 100% of fuel is imported.</td></tr>
+          <tr><td>WB TL Economic Report / EITI / MoF</td><td>Petroleum Fund balance ($18.77bn), ESI framework, fiscal data. Source: Timor-Leste Economic Report (Feb 2026).</td></tr>
+          <tr><td>IEA / ASEAN Secretariat</td><td>Oil import dependency ratios for ASEAN comparison. TL has no domestic refinery &mdash; 100% of fuel is imported.</td></tr>
         </tbody>
       </table>
     </div>
@@ -2441,7 +2452,7 @@ id="panel-asia">
 <!-- FOOTER -->
 
 <div class="footer">
-  <span>Data: <strong><a href="https://claudeblattman.com" target="_blank" style="color:var(--blue)">claudeblattman.com</a></strong> &middot; <strong><a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">HormuzTracker.com (CC BY 4.0)</a></strong> &middot; ANPM &middot; INETL &middot; WFP &middot; World Bank &middot; FAO &middot; IMF &middot; oilpriceapi.com</span>
+  <span>Data: <strong><a href="https://claudeblattman.com" target="_blank" style="color:var(--blue)">claudeblattman.com</a></strong> &middot; <strong><a href="https://sachadray.github.io/hormuz-vietnam-tracker/" target="_blank" style="color:var(--blue)">HormuzTracker.com (CC BY 4.0)</a></strong> &middot; ANPM &middot; INETL &middot; WFP &middot; FAO &middot; IMF &middot; oilpriceapi.com</span>
   <span style="display:flex;gap:12px"><span id="footerLiveStatus" style="color:var(--text3);font-size:11px">Oil prices: seed data</span><a href="#" onclick="switchTab('method');return false;">Sources &amp; Method &rarr;</a></span>
 </div>
 
@@ -2914,8 +2925,8 @@ async function fetchFaoRicePrices() {
   setCacheStatus('rice', 'seed/admin', 'manual', '$' + r + '/t');
 }
 
-// ── 3. FOOD INDEX: World Bank Pink Sheet API ─────────────────────
-// WB commodity price API — food price index, fertilizer
+// ── 3. FOOD INDEX: FAO/Commodity API ─────────────────────
+// Commodity price API — food price index, fertilizer
 async function fetchWBCommodities() {
   const cacheKey = 'tl_wb_commodity_cache';
   try {
@@ -2935,7 +2946,7 @@ async function fetchWBCommodities() {
       const val = parseFloat(j?.[1]?.[0]?.value);
       if (val > 0) {
         localStorage.setItem(cacheKey, JSON.stringify({ fao: val, ts: Date.now() }));
-        setCacheStatus('food', 'World Bank API', 'live', val.toFixed(1));
+        setCacheStatus('food', 'FAO/Commodity API', 'live', val.toFixed(1));
         return;
       }
     }
@@ -3304,7 +3315,7 @@ fetchAllData();   // multi-source live data fetch
 })();
 
   // ── FISCAL COST SCENARIO CHART ──────────────────────────────────────────
-  // Source: WB EEAM2 team estimate Mar 2026. Volumes: diesel 97M L/yr, petrol 62M L/yr.
+  // Source: Macro-Fiscal Team estimate, Apr 2026. Volumes: diesel 97M L/yr, petrol 62M L/yr.
   // Freight markup $0.33/L base. Subsidy = MAX(0, landed - ceiling). Annualised.
   if(document.getElementById('fiscalChart')) {
     new Chart(document.getElementById('fiscalChart'),{
