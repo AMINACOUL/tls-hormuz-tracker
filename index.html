@@ -221,7 +221,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
   <!-- NARRATIVE SITREP BAR -->
   <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-left:3px solid #ef4444;border-radius:0 6px 6px 0;padding:11px 16px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.75">
-    <strong style="color:var(--text)">Brent crude above $109/bbl on 28 April (Week 9 · Day 58)</strong> — up 14% since ceasefire expired 21 April. Iran submitted a fresh proposal via Pakistan (conditions: lift blockade, revised Hormuz framework, no-strike assurances); Trump reportedly dissatisfied — nuclear programme the central sticking point. Hormuz at ~10% of normal flows; Dated Brent spot +$25 premium over futures (EIA) — most extreme physical tightness since 1973. <strong style="color:#10b981">Food:</strong> FAO Food Price Index 128.5 pts Mar 2026 (+2.4%, 6-month high). <strong style="color:#10b981">Rice fell –3.0%</strong> (Thai 5% $382/MT · Vietnamese 5% $375/MT · Indian 5% $345/MT) — POSITIVE for Timor-Leste as rice importer. Wheat +4.3%, vegetable oils +5.1%, sugar +7.2%. <strong style="color:#ef4444">Fertilizer alert:</strong> urea $795/MT FOB Middle East (+46% MoM), 1.3M MT/month stranded — H2 2026 planting season risk. <strong>TL fiscal:</strong> pump prices below ceilings (Petrol ~$1.24/L vs $1.50; Diesel ~$1.41/L vs $1.65) — zero subsidy. Strategic diesel reserve (80M L · $168.8M) covers EDTL through end-2026.
+    <strong style="color:var(--text)">Brent crude above $109/bbl on 28 April (Week 9 · Day 58)</strong> — up 14% since ceasefire expired 21 April. Iran submitted a fresh proposal via Pakistan (conditions: lift blockade, revised Hormuz framework, no-strike assurances); Trump reportedly dissatisfied — nuclear programme the central sticking point. Hormuz at ~10% of normal flows; Dated Brent spot +$25 premium over futures (EIA) — most extreme physical tightness since 1973. <strong style="color:#10b981">Food:</strong> FAO Food Price Index 128.5 pts Mar 2026 (+2.4%, 6-month high). <strong style="color:#10b981">Rice fell –3.0%</strong> (Thai 5% $382/MT · Vietnamese 5% $375/MT · Indian 5% $345/MT) — POSITIVE for Timor-Leste as rice importer. Wheat +4.3%, vegetable oils +5.1%, sugar +7.2%. <strong style="color:#ef4444">Fertilizer alert:</strong> urea $795/MT FOB Middle East (+46% MoM), 1.3M MT/month stranded — H2 2026 planting season risk. <strong>TL fiscal:</strong> pump prices below ceilings (Petrol ~$1.29/L vs $1.50; Diesel ~$1.48/L vs $1.65 ceiling, margin +$0.17/L) — zero subsidy (corrected: physical Brent $134.50). Strategic diesel reserve (80M L · $168.8M) covers EDTL through end-2026.
     <span style="float:right;opacity:.6;font-size:10px;margin-left:16px;white-space:nowrap">— Crisis Monitoring Unit · 28 Apr 2026</span>
   </div>
 
@@ -345,17 +345,27 @@ id="sitrepGrid">
     <!-- TL FISCAL ALERT -->
     <div style="grid-column:1/-1">
       <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F4B0; Timor-Leste Fiscal Alert</div>
-      <div id="sitrepFiscal" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(239,68,68,.4);padding-left:10px;padding:8px 10px;border-radius:0 4px 4px 0" title="Click to edit">
+      <div id="sitrepFiscal" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(245,158,11,.5);padding-left:10px;padding:8px 10px;border-radius:0 4px 4px 0;background:rgba(245,158,11,.03)" title="Click to edit">
         
-          Brent <strong style="color:#ef4444">$109.5/bbl</strong> — Scenario C (escalation zone, approaching crisis peak of $119).
-          Estimated pump prices: Petrol ~<strong>$1.239/L</strong> vs ceiling $1.50 (margin +$0.261) ·
-          Diesel ~<strong>$1.412/L</strong> vs ceiling $1.65 (margin +$0.238).
-          <strong>$0 subsidy — ceilings still protective at Brent $109.</strong><br><br>
-          If Brent returns to March peak ($119): Petrol ~$1.27/L · Diesel ~$1.46/L — still both below ceilings.
-          Diesel subsidy only triggered above Brent <strong>$158/bbl</strong> — still $49 above today.
-          Strategic reserve (80M L · $168.8M) locks in EDTL supply through end-2026 regardless of Hormuz outcome.
-          ESI ($563M/yr) · PF ($18.77bn) provide full buffer. <strong>No PF drawdown scenario.</strong>
-          Watch: Decree-Law review/extension decision before end-2026.
+          <strong style="color:#f59e0b">⚠ CORRECTED MODEL — Dated Brent spot premium now +$25/bbl (EIA, 24 Apr)</strong><br>
+          The earlier estimate used <strong>Brent futures</strong> ($109.50/bbl). But Timor-Leste buys
+          <strong>physical cargoes</strong> priced off Dated Brent spot, which currently trades
+          at a <strong>+$25/bbl premium</strong> over front-month futures (EIA, 24 Apr 2026) —
+          the most extreme backwardation since 1973, reflecting acute physical tightness as
+          buyers scramble for non-Hormuz cargoes.<br><br>
+          <strong>Corrected market prices (effective Brent = $134.50):</strong><br>
+          · Petrol: <strong>~$1.29/L</strong> (was shown as $1.24) → ceiling $1.50 → margin +$0.21/L<br>
+          · Diesel: <strong>~$1.48/L</strong> (was shown as $1.41) → ceiling $1.65 → margin +$0.17/L<br>
+          The old model understated diesel by <strong>$0.066/L</strong> — the user's concern was correct.<br><br>
+          <strong style="color:#10b981">$0 subsidy still confirmed</strong> — both products remain below ceilings
+          even with the physical price correction. Diesel margin reduced from +$0.24 to +$0.17/L.<br><br>
+          <strong>Corrected futures breakeven (with $25 spot premium):</strong><br>
+          · Diesel $1.65 ceiling: effective Brent $178 → <strong>futures ~$153/bbl</strong> (was shown as $158)<br>
+          · Petrol $1.50 ceiling: effective Brent $209 → <strong>futures ~$184/bbl</strong> (unchanged)<br>
+          Today is <strong>$43/bbl below</strong> the corrected diesel futures breakeven.<br><br>
+          Strategic diesel reserve: $168.8M · 80M L · purchased at ~$2.11/L (effective Brent ~$134).
+          If spot premium narrows and futures fall to $75: opp. cost ~$68M vs ESI $563M/yr — manageable.
+          <strong>No PF drawdown required under any realistic scenario.</strong>
           
       </div>
     </div>
@@ -1596,7 +1606,7 @@ id="sitrepGrid">
       Developing Southeast Asia &amp; the Pacific = <strong>most severely affected sub-region</strong> for GDP growth losses under prolonged conflict.
       Tourism- and remittance-dependent Pacific economies face <strong>compounding vulnerabilities</strong> beyond the initial energy shock.
       <strong>Key ADB policy warning:</strong> "Broad-based energy subsidies and price controls should give way to targeted and time-bound fiscal support." — <strong>IMF WEO 14 Apr 2026:</strong> global growth 3.1% (cut; was due for upgrade to 3.4%). Adverse: 2.5%. Severe: ~2% — "close call for global recession" (Gourinchas). IEA Apr OMR: supply fell 10.1 mb/d March (record). Global demand to fall 80k bpd in 2026 — first decline since pandemic —
-      directly relevant to TL's current price ceiling decree (Decree-Law 25 Mar 2026).
+      directly relevant to TL's current price ceiling decree (Decree-Law 25 Mar 2026). <strong>Corrected model (28 Apr 2026):</strong> accounting for the Dated Brent spot +$25/bbl premium, diesel market price is ~$1.48/L (not $1.41 as previously shown) — margin to $1.65 ceiling is +$0.17/L. Futures breakeven corrected to ~$153/bbl (not $158).
       <strong>OPU Index at 700+:</strong> even if oil prices stabilize, the <em>uncertainty alone</em> materially slows global industrial production and investment flows — affecting TL's development finance pipeline.
     </div>
   </div>
