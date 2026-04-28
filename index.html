@@ -1615,73 +1615,124 @@ id="panel-asia">
   <div class="chart-grid" style="grid-template-columns:1fr 1fr;gap:16px">
     <div class="chart-box">
       <h3>Petrol Price Change vs Pre-Crisis &mdash; Asia</h3>
-      <p class="chart-sub">% change in retail petrol price (local currency/L), Feb 2026 vs latest available. Source: EAP Fuel Policy database / Vietnam Hormuz Tracker. TL figure reflects ANPM ceiling.</p>
+      <p class="chart-sub">% change in retail petrol price vs pre-crisis (Feb 2026). Sorted by severity. TL: market estimate ($1.20/L); ceiling $1.50. PH: +76% highest in region. Data: Carnegie/CASE SEA/ADB/Al Jazeera · 28 Apr 2026.</p>
       <div class="chart-wrap" style="height:500px"><canvas id="asiaGasChart"></canvas></div>
-      <div class="chart-src"><span class="chart-src-text">EAP Fuel Policy DB · Vietnam Hormuz Tracker · Seed</span><span class="manual-badge">MANUAL</span></div>
+      <div class="chart-src"><span class="chart-src-text">Carnegie/CASE SEA/ADB ADO Apr 2026/Al Jazeera/Wikipedia · 28 Apr 2026</span><span class="manual-badge">UPDATED</span></div>
     </div>
     <div class="chart-box">
       <h3>Diesel Price Change vs Pre-Crisis &mdash; Asia</h3>
-      <p class="chart-sub">% change in retail diesel price (local currency/L), Feb 2026 vs latest. Malaysia &amp; Lao PDR: sharpest pass-through. Indonesia: largely absorbed via subsidy. TL: ANPM ceiling only.</p>
+      <p class="chart-sub">% change in retail diesel price vs pre-crisis (Feb 2026). PH +78% and Lao PDR +72% highest. Indonesia +3.5% due to heavy subsidy ($22.5bn/yr budget). TL +14.8% market est.; ceiling $1.65. Sources: CASE SEA/ADB ADO Apr 2026 · 28 Apr.</p>
       <div class="chart-wrap" style="height:500px"><canvas id="asiaDieselChart"></canvas></div>
-      <div class="chart-src"><span class="chart-src-text">EAP Fuel Policy DB · Vietnam Hormuz Tracker · Seed</span><span class="manual-badge">MANUAL</span></div>
+      <div class="chart-src"><span class="chart-src-text">Carnegie/CASE SEA/ADB ADO Apr 2026/Al Jazeera/Wikipedia · 28 Apr 2026</span><span class="manual-badge">UPDATED</span></div>
     </div>
   </div>
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:16px;font-size:12px;color:var(--text2)">
-    <strong style="color:var(--text)">Notes:</strong> All TL figures use official ANPM ceiling prices. Market prices vary: diesel reported up to $1.40/L at some Dili stations (Mar 11). Regional data: EAP Fuel Policy database / Vietnam Hormuz Tracker; indicative. Indonesia largely absorbs shock via Pertamina subsidy.
-  </div>
+    <strong style="color:var(--text)">Sources &amp; Notes (28 Apr 2026):</strong>
+    Oil import dependency: Carnegie Endowment / CASE SEA / EIA · Petrol/diesel price changes: Al Jazeera (12 Mar), Wikipedia Economic Impact, CASE SEA, ADB ADO Apr 2026 · Philippines: declared state of emergency 24 Mar, peso PHP60.1/$, petrol +76% (Al Jazeera/ADB) · Indonesia: $22.5bn subsidy at $70/bbl; every $1 above = 10.3 trillion rupiah extra cost (EBC Financial/The Diplomat) · Vietnam: price stab fund depleted by early Apr; rice export prices +$375/MT (Vietnam.vn 3 Apr) · Thailand: price stab fund in deficit; export ban on petroleum (Al Jazeera/CASE) · Singapore: gas 93.1% of grid; Aster Chemicals force majeure declared · All TL figures use official Decree-Law ceilings (25 Mar 2026) + EEAM2/ANPM regression estimate · SE Asia oil need: ~5 mb/d; domestic production ~2 mb/d; must import ~3 mb/d (Carnegie 2026) · ADB: if conflict >1yr: –1.3pp growth, +3.2pp inflation for developing Asia (ADB Brief #384) · Oxford Economics: 6-month blockade → global GDP 1.4% (near recession).</div>
 
   <div style="margin-top:16px">
     <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">SEA Country Vulnerability &amp; Policy Response &mdash; The Diplomat (Mar 2026)</div>
     <table class="price-table">
-      <thead><tr><th>Country</th><th>Gulf Oil Dependence</th><th>Strategic Reserve</th><th>Gov Response</th><th>Fiscal Space</th><th>TL Relevance</th></tr></thead>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead><tr style="background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase">
+        <th style="padding:6px 8px;text-align:left">Country</th>
+        <th style="padding:6px 8px;text-align:right">Oil import<br>dependency</th>
+        <th style="padding:6px 8px;text-align:right">ME crude<br>exposure</th>
+        <th style="padding:6px 8px;text-align:right">Strategic<br>reserves</th>
+        <th style="padding:6px 8px;text-align:right">Petrol<br>+% crisis</th>
+        <th style="padding:6px 8px;text-align:right">Diesel<br>+% crisis</th>
+        <th style="padding:6px 8px;text-align:left">Gov response</th>
+        <th style="padding:6px 8px;text-align:left">Fiscal space</th>
+        <th style="padding:6px 8px;text-align:left">TL relevance</th>
+      </tr></thead>
       <tbody>
-        <tr style="background:rgba(230,57,70,.06)">
-          <td><strong style="color:#ff6b7a">Timor-Leste</strong></td>
-          <td>100% imported; ~0% Gulf direct</td>
-          <td>~2 months (ETO/PITSA stock)</td>
-          <td>Full passthrough; no subsidy; PM price signal</td>
-          <td>Petroleum Fund $18.77bn; ESI discipline</td>
-          <td><span class="badge-red">Most exposed (poorest tier)</span></td>
+        <tr style="background:rgba(230,57,70,.10);border-bottom:1px solid rgba(255,255,255,.07)">
+          <td style="padding:6px 8px;font-weight:700;color:#e63946">🇹🇱 Timor-Leste</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~100%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~80%</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">~4 months<br>(strategic rsv)</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">+9.1% (mkt est.)<br>capped $1.50</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">+14.8% (mkt est.)<br>capped $1.65</td>
+          <td style="padding:6px 8px;color:var(--text2)">Decree-Law ceilings (25 Mar) · 80M L strategic diesel reserve ($168.8M) · food reserve review</td>
+          <td style="padding:6px 8px;color:#10b981;font-weight:600">STRONG — ESI $563M/yr · PF $18.77bn · no subsidy triggered</td>
+          <td style="padding:6px 8px;color:var(--text3)">Baseline · unique petroleum fund buffer · most resilient in Pacific</td>
         </tr>
-        <tr>
-          <td>Indonesia</td>
-          <td>~25% from Gulf; net importer</td>
-          <td>~25 days</td>
-          <td>Subsidy maintained; fiscal pressure rising</td>
-          <td>Budget assumed $70/bbl; now $102 &rarr; severe strain</td>
-          <td>Emergency Kupang/Atapupu supply for TL</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇵🇭 Philippines</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~100%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">98%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~3 wks (no SPR)</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+76%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+78%</td>
+          <td style="padding:6px 8px;color:var(--text2)">State of emergency (24 Mar) · 4-day work week · 2M bbl procurement · rice at 20 PHP/kg for poor</td>
+          <td style="padding:6px 8px;color:#ef4444">CRITICAL — no SPR · tax-to-GDP 13% · peso at record low PHP60.1/$</td>
+          <td style="padding:6px 8px;color:var(--text3)">TL imports rice from PH market; PH food policy affects regional prices</td>
         </tr>
-        <tr>
-          <td>Vietnam</td>
-          <td>~87% from Gulf</td>
-          <td>&lt;20 days (thinnest in Asia)</td>
-          <td>Tapping price stabilisation fund; WFH orders</td>
-          <td>Moderate; tariff cuts under consideration</td>
-          <td>Key rice exporter to TL; supply chain watched</td>
+        <tr style="background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇻🇳 Vietnam</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~85%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">88% (80% Kuwait)</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">30–45 days</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+41%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+55%</td>
+          <td style="padding:6px 8px;color:var(--text2)">Price stab fund fully drawn (early Apr) · 4M bbl non-ME procurement · WFH push · E10 rollout</td>
+          <td style="padding:6px 8px;color:#f59e0b">STRAINED — fund depleted · expanding deficit · GDP growth moderating</td>
+          <td style="padding:6px 8px;color:var(--text3)">TL's #1 rice supplier — VN export price up $375/MT; freight surcharges hit TL import costs</td>
         </tr>
-        <tr>
-          <td>Thailand</td>
-          <td>~74% from Gulf</td>
-          <td>~2 months</td>
-          <td>Diesel price cap; WFH mandated; oil export ban</td>
-          <td>Tight; economy already weak pre-crisis</td>
-          <td>Thai rice exports to Middle East stalled; paradoxical benefit for Asian buyers</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇮🇩 Indonesia</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">~35%</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">~25% crude</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~20 days</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">+3.0%</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">+3.5%</td>
+          <td style="padding:6px 8px;color:var(--text2)">$22.5bn subsidy budget (at $70/bbl) · fuel rationing · daily purchase quotas · Pertamina supply</td>
+          <td style="padding:6px 8px;color:#ef4444">RISK — every $1↑ oil adds $580M subsidy · deficit may breach 3% cap at avg $92/bbl</td>
+          <td style="padding:6px 8px;color:var(--text3)">Pertamina/PITSA = TL's primary fuel supplier chain — supply security link</td>
         </tr>
-        <tr>
-          <td>Philippines</td>
-          <td>~96% from Gulf</td>
-          <td>~2 months</td>
-          <td>4-day work week; coordination with Russia/Indonesia</td>
-          <td>Limited; peso weakness compounds shock</td>
-          <td>Benchmark for high-passthrough small economy</td>
+        <tr style="background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇹🇭 Thailand</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~69%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">59% crude + 28% LNG</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">~61 days</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">+22%</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">+18%</td>
+          <td style="padding:6px 8px;color:var(--text2)">Diesel price cap · price stab fund in deficit · petroleum export ban · B20 biodiesel expansion</td>
+          <td style="padding:6px 8px;color:#f59e0b">MODERATE RISK — oil heist pressure · fund deficit · 61-day reserves</td>
+          <td style="padding:6px 8px;color:var(--text3)">Thai rice $382/MT → Cambodia/Laos/TL imports. Export ban for some products.</td>
         </tr>
-        <tr>
-          <td>Singapore</td>
-          <td>~90%+ imported energy</td>
-          <td>90+ days</td>
-          <td>Australia bilateral deal (Mar 24); refineries cutting output</td>
-          <td>Strong fiscal buffers</td>
-          <td>TL&rsquo;s primary fuel import hub (PITSA &amp; ETO source here)</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇸🇬 Singapore</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~77%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">High</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">20–50 days</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+35%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+58%</td>
+          <td style="padding:6px 8px;color:var(--text2)">Gas 93.1% of grid mix · rising energy bills · contract pressure · force majeure declarations</td>
+          <td style="padding:6px 8px;color:#f59e0b">STRONG BUFFERS — large reserves but high exposure; regional hub disruption</td>
+          <td style="padding:6px 8px;color:var(--text3)">Singapore = MOPS pricing hub. Cargo transit disruption affects TL import chains.</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇲🇾 Malaysia</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">~25%</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">25%</td>
+          <td style="padding:6px 8px;text-align:right;color:#10b981">Good</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">+28%</td>
+          <td style="padding:6px 8px;text-align:right;color:#f59e0b">+35%</td>
+          <td style="padding:6px 8px;color:var(--text2)">"Wait and see" — most fiscal space in ASEAN. Net oil exporter. RON95 partly subsidised.</td>
+          <td style="padding:6px 8px;color:#10b981">MOST RESILIENT in SEA — net energy exporter; large fiscal space</td>
+          <td style="padding:6px 8px;color:var(--text3)">Malaysia rice +8.7% Q1 grinding. Petronas = alternative TL supply chain option.</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🇰🇭 Cambodia</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">~100%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">High (via TH/VN)</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">Very limited</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+45%</td>
+          <td style="padding:6px 8px;text-align:right;color:#ef4444">+65%</td>
+          <td style="padding:6px 8px;color:var(--text2)">No refining. Entirely dependent on Thai/Viet imports now restricted. Severe pass-through.</td>
+          <td style="padding:6px 8px;color:#ef4444">VERY HIGH RISK — no SPR, no refining, no buffers. Similar to TL.</td>
+          <td style="padding:6px 8px;color:var(--text3)">Most comparable to TL in vulnerability profile but without PF buffer.</td>
         </tr>
       </tbody>
     </table>
@@ -1695,47 +1746,43 @@ id="panel-asia">
       JPM Commodities Research identifies the crisis as having shifted from a <strong>flow shock to a stock depletion problem</strong>, where timing &mdash; not just volumes &mdash; drives impact. Disruption propagates westward dictated by shipping routes. Global inventories fell ~155 million barrels (mb) in first 3 weeks of March &mdash; one of the largest drawdowns on record &mdash; driven almost entirely by a 211Mb drop in oil in transit (10 mbd). Refinery runs down 2.6 mbd since conflict onset. <strong>TL implication:</strong> Singapore (TL&rsquo;s primary fuel supply hub) is in the frontline impact zone. SE Asian refinery cuts (1.0 mbd incl. 770 kbd China) constrain product availability for TL&rsquo;s importers PITSA/ETO.
     </div>
     <table class="price-table">
-      <thead><tr><th>Region</th><th>Voyage time from Gulf</th><th>Impact phase</th><th>Estimated demand loss</th><th>Imports at risk</th><th>TL relevance</th></tr></thead>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead><tr style="background:var(--bg3);color:var(--text3);font-size:9px;text-transform:uppercase">
+        <th style="padding:6px 8px;text-align:left">Transmission Channel</th>
+        <th style="padding:6px 8px;text-align:left">Global impact</th>
+        <th style="padding:6px 8px;text-align:left">ASEAN impact</th>
+        <th style="padding:6px 8px;text-align:left">TL impact (estimated)</th>
+      </tr></thead>
       <tbody>
-        <tr style="background:rgba(230,57,70,.06)">
-          <td><strong style="color:#ff6b7a">Southeast Asia</strong></td>
-          <td>10&ndash;20 days</td>
-          <td><span class="badge-red">ACTIVE</span> Already squeezed</td>
-          <td>~300 kbd (Apr) &rarr; 2+ mbd (May) &rarr; ~3 mbd (Jun)</td>
-          <td>Oil exports to SE Asia &minus;41% MoM/YoY (4-wk avg, Kpler)</td>
-          <td><strong>Direct:</strong> Singapore is TL&rsquo;s fuel supply hub. SE Asian refinery cuts constrain PITSA/ETO supply chain.</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🛢 Oil supply shock</td>
+          <td style="padding:6px 8px;color:var(--text2)">–10.1 mb/d (Mar 2026) · largest disruption in history (IEA Apr OMR)</td>
+          <td style="padding:6px 8px;color:var(--text2)">84% of Hormuz oil bound for Asia · ~5 mb/d ASEAN oil need · 3 mb/d must be imported</td>
+          <td style="padding:6px 8px;color:var(--text2)">4,556 bpd TL consumption; PITSA/ETO/Pertamina supply chain. Strategic reserve covers EDTL.</td>
         </tr>
-        <tr>
-          <td>Africa (East)</td>
-          <td>15&ndash;25 days</td>
-          <td><span class="badge-amber">EMERGING</span> Early shortage phase</td>
-          <td>Up to 250 kbd (Apr); ~700 kbd imports at risk</td>
-          <td>Exports to 4 most dependent African countries &minus;43% MoM, &minus;45% YoY</td>
-          <td>Indirect: Kenya already showing retail fuel shortages. Benchmark for small import-dependent economies.</td>
+        <tr style="background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">💰 Fuel price pass-through</td>
+          <td style="padding:6px 8px;color:var(--text2)">Brent +45% in first 2 weeks. Dated Brent spot +$25 premium (EIA Apr). US gasoline $3.99/gal (30 Mar).</td>
+          <td style="padding:6px 8px;color:var(--text2)">PH +76-78% · VN +41-55% · LDR +58-72% · Myanmar +52-65%. Indonesia partially absorbed ($22.5bn subsidy). Thailand fund in deficit.</td>
+          <td style="padding:6px 8px;color:#10b981">Decree-Law ceilings in force. Market diesel ~$1.48/L vs $1.65 ceiling. No subsidy triggered. Futures breakeven: $153/bbl.</td>
         </tr>
-        <tr>
-          <td>Europe</td>
-          <td>20&ndash;35 days</td>
-          <td><span class="badge-amber">APPROACHING</span> Mid-April</td>
-          <td>Price-driven (not physical shortage); ~1.1 mbd imports at risk</td>
-          <td>Inventories still adequate; gasoline redirected to Asia</td>
-          <td>Indirect: European energy prices affect global LNG/TTF which impacts EDTL power generation costs.</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">🌾 Fertilizer / food risk</td>
+          <td style="padding:6px 8px;color:var(--text2)">Urea +46% MoM (Feb→Mar 2026). 1.3MT/month stranded. WFP: 45M more into hunger by mid-2026.</td>
+          <td style="padding:6px 8px;color:var(--text2)">India, PH, TH, VN heavily dependent on Gulf fertilizers. India issued 2.5MT urea tender. China export ban extended Aug 2026.</td>
+          <td style="padding:6px 8px;color:#f59e0b">Low direct exposure (subsistence farming). Critical window: secure fertilizer by Oct 2026 for Nov wet-season planting. Rice imports from VN/TH/India: favorable (prices down).</td>
         </tr>
-        <tr>
-          <td>United States</td>
-          <td>35&ndash;45 days</td>
-          <td><span class="badge-green">BUFFERED</span> Late April/May</td>
-          <td>Price shock only near-term; California physical shortage risk late April/May</td>
-          <td>Limited direct Gulf imports; domestic production buffer</td>
-          <td>Indirect: US political pressure for ceasefire is the key de-escalation variable for TL.</td>
+        <tr style="background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">📈 Inflation / growth</td>
+          <td style="padding:6px 8px;color:var(--text2)">IMF WEO: global growth 3.1% (cut from 3.4%). Inflation 4.4%. Severe scenario: ~2% (near recession). Allianz: 6-month blockade → global GDP 1.4%.</td>
+          <td style="padding:6px 8px;color:var(--text2)">ADB: developing Asia 5.1% baseline → 4.7% if conflict extends to Q3. PH subdued on inflation. VN/TH/MY moderating. Indonesia resilient domestic demand.</td>
+          <td style="padding:6px 8px;color:#10b981">TL: ADB ADO Apr 2026 — "growth stable 2026, accelerating 2027." ASEAN membership increases short-term shock exposure but provides medium-term anchor.</td>
         </tr>
-        <tr style="background:rgba(72,149,239,.06)">
-          <td><strong style="color:#4895ef">Timor-Leste</strong></td>
-          <td>~5&ndash;8 days from Singapore</td>
-          <td><span class="badge-amber">BUFFERED</span> 4 months reserves</td>
-          <td>Next cargo: PITSA Mar 25&ndash;27. Second ceiling adjustment (25 Mar decree). State subsidy introduced.</td>
-          <td>100% import dependent; 0% domestic refining</td>
-          <td><strong>ETO/PITSA 4-month buffer is the key TL protection.</strong> Watch Singapore refinery run cuts for next supply signal.</td>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+          <td style="padding:6px 8px;font-weight:600">⚓ Shipping / freight</td>
+          <td style="padding:6px 8px;color:var(--text2)">War risk insurance surcharges sharply elevated. Baltic Dirty Tanker Index: severely elevated. CMA CGM/Bunge: alternative routes. Force majeure declarations across petrochemicals.</td>
+          <td style="padding:6px 8px;color:var(--text2)">VN rice freight surcharges hit Africa buyers. Rayong Olefins (TH) suspended. PT Chandra Asri (ID) force majeure. Singapore: Aster Chemicals force majeure.</td>
+          <td style="padding:6px 8px;color:#f59e0b">Singapore→Dili freight elevated ($0.035–0.050/L). War risk insurance elevated ($0.005–0.010/L). Embedded in MOPS pricing model. Net impact already in corrected price estimates.</td>
         </tr>
       </tbody>
     </table>
@@ -2653,9 +2700,9 @@ function renderCharts(){
   });
 
   // ASIA GAS
-  const countries=['Timor-Leste','Vietnam','Malaysia','Cambodia','China','Japan','Korea','Indonesia','Philippines','Thailand','Singapore','Taiwan','Lao PDR'];
-  const gasChg=[11.8,25.0,31.0,36.0,4.5,22.0,5.0,2.0,18.0,-3.0,30.0,5.0,31.0];
-  const dslChg=[16.2,34.0,62.0,59.0,5.5,28.0,8.0,3.0,24.0,-4.0,55.0,4.0,65.0];
+  const countries=['Timor-Leste','Philippines','Lao PDR','Myanmar','Cambodia','Vietnam','Singapore','Thailand','Malaysia','Japan','Korea','Taiwan','Indonesia','China'];
+  const gasChg=[9.1,76.0,58.0,52.0,45.0,41.0,35.0,22.0,28.0,26.0,18.0,12.0,3.0,5.5];
+  const dslChg=[14.8,78.0,72.0,65.0,65.0,55.0,58.0,18.0,35.0,32.0,22.0,14.0,3.5,6.0];
 
   new Chart(document.getElementById('asiaGasChart'),{
     type:'bar',
