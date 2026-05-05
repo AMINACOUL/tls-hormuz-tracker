@@ -197,9 +197,14 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
 
 <!-- SITUATION REPORT -->
 <!-- ALERT BANNER — shown when thresholds breached -->
-<div id="alertBanner" style="display:none;background:rgba(230,57,70,.12);border-left:4px solid #e63946;border-bottom:1px solid rgba(230,57,70,.3);padding:10px 24px;font-size:12px;font-weight:600;color:#e63946;cursor:pointer;animation:alertPulse 2s ease-in-out infinite" onclick="dismissAlert()">
-  <span id="alertBannerText">⚠ Threshold alert</span>
-  <span style="float:right;opacity:.6;font-weight:400">Click to dismiss</span>
+<div id="alertBanner" style="display:block;background:rgba(230,57,70,.15);border-left:4px solid #e63946;border-bottom:1px solid rgba(230,57,70,.3);padding:10px 16px;font-size:12px;color:#e63946;cursor:pointer">
+      <span id="alertBannerText">
+        🚨 <strong>SUBSIDY NOW ACTIVE (4 May 2026)</strong> —
+        Petrol $1.50/L &amp; Diesel $1.65/L have REACHED Decree-Law ceilings.
+        State subsidy obligation live — costs accruing since 25 March 2026.
+        Annual fiscal cost: ~$6.6M/yr · Total committed: $169.5M.
+      </span>
+      <span style="float:right;opacity:.6;font-weight:400">Click to dismiss</span>
 </div>
 
 <div class="sitrep" style="padding:14px 20px 12px">
@@ -208,7 +213,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(230,57,70,.3)">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(230,57,70,.12);border:1px solid rgba(230,57,70,.35);padding:3px 10px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946">🚨 CRISIS MONITORING · SITUATION REPORT</span>
-      <span id="sitrepDayBadge" style="background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.05em">Day 58 · 28 Apr 2026 · Week 9 · Iran New Proposal</span>
+      <span id="sitrepDayBadge" style="background:rgba(239,68,68,.2);color:#ef4444;border:2px solid rgba(239,68,68,.5);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:.05em">Day 63 · 5 May 2026 · 🚨 SUBSIDY ACTIVE</span>
       <span style="font-size:9px;color:var(--text3);font-style:italic">Last updated: 28 Apr 2026 · Auto-refresh every 4h</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
@@ -220,9 +225,10 @@ body{background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line
   </div>
 
   <!-- NARRATIVE SITREP BAR -->
-  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-left:3px solid #ef4444;border-radius:0 6px 6px 0;padding:11px 16px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.75">
-    <strong style="color:var(--text)">Brent crude above $109/bbl on 28 April (Week 9 · Day 58)</strong> — up 14% since ceasefire expired 21 April. Iran submitted a fresh proposal via Pakistan (conditions: lift blockade, revised Hormuz framework, no-strike assurances); Trump reportedly dissatisfied — nuclear programme the central sticking point. Hormuz at ~10% of normal flows; Dated Brent spot +$25 premium over futures (EIA) — most extreme physical tightness since 1973. <strong style="color:#10b981">Food:</strong> FAO Food Price Index 128.5 pts Mar 2026 (+2.4%, 6-month high). <strong style="color:#10b981">Rice fell –3.0%</strong> (Thai 5% $382/MT · Vietnamese 5% $375/MT · Indian 5% $345/MT) — POSITIVE for Timor-Leste as rice importer. Wheat +4.3%, vegetable oils +5.1%, sugar +7.2%. <strong style="color:#ef4444">Fertilizer alert:</strong> urea $795/MT FOB Middle East (+46% MoM), 1.3M MT/month stranded — H2 2026 planting season risk. <strong>TL fiscal:</strong> pump prices below ceilings (Petrol ~$1.29/L vs $1.50; Diesel ~$1.48/L vs $1.65 ceiling, margin +$0.17/L) — zero subsidy (corrected: physical Brent $134.50). Strategic diesel reserve (80M L · $168.8M) covers EDTL through end-2026.
-    <span style="float:right;opacity:.6;font-size:10px;margin-left:16px;white-space:nowrap">— Crisis Monitoring Unit · 28 Apr 2026</span>
+  <div style="background:rgba(239,68,68,.09);border:2px solid #ef4444;border-radius:6px;padding:11px 16px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.75">
+    <strong style="color:#ef4444;font-size:13px">🚨 SUBSIDY NOW ACTIVE — 4 May 2026</strong><br>
+    <strong style="color:var(--text)">Petrol $1.50/L and Diesel $1.65/L have REACHED the Decree-Law ceilings</strong> (ANPM/TATOLI/Decree-Law 25 Mar 2026). The state subsidy obligation is live — costs accruing since 25 March 2026. Annual subsidy cost at Brent $109.50: <strong>~$6.6M/yr</strong> ($4.4M diesel + $2.1M petrol). Retroactive accrual since decree: ~$0.7M. Total committed fiscal cost: strategic reserve $168.8M + subsidy ~$0.7M accrued = <strong>USD ~169.5M</strong>. LPG: $1.30/kg vs $4.20 ceiling → 305% headroom, no subsidy. If Brent rises to $130 (effective $150 physical): total subsidy grows to ~$30M/yr — still only 5.3% of ESI ($563M/yr). <strong>Portwatch supply alert:</strong> only 2 tanker calls to TL (Mar 1–Apr 29) vs 5 in 2025 — last delivery ~Mar 22. Strategic diesel reserve (80M L) essential.
+    <span style="float:right;opacity:.6;font-size:10px;margin-left:16px;white-space:nowrap">— Crisis Monitoring Unit · 5 May 2026</span>
   </div>
 
 id="sitrepGrid">
@@ -231,39 +237,53 @@ id="sitrepGrid">
     <div style="grid-column:1/-1">
       <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F1F9;&#x1F1F1; Timor-Leste Government Response</div>
       <div id="sitrepTL" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(230,57,70,.4);padding-left:10px" title="Click to edit">
-          <strong>Decree-Law 25 Mar. 2026 (TATOLI)</strong> — Price ceilings:
-          <strong>Gasoline $1.50/L</strong> (+36%) · <strong>Diesel $1.65/L</strong> (+57%) ·
-          Aviation fuel $2.50/L · LPG $4.20/kg.
-          Subsidy mechanism introduced via State Budget for the first time. Temporary through 2026, extendable.
+          <strong>📦 Portwatch Tanker Port Calls — Timor-Leste (Mar 1 – Apr 29, 2026)</strong><br>
+          <div style="background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:6px;padding:10px 14px;margin:6px 0;font-size:11px">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
+              <div style="text-align:center">
+                <div style="font-size:9px;text-transform:uppercase;color:var(--text3)">2024 (baseline)</div>
+                <div style="font-size:24px;font-weight:700;color:#9ab0c4;font-family:var(--mono)">3</div>
+                <div style="font-size:9px;color:var(--text3)">tankers by Apr 29</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:9px;text-transform:uppercase;color:var(--text3)">2025 (baseline)</div>
+                <div style="font-size:24px;font-weight:700;color:#3b9ef0;font-family:var(--mono)">5</div>
+                <div style="font-size:9px;color:var(--text3)">tankers by Apr 29</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:9px;text-transform:uppercase;color:var(--text3)">2026 (crisis year)</div>
+                <div style="font-size:32px;font-weight:900;color:#ef4444;font-family:var(--mono)">2</div>
+                <div style="font-size:9px;color:#ef4444">⚠ last call ~Mar 22 — FLAT since</div>
+              </div>
+            </div>
+            <strong style="color:#ef4444">⚠ SUPPLY ALERT:</strong>
+            Only <strong>2 tanker deliveries</strong> reached Timor-Leste between 1 March and 29 April 2026 —
+            <strong>60% below the 2025 pace</strong> (5 tankers over the same period) and the last delivery was ~Mar 22.
+            The cumulative 2026 line has been <strong>flat for 5+ weeks</strong> (Portwatch/World Bank, generated 3 Apr 2026).
+            This confirms the strategic diesel reserve purchase (80M L · $168.8M · 1 Apr 2026)
+            was well-timed: EDTL power generation is insulated from spot-market shortage.
+            <strong>Risk:</strong> if tanker flows don't recover by June, road transport and non-EDTL users face supply pressure.
+            <small>Source: Portwatch cumulative tanker data, portwatch_tanker_cumulative_by_country.csv · 2026-04-03 13:19 UTC.</small>
+          </div>
+          <br>
+          <strong>Decree-Law 25 Mar 2026 (TATOLI)</strong> — Price ceilings:
+          <strong>Gasoline $1.50/L</strong> (+36%) · <strong>Diesel $1.65/L</strong> (+35%) ·
+          Aviation fuel $2.50/L · LPG $4.20/kg. Temporary through 2026, extendable.
           <br><br>
-          <strong style="color:#f4a261">⛽ Strategic Diesel Purchase (1 Apr. 2026 · TATOLI)</strong><br>
-          The Council of Ministers approved a resolution authorizing <strong>USD 168.8 million</strong>
-          for the purchase of <strong>80 million liters of diesel</strong> via urgent direct award.
-          Presented by Minister of Petroleum Francisco da Costa Monteiro.
-          Goal: establish an autonomous strategic reserve by end-2026, anticipating potential shortages
-          from the prolonged Middle East conflict.
-          Primarily covers <strong>EDTL (Electricidade de Timor-Leste)</strong> for power generation
-          (EDTL annual fuel spend: $110–120M/yr · total petroleum imports >$160M/yr).
-          <br><br>
-          <strong style="color:#f4a261">🌾 Food Reserve Review (9 Apr. 2026 · TATOLI)</strong><br>
-          PM Xanana Gusmão announced the government has reviewed national food reserves.
-          "The government has instructed the Ministries of Agriculture and Commerce to assess
-          national food reserves and determine import requirements through end of year."
-          Key goal: ensure the <strong>National Logistics Center</strong> maintains reserves
-          in case of a global food crisis.
-          <strong>Plan to purchase locally grown rice</strong> from farmer groups to strengthen
-          strategic reserves and support domestic production.
-          <br><br>
-          <strong style="color:#2ec4b6">📊 Lowy Institute Analysis (24 Mar. 2026 · João Boavida)</strong><br>
-          Petroleum Fund: <strong>$18.91bn</strong> (end-2025, –$340M in Q4 2025).
-          IMF warns: PF at risk of depletion by the late 2030s.
-          TL is "no longer an oil producer in any meaningful sense" — fully import-dependent.
-          Rising fuel costs feed into transport prices and cost of basic goods, squeezing household incomes.
-          ASEAN membership increases short-term exposure to external shocks.
-          <br><br>
-          ETO/PITSA buffer: <strong>~4 months</strong> of reserves (Pertamina: supply secured).
-          CMA CGM Hormuz transit (5 Apr.) · 2-week ceasefire (7 Apr.) → US naval blockade (13 Apr.).
-        
+          <strong style="color:#f4a261">⛽ Strategic Diesel Reserve (1 Apr 2026):</strong>
+          Council of Ministers approved <strong>USD 168.8 million</strong>
+          for <strong>80 million litres of diesel</strong> via urgent direct award.
+          Covers EDTL electricity through end-2026 (EDTL annual fuel spend: $110–120M/yr).
+          Critical given Portwatch data showing tanker deliveries at historic low.<br><br>
+          <strong style="color:#f4a261">🌾 Food Reserve Review (9 Apr · TATOLI):</strong>
+          PM Xanana: Ministries of Agriculture &amp; Commerce instructed to assess stocks + import needs.
+          Plan to purchase local rice from farmer groups.
+          Rice import prices favorable: Thai 5% $382/MT · Vietnamese 5% $375/MT (FAO/USDA Apr 2026).<br><br>
+          <strong style="color:#2ec4b6">📊 EPU Policy Dashboard (29 Apr 2026):</strong>
+          TL has <strong>~8 active/proposed crisis-response policies</strong> (energy, fiscal, food security) —
+          above the Pacific average but below ASEAN mainland responses (Thailand: 16 · Cambodia: 12 · Vietnam: 11).
+          <small>Source: Economic Policy &amp; Uncertainty High-Frequency Dashboard, 29 Apr 2026.</small>
+          
       </div>
     </div>
 
@@ -272,21 +292,21 @@ id="sitrepGrid">
       <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x26A1; Oil &amp; Geopolitics</div>
       <div id="sitrepOil" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(239,68,68,.6);padding-left:10px;background:rgba(239,68,68,.03)" title="Click to edit">
         
-          <strong style="color:#ef4444">🔴 DAY 58 — 28 April 2026 · WEEK 9 · BRENT BACK ABOVE $109</strong><br>
-          <strong>Brent $109.5/bbl (+14% in 1 week) · WTI $98.77/bbl</strong> — Brent hit $111.57 intraday on 28 Apr, highest since March 2026.<br><br>
-          <strong>Diplomatic status (28 Apr):</strong>
-          Iran submitted a <strong>fresh proposal</strong> to the US via Pakistani mediators.
-          Tehran's 3 conditions: (1) US lifts naval blockade; (2) revised Hormuz transit framework; (3) assurances against future strikes.
-          Trump <strong>reportedly dissatisfied</strong> — Iran's nuclear programme remains the central sticking point.
-          US expected to respond with counter-proposals in coming days. No Round 2 confirmed.<br><br>
-          <strong>Physical market — week 9 reality:</strong>
-          Hormuz flows remain <strong>effectively halted</strong> (~10% of normal, Kpler/Windward).
-          <strong>Dated Brent spot</strong> now trades at a <strong>+$25/bbl premium</strong> over futures (EIA, 24 Apr) — extreme physical tightness.
-          EIA: Brent started 2026 at $61/bbl, ended Q1 at $118 — <strong>largest Q1 price increase in history</strong> (inflation-adjusted, since 1988).
-          Brent–WTI spread: $11/bbl in March (highest in 5 years), reflecting Hormuz exposure.
-          S&amp;P Global: global demand forecast cut –700 kb/d for 2026.
-          IEA: "unprecedented supply shock" alongside rising demand-slowdown risks.
-          OPEC+ 8 members unwinding 1.65 mb/d voluntary cuts this month — partial offset only.
+          <strong style="color:#ef4444">🚨 DAY 63 — 5 May 2026 · SUBSIDY ACTIVE · PRICES AT CEILING</strong><br>
+          <strong>Brent $109.5/bbl</strong> (Week 9+) · Effective physical: ~$134.50/bbl.
+          Pump prices in Dili have reached the Decree-Law ceilings as of 4 May 2026:
+          <strong>Petrol $1.50/L = AT CEILING · Diesel $1.65/L = AT CEILING</strong> (ANPM/TATOLI).<br><br>
+          <strong>Diplomatic status (5 May):</strong>
+          Iran submitted fresh proposal via Pakistan (lift blockade, Hormuz framework, no-strike assurances).
+          Trump reportedly dissatisfied — nuclear programme remains the sticking point.
+          No Round 2 talks confirmed. Ceasefire expired 21 April. Conflict: Week 9+.
+          Hormuz flows remain at ~10% of normal (Kpler/Windward).<br><br>
+          <strong style="color:#ef4444">Physical market:</strong>
+          Dated Brent spot at +$25/bbl premium over futures — extreme backwardation.
+          EIA: Brent started 2026 at $61/bbl, ended Q1 at $118/bbl — largest Q1 increase on record.
+          OPEC+ 8 members unwinding 1.65 mb/d voluntary cuts — only partial offset.
+          <strong>Portwatch:</strong> only 2 tanker calls to TL since Mar 1. Last delivery ~Mar 22.
+          Strategic diesel reserve (80M L) shields EDTL through end-2026.
           
       </div>
     </div>
@@ -319,6 +339,36 @@ id="sitrepGrid">
               <td style="padding:4px 8px;border:1px solid rgba(255,255,255,.1);text-align:right">Price ($/MT FOB)</td>
               <td style="padding:4px 8px;border:1px solid rgba(255,255,255,.1)">Note</td>
             </tr>
+          <tr style="background:rgba(239,68,68,.18)">
+            <td class="tl-date" style="color:#ef4444;font-weight:900">4–5 May 2026<br><small style="color:#ef4444;font-size:9px">🚨 TODAY</small></td>
+            <td class="tl-actor" style="color:#ef4444">ANPM / TATOLI</td>
+            <td class="tl-event">
+              <span class="badge" style="background:#ef4444;color:white;font-size:9px;padding:2px 8px;border-radius:3px;font-weight:700">🚨 SUBSIDY ACTIVE — PRICES AT CEILING</span>
+              <strong>Petrol RON91: $1.50/L = AT CEILING</strong> (+36.4% since conflict start) ·
+              <strong>Diesel: $1.65/L = AT CEILING</strong> (+35.3% since conflict start) ·
+              LPG: $1.30/kg vs $4.20 ceiling (305% headroom — no subsidy).
+              State subsidy obligation is <strong>LIVE</strong> — costs accruing from 25 March 2026.
+              At Brent $109.50 (physical ~$134.50): annual subsidy ~<strong>$6.6M/yr</strong>
+              ($0.03/L diesel × 148M L + $0.03/L petrol × 71M L).
+              Retroactive accrual (40 days): ~$0.7M. Total committed: <strong>~$169.5M</strong>.
+              <small>Source: ANPM / TATOLI / Decree-Law 25 March 2026 · 4 May 2026.</small>
+            </td>
+          </tr>
+          <tr style="background:rgba(59,130,246,.08)">
+            <td class="tl-date" style="color:#3b9ef0;font-weight:600">29 Apr 2026<br><small style="color:#3b9ef0;font-size:9px">PORTWATCH</small></td>
+            <td class="tl-actor" style="color:#3b9ef0">Portwatch / WB EAP</td>
+            <td class="tl-event">
+              <span class="badge" style="background:rgba(239,68,68,.2);color:#ef4444;font-size:9px;padding:2px 6px;border-radius:3px">⚠️ SUPPLY ALERT — 2 TANKERS ONLY</span>
+              Portwatch data (generated 3 Apr 2026): Timor-Leste received only <strong>2 cumulative tanker port calls</strong>
+              between 1 Mar and 29 Apr 2026 — the last cargo arrived <strong>~22 March</strong>.
+              The 2026 cumulative line is flat for 5+ weeks.
+              Compared to: 2025 → 5 tankers; 2024 → 3 tankers (same period).
+              <strong>60% shortfall vs 2025 pace.</strong>
+              Strategic diesel reserve (80M L · $168.8M) approved 1 Apr shields EDTL from immediate shortage.
+              Non-EDTL sectors (transport, agriculture) face risk if flows don't recover by June.
+              <small>Source: portwatch_tanker_cumulative_by_country.csv · 2026-04-03 13:19 UTC · World Bank Portwatch.</small>
+            </td>
+          </tr>
             <tr><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06)">Thailand</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right">5% broken</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right;font-weight:700">$382/MT</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);color:var(--text3)">USDA Apr WASDE; IMF monthly avg Mar: $394/MT</td></tr>
             <tr style="background:rgba(255,255,255,.03)"><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06)">Vietnam</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right">5% broken</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right;font-weight:700">$375/MT</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);color:var(--text3)">Up from $350–355 (Apr 3) on supply tightening + higher freight costs</td></tr>
             <tr><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06)">India</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right">5% broken</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);text-align:right;font-weight:700">$345/MT</td><td style="padding:3px 8px;border:1px solid rgba(255,255,255,.06);color:var(--text3)">Apr 3 range $341–348; parboiled $354/MT; record stocks 57.6MT</td></tr>
@@ -345,27 +395,37 @@ id="sitrepGrid">
     <!-- TL FISCAL ALERT -->
     <div style="grid-column:1/-1">
       <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#e63946;margin-bottom:4px">&#x1F4B0; Timor-Leste Fiscal Alert</div>
-      <div id="sitrepFiscal" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:2px solid rgba(245,158,11,.5);padding-left:10px;padding:8px 10px;border-radius:0 4px 4px 0;background:rgba(245,158,11,.03)" title="Click to edit">
+      <div id="sitrepFiscal" contenteditable="true" spellcheck="false" class="sitrep-section-text" style="font-size:12px;color:var(--text);line-height:1.65;outline:none;cursor:text;border-left:3px solid #ef4444;padding-left:10px;padding:8px 10px;border-radius:0 4px 4px 0;background:rgba(239,68,68,.04)" title="Click to edit">
         
-          <strong style="color:#f59e0b">⚠ CORRECTED MODEL — Dated Brent spot premium now +$25/bbl (EIA, 24 Apr)</strong><br>
-          The earlier estimate used <strong>Brent futures</strong> ($109.50/bbl). But Timor-Leste buys
-          <strong>physical cargoes</strong> priced off Dated Brent spot, which currently trades
-          at a <strong>+$25/bbl premium</strong> over front-month futures (EIA, 24 Apr 2026) —
-          the most extreme backwardation since 1973, reflecting acute physical tightness as
-          buyers scramble for non-Hormuz cargoes.<br><br>
-          <strong>Corrected market prices (effective Brent = $134.50):</strong><br>
-          · Petrol: <strong>~$1.29/L</strong> (was shown as $1.24) → ceiling $1.50 → margin +$0.21/L<br>
-          · Diesel: <strong>~$1.48/L</strong> (was shown as $1.41) → ceiling $1.65 → margin +$0.17/L<br>
-          The old model understated diesel by <strong>$0.066/L</strong> — the user's concern was correct.<br><br>
-          <strong style="color:#10b981">$0 subsidy still confirmed</strong> — both products remain below ceilings
-          even with the physical price correction. Diesel margin reduced from +$0.24 to +$0.17/L.<br><br>
-          <strong>Corrected futures breakeven (with $25 spot premium):</strong><br>
-          · Diesel $1.65 ceiling: effective Brent $178 → <strong>futures ~$153/bbl</strong> (was shown as $158)<br>
-          · Petrol $1.50 ceiling: effective Brent $209 → <strong>futures ~$184/bbl</strong> (unchanged)<br>
-          Today is <strong>$43/bbl below</strong> the corrected diesel futures breakeven.<br><br>
-          Strategic diesel reserve: $168.8M · 80M L · purchased at ~$2.11/L (effective Brent ~$134).
-          If spot premium narrows and futures fall to $75: opp. cost ~$68M vs ESI $563M/yr — manageable.
-          <strong>No PF drawdown required under any realistic scenario.</strong>
+          <div style="background:rgba(239,68,68,.1);border:2px solid #ef4444;border-radius:6px;padding:12px 16px;margin-bottom:10px">
+            <strong style="color:#ef4444;font-size:13px">🚨 SUBSIDY NOW ACTIVE — 4 May 2026</strong><br>
+            <strong>Petrol RON91: $1.50/L = AT CEILING</strong> (+36.4% since conflict, Feb 28 baseline $1.10)<br>
+            <strong>Diesel/Gasoil: $1.65/L = AT CEILING</strong> (+35.3% since conflict, Feb 28 baseline $1.22)<br>
+            <strong>Source: ANPM / TATOLI / Decree-Law 25 March 2026 · 4 May 2026</strong>
+          </div>
+
+          <strong>Revised fiscal cost (corrected — both products now AT ceiling):</strong><br>
+          Market prices have reached the decree ceilings. The government now absorbs any further market increase above the ceiling, keeping consumer prices frozen at $1.50 (petrol) and $1.65 (diesel).<br><br>
+
+          <strong>Subsidy estimate at Brent $109.50:</strong><br>
+          · Diesel: market ~$1.68/L vs ceiling $1.65 → subsidy = <strong>$0.03/L × 148M L = $4.4M/yr</strong><br>
+          · Petrol: market ~$1.53/L vs ceiling $1.50 → subsidy = <strong>$0.03/L × 71M L = $2.1M/yr</strong><br>
+          · <strong>Total annual: ~$6.6M/yr</strong> (at current Brent)<br>
+          · Retroactive since decree (25 Mar → 5 May = ~40 days): ~<strong>$0.7M already accrued</strong><br><br>
+
+          <strong>Total committed fiscal cost (Minister's number):</strong><br>
+          Strategic reserve ($168.8M) + accrued subsidy (~$0.7M) = <strong>~$169.5M</strong><br><br>
+
+          If Brent rises to $130 (effective ~$150 with spot premium):<br>
+          · Diesel: ~$1.80/L → subsidy $0.15/L × 148M L = $22.2M/yr<br>
+          · Petrol: ~$1.61/L → subsidy $0.11/L × 71M L = $7.8M/yr<br>
+          · Total: <strong>~$30M/yr</strong> — still <strong>5.3% of ESI ($563M/yr)</strong> — manageable.<br><br>
+
+          <strong style="color:#f59e0b">LPG: $1.30/kg vs ceiling $4.20/kg → 305% headroom — no subsidy.</strong><br>
+          ESI ($563M/yr) and PF ($18.77bn) cover all scenarios. No PF drawdown required.
+          Decree-Law extension/review decision expected before end-2026.
+          Portwatch: only 2 tanker calls to TL since Mar 1 — last cargo ~Mar 22.
+          Strategic reserve (80M L) essential buffer against supply gap.
           
       </div>
     </div>
@@ -506,13 +566,13 @@ id="sitrepGrid">
             <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.597</td>
             <td style="padding:6px 8px;text-align:center;font-weight:700;color:#10b981">$0</td>
           </tr>
-          <tr style="border-bottom:1px solid rgba(255,255,255,.04);background:rgba(16,185,129,.03)">
-            <td style="padding:6px 8px;color:#10b981;font-weight:600">B — Today ($95) ★</td>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.04);background:rgba(239,68,68,.06)">
+            <td style="padding:6px 8px;color:#ef4444;font-weight:700">B★ — TODAY ($109.50) · CEILING HIT</td>
             <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$95</td>
-            <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.188</td>
-            <td style="padding:6px 8px;text-align:center;color:#10b981">+$0.312</td>
-            <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.342</td>
-            <td style="padding:6px 8px;text-align:center;color:#10b981">+$0.308</td>
+            <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.50 🔴</td>
+            <td style="padding:6px 8px;text-align:center;color:#ef4444;font-weight:700">AT CEILING</td>
+            <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.65 🔴</td>
+            <td style="padding:6px 8px;text-align:center;color:#ef4444;font-weight:700">AT CEILING</td>
             <td style="padding:6px 8px;text-align:center;font-family:var(--mono)">$1.786</td>
             <td style="padding:6px 8px;text-align:center;font-weight:700;color:#10b981">$0</td>
           </tr>
@@ -1627,8 +1687,7 @@ id="panel-asia">
     </div>
   </div>
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:14px;margin-top:16px;font-size:12px;color:var(--text2)">
-    <strong style="color:var(--text)">Sources &amp; Notes (28 Apr 2026):</strong>
-    Oil import dependency: Carnegie Endowment / CASE SEA / EIA · Petrol/diesel price changes: Al Jazeera (12 Mar), Wikipedia Economic Impact, CASE SEA, ADB ADO Apr 2026 · Philippines: declared state of emergency 24 Mar, peso PHP60.1/$, petrol +76% (Al Jazeera/ADB) · Indonesia: $22.5bn subsidy at $70/bbl; every $1 above = 10.3 trillion rupiah extra cost (EBC Financial/The Diplomat) · Vietnam: price stab fund depleted by early Apr; rice export prices +$375/MT (Vietnam.vn 3 Apr) · Thailand: price stab fund in deficit; export ban on petroleum (Al Jazeera/CASE) · Singapore: gas 93.1% of grid; Aster Chemicals force majeure declared · All TL figures use official Decree-Law ceilings (25 Mar 2026) + EEAM2/ANPM regression estimate · SE Asia oil need: ~5 mb/d; domestic production ~2 mb/d; must import ~3 mb/d (Carnegie 2026) · ADB: if conflict >1yr: –1.3pp growth, +3.2pp inflation for developing Asia (ADB Brief #384) · Oxford Economics: 6-month blockade → global GDP 1.4% (near recession).</div>
+    <strong style="color:var(--text)"><strong style="color:var(--text)">Sources &amp; Notes (2 May 2026):</strong> <strong>Actual pump prices (USD/L · May 2, 2026 · EAP Fuel Price Database):</strong> Diesel: Singapore $1.85 · Australia $2.05 · Myanmar $2.45 (was $3.70 peak) · Cambodia $1.95 · Vietnam $1.65 · Thailand $1.35 · Japan $1.75 · China $1.05. Gasoline: Singapore $2.75 · Myanmar $2.80 (spike) · Australia $2.00 · Cambodia $1.50 · Thailand $1.10 · Vietnam $0.85 (heavily subsidized) · China $1.00. TL estimates: Diesel ~$1.48/L (corrected physical Brent basis) vs $1.65 ceiling · Gasoline ~$1.29/L vs $1.50 ceiling. Oil import dependency: Carnegie Endowment/CASE SEA/EIA. <strong>Tanker supply:</strong> Portwatch: only 2 tanker calls to TL (Mar 1–Apr 29, 2026) — vs 5 in 2025, 3 in 2024. Last delivery ~Mar 22. Strategic reserve (80M L) shields EDTL. <strong>EPU (29 Apr 2026):</strong> TL has ~8 active/proposed crisis policies (Thailand: 16 · Cambodia: 12 · Vietnam/Philippines: ~11). ADB ADO Apr 2026: TL growth stable 2026, accelerating 2027. Sources: WB EAP Fuel Price DB · Portwatch · EPU Dashboard · Carnegie/CASE SEA/ADB.</div>
 
   <div style="margin-top:16px">
     <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px">SEA Country Vulnerability &amp; Policy Response &mdash; The Diplomat (Mar 2026)</div>
@@ -2003,6 +2062,44 @@ id="panel-asia">
 
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:12px;margin-top:12px;font-size:11px;color:var(--text3)">
     <strong style="color:var(--text2)">Data notes:</strong> FAO Food Price Index released monthly (last: 6 Mar 2026, covering Feb 2026). FAO Rice Price Index latest: 103.2 pts (Feb 2026). INETL CPI released monthly with ~2-week lag; latest available is Jan 2026. Rice export prices: USDA WASDE Feb 2026 / trade press. TL food import prices: WFP Market Monitor (quarterly). Rice import volumes and source countries: OEC World (oec.world/en/profile/bilateral-product/rice/reporter/tls) &amp; FAO GIEWS (fao.org/giews/countrybrief/country.jsp?code=TLS). Annual TL rice imports: 135,000&ndash;160,000 tonnes (60&ndash;90% of domestic cereal consumption). Primary sources: India, Vietnam, China. Fertilizer price estimate from FAO Mar 2026 assessment. CPI forecast: IMF Article IV Jul 2025 &mdash; predates Hormuz shock; actual 2026 inflation likely higher.
+  </div>
+
+
+  <!-- ACTUAL PUMP PRICES TABLE — from EAP Fuel Price Database -->
+  <div class="info-box" style="border-left:3px solid #3b9ef0;margin-top:16px">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#3b9ef0;margin-bottom:10px">
+      ⛽ Actual Pump Prices — Asia-Pacific (USD/Litre · EAP Fuel Price Database · 2 May 2026)
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:11px">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:6px">DIESEL ($/L)</div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇲🇲 Myanmar</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444;font-weight:700">$2.45</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">peak was $3.70</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇦🇺 Australia</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444">$2.05</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">full pass-through</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇰🇭 Cambodia</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444">$1.95</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">no refining</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇸🇬 Singapore</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444">$1.85</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">MOPS hub price</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇯🇵 Japan</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#f59e0b">$1.75</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">partial subsidy</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇻🇳 Vietnam</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#f59e0b">$1.65</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">fund depleted</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px;font-weight:700;color:#e63946">🇹🇱 TL (est.)</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981;font-weight:700">~$1.48</td><td style="padding:4px 6px;color:#10b981;font-size:9px">vs $1.65 ceiling ✅</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇹🇭 Thailand</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981">$1.35</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">price cap</td></tr>
+          <tr><td style="padding:4px 6px">🇨🇳 China</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981">$1.05</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">state-controlled</td></tr>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--text2);margin-bottom:6px">GASOLINE ($/L)</div>
+        <table style="width:100%;border-collapse:collapse">
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇸🇬 Singapore</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444;font-weight:700">$2.75</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">highest in region</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇲🇲 Myanmar</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444">$2.80</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">extreme spike</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇦🇺 Australia</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#ef4444">$2.00</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">full pass-through</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇯🇵 Japan</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#f59e0b">$1.90</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">subsidy slowing rise</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇰🇭 Cambodia</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#f59e0b">$1.50</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">no refining</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px;font-weight:700;color:#e63946">🇹🇱 TL (est.)</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981;font-weight:700">~$1.29</td><td style="padding:4px 6px;color:#10b981;font-size:9px">vs $1.50 ceiling ✅</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.06)"><td style="padding:4px 6px">🇹🇭 Thailand</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981">$1.10</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">subsidized</td></tr>
+          <tr><td style="padding:4px 6px">🇻🇳 Vietnam</td><td style="padding:4px 6px;text-align:right;font-family:var(--mono);color:#10b981">$0.85</td><td style="padding:4px 6px;color:var(--text3);font-size:9px">heavily subsidized</td></tr>
+        </table>
+      </div>
+    </div>
+    <div style="font-size:9px;color:var(--text3);margin-top:8px">Source: Asia-Pacific Fuel Price Database (EAP/World Bank) · Generated 2026-05-02 · Chart readings from Diesel &amp; Gasoline fuel type views.</div>
   </div>
 </div>
 
@@ -2701,8 +2798,8 @@ function renderCharts(){
 
   // ASIA GAS
   const countries=['Timor-Leste','Philippines','Lao PDR','Myanmar','Cambodia','Vietnam','Singapore','Thailand','Malaysia','Japan','Korea','Taiwan','Indonesia','China'];
-  const gasChg=[9.1,76.0,58.0,52.0,45.0,41.0,35.0,22.0,28.0,26.0,18.0,12.0,3.0,5.5];
-  const dslChg=[14.8,78.0,72.0,65.0,65.0,55.0,58.0,18.0,35.0,32.0,22.0,14.0,3.5,6.0];
+  const gasChg=[9.1,76.0,58.0,54.0,45.0,9.0,37.5,22.0,28.0,28.0,18.0,12.0,3.0,5.5];
+  const dslChg=[14.8,78.0,72.0,63.0,65.0,45.0,12.0,18.0,35.0,35.0,22.0,14.0,3.5,6.0];
 
   new Chart(document.getElementById('asiaGasChart'),{
     type:'bar',
